@@ -327,7 +327,7 @@ function sceneVolley(c){
 function sceneLob(c){
   const A=rp(c.atk,RW.aFin,"toc"),D=rp(c.def,RW.dNear,"dau",null,A),y0=laneY(A);
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,34,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
-  c.S.push({dur:1.3,t:{A:[30,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Tốc độ: ${A.toc}`},txt:`${A.n} dẫn bóng đột phá vòng vây`});
+  c.S.push({dur:1.3,t:{A:[30,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},anim:{A:"bpha"},label:{A:`Tốc độ: ${A.toc}`},txt:`${A.n} dẫn bóng đột phá vòng vây`});
   const ok=lqStep(c,{title:"Cơ Hội Đá Bổng",att:eff(A,"toc"),def:eff(D,"dau")*defBoost(c.def,"dau"),L:[ent(A,c.atk,"toc")],R:[ent(D,c.def,"dau")],
     detail:`Tốc độ ${A.toc} vs Đ.Đầu ${D.dau}`,t:{A:[32.5,y0],D:[34,y0]},label:{A:`Tốc độ: ${A.toc}`,D:`Đ.Đầu: ${D.dau}`},txt:`${A.n} tăng tốc lao về phía ${D.n}`});
   if(!ok)return lostBall(c,D,"A",`${D.n} xoạc chân ra cắt đường bóng`);
@@ -339,8 +339,9 @@ function sceneSolo(c){
   const A=rp(c.atk,RW.aFin,"bpha"),D=rp(c.def,RW.dFar,"toc",null,A),y0=laneY(A);
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,33,clamp(y0+(rnd()<.5?6:-6),10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[29,y0],D:[33,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Bứt phá: ${A.bpha}`},txt:`[Solo] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
+  c.S.push({dur:1.1,t:{A:[33,y0],D:[34.5,y0+(c.ids.D.y<y0?-1.5:1.5)]},ball:{carry:"A"},anim:{A:"bpha"},label:{A:`Bứt phá: ${A.bpha}`},txt:`${A.n} dẫn bóng bứt phá vòng vây`});
   const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(A,"bpha"),def:eff(D,"toc")*defBoost(c.def,"toc"),L:[ent(A,c.atk,"bpha")],R:[ent(D,c.def,"toc")],
-    detail:`Bứt phá ${A.bpha} vs Tốc độ ${D.toc}`,t:{A:[34,y0],D:[34.5,y0+(c.ids.D.y<y0?-1.5:1.5)]},label:{A:`Bứt phá: ${A.bpha}`,D:`Tốc độ: ${D.toc}`},txt:`${A.n} dẫn bóng đột phá vòng vây`});
+    detail:`Bứt phá ${A.bpha} vs Tốc độ ${D.toc}`,t:{A:[34,y0],D:[34.5,y0+(c.ids.D.y<y0?-1.5:1.5)]},label:{A:`Bứt phá: ${A.bpha}`,D:`Tốc độ: ${D.toc}`},txt:`${D.n} lao tới đuổi theo ${A.n}`});
   if(!ok)return lostBall(c,D,"A",`${D.n} đuổi kịp và lấy bóng trong chân ${A.n}`);
   const sp=[42+rnd()*3,clamp(y0+(34-y0)*.6,14,54)];c.S.push({dur:1.2,t:{A:sp,D:[sp[0]-5,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} dẫn bóng đột phá sâu vào khung thành, vượt qua rồi!`});
   return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Solo"});
@@ -381,7 +382,7 @@ function sceneSoloVolley(c){
   const A=rp(c.atk,{HVC:2.5,TV:2.5,TVC:2,HV:1.2,"TĐ":.8},"cdai"),B=rp(c.atk,RW.aFin,"toc",A),D=rp(c.def,RW.dFar,"bpha",null,B),y0=laneY(A);
   add(c,"A",A,c.atk,14,y0);add(c,"B",B,c.atk,18,clamp(y0+(y0<34?-14:14),8,60));add(c,"D",D,c.def,36,clamp(c.ids.B.y+(rnd()-.5)*6,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[20,y0],B:[24,c.ids.B.y],D:[34,c.ids.D.y],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Ch.dài: ${A.cdai}`,B:`Tốc độ: ${B.toc}`,D:`Bứt phá: ${D.bpha}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const recv=[33,c.ids.B.y];c.S.push({dur:0.9,t:{B:recv,D:[35,c.ids.B.y+1.5]},ball:{fly:null,to:recv,h:3},kicker:"A",txt:`${A.n} chuyển bóng lên phía trên cho ${B.n}`});
+  const recv=[33,c.ids.B.y];c.S.push({dur:0.9,t:{B:recv,D:[35,c.ids.B.y+1.5]},ball:{fly:null,to:recv,h:3},kicker:"A",anim:{B:"bpha"},txt:`${A.n} chuyển bóng lên phía trên cho ${B.n}`});
   const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(B,"toc")+0.5*eff(A,"cdai"),def:eff(D,"bpha")*defBoost(c.def,"bpha"),L:[ent(A,c.atk,"cdai"),ent(B,c.atk,"toc")],R:[ent(D,c.def,"bpha")],holder:"B",
     detail:`Tốc độ ${B.toc} + 50%·Ch.dài ${A.cdai} vs Bứt phá ${D.bpha}`,t:{B:[36,recv[1]],D:[36.5,recv[1]+1]},label:{B:`Tốc độ: ${B.toc}`,D:`Bứt phá: ${D.bpha}`},txt:`${B.n} và ${D.n} đua tốc độ`});
   if(!ok)return lostBall(c,D,"B",`${D.n} bứt tốc chặn trước ${B.n}`);
@@ -514,7 +515,7 @@ function limb(g,x,y,ang,l1,l2,bend,w,c1,c2,c3){
 }
 function drawSprite(g,a,now,x,y,sc){
   const p=a.p,h=hashN(p.n),gk=roleOf(p)==="TM";
-  const shirt=gk?"#f2c94c":a.team.color,shorts=gk?"#1d1d1d":"#f4f4f4",sock=gk?"#1d1d1d":a.team.color;
+  const shirt=gk?"#f2c94c":kitColor(a.team),shorts=gk?"#1d1d1d":"#f4f4f4",sock=gk?"#1d1d1d":kitColor(a.team);
   const skin=SKIN[h%4],hair=HAIR[(h>>3)%5],num=(h%23)+1;
   const f=a.face||1,an=a.anim,t=a.at||0;
   g.beginPath();g.ellipse(x,y+1,16*sc,5*sc,0,0,7);g.fillStyle="rgba(0,0,0,.28)";g.fill();
@@ -551,14 +552,15 @@ function drawSprite(g,a,now,x,y,sc){
 const SPR={};
 for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={img,ready:false,tint:{}};img.onload=()=>{SPR[k].ready=true;if(window.mgrRender)mgrRender()};img.src=src}
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
-const FPS={nga:9,lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
+const FPS={bpha:8,nga:9,lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
 const CONTACT={volley:.56,pass:.55,shot:.6,long:.55,fk:.65};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
 function kickAnim(key,set){for(const a of (KICK_FALLBACK[set]||["shot"]))if(hasAnim(key,a))return a;return null}
 function kickInfo(a){const key=charKey(a.p),an=kickAnim(key,a.kickSet||"shot");if(!an)return{dur:0.4,contact:0};
   const n=SPRITE_META[key].anims[an].length,f=FPS[an]||15;return{dur:n/f,contact:n/f*(CONTACT[an]||.6)}}
-// đổi màu áo xanh của sprite thường sang màu đội
+// màu áo trong trận: đội nhà ĐỎ, đối thủ XANH (màu gốc của sprite, không đổi). Thủ môn giữ màu sprite.
+const kitColor=t=>(typeof T!=="undefined"&&T&&t===T.home)?"#e8372c":"#2f7ff0";
 function hexRgb(h){const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]}
 function tinted(key,color){
   const S=SPR[key];if(key!=="std")return S.img;
@@ -585,7 +587,7 @@ function pickFrame(a,key,now){
   if(an==="jump"){[r.an,r.i]=A.head?once("head"):["idle",0];r.dy=-0.55*Math.sin(clamp(t/0.6,0,1)*Math.PI);return r}
   if(an==="bike"&&A.bike){[r.an,r.i]=once("bike");r.dy=-0.5*Math.sin(clamp(t/0.7,0,1)*Math.PI);return r}
   if(an==="regret"&&A.regret){[r.an,r.i]=once("regret");return r}
-  if((an==="stepover"||an==="roulette"||an==="lua")&&A[an]){[r.an,r.i]=once(an);return r}
+  if((an==="stepover"||an==="roulette"||an==="lua"||an==="bpha")&&A[an]){[r.an,r.i]=once(an);return r}
   if(an==="celebrate"){const sv=hasSkill(a.p,"siu")&&A.siu?"siu":"cele";if(A[sv]){[r.an,r.i]=once(sv);return r}r.an="idle";r.i=0;r.dy=-0.35*Math.abs(Math.sin(t*7));return r}
   if(a.moving&&!A.run){r.an="idle";r.i=Math.floor((a.phase||0)*1.2)%A.idle.length;r.dy=-0.04*Math.abs(Math.sin((a.phase||0)*1.6));return r}
   if(a.moving){const set=(A.drib&&scene&&scene.holder===a.role)?"drib":"run";const n=A[set].length;r.an=set;r.i=Math.floor((a.phase||0)*n/5.7)%n;return r}
@@ -598,7 +600,7 @@ function drawChar(g,a,now,x,y,px,noShadow){
   if(!noShadow){g.beginPath();g.ellipse(x,y+1,px*0.3,px*0.09,0,0,7);g.fillStyle="rgba(0,0,0,.3)";g.fill()}
   const r=pickFrame(a,key,now),fr=SPRITE_META[key].anims[r.an][r.i],sc=px/SPRITE_META[key].ref,f=a.face||1;
   g.save();g.translate(x,y+r.dy*px);if(r.rot)g.rotate(r.rot*f);g.scale(f*sc,sc);
-  g.drawImage(tinted(key,a.team.color),fr[0],fr[1],fr[2],fr[3],-fr[2]/2,-fr[3],fr[2],fr[3]);g.restore();
+  g.drawImage(tinted(key,kitColor(a.team)),fr[0],fr[1],fr[2],fr[3],-fr[2]/2,-fr[3],fr[2],fr[3]);g.restore();
 }
 
 function drawPlayer(a,now){
@@ -759,7 +761,7 @@ function fastSim(){
   M.busy=false;finish();renderSquad();
 }
 const fmt=n=>n.toLocaleString("vi-VN");
-function badge(svg,team){const c=team.color,ini=team.name.split(" ").map(w=>w[0]).join("").slice(0,3);
+function badge(svg,team){const c=kitColor(team),ini=team.name.split(" ").map(w=>w[0]).join("").slice(0,3);
   svg.innerHTML=`<path d="M20 2 L36 7 V20 C36 30 28 36 20 38 C12 36 4 30 4 20 V7 Z" fill="${c}" stroke="#fff" stroke-width="2"/><path d="M20 6 L32 10 V20 C32 27 26 32 20 34 Z" fill="rgba(0,0,0,.2)"/><text x="20" y="25" text-anchor="middle" font-family="Saira Condensed,Impact,sans-serif" font-weight="800" font-size="12" fill="#fff">${ini}</text>`}
 function render(){if(window.MODE==="lobby"&&window.lobbyRender)setTimeout(lobbyRender,0);
   document.getElementById("sc").textContent=`${M.score[0]}:${M.score[1]}`;
