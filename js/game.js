@@ -773,7 +773,7 @@ function skillList(p){if(!(p.skills||[]).length)return"<b>Kỹ năng:</b> chưa 
   return"<b>Kỹ năng:</b> "+p.skills.map(s=>{const k=SKILLS[s.id],on=(p.star||0)>=s.star;return`<span class="sk ${on?"on":""}" title="${k.desc}">${on?"✔":"🔒"} ${k.n} <small>(cần ★${s.star})</small></span>`}).join(" ")}
 const COLS=["toc","sut","re","chuyen","xoac","dau","cuu"];
 function renderSquad(){
-  const row=(t,ti,p,i)=>`<tr><td class="nm"><i class="tdot" style="background:${t.color}" title="${t.name}"></i><button data-t="${ti}" data-i="${i}" style="color:${tierOf(p).c}">${p.n}</button>${p.star?` <small style="color:${STAR_COL[p.star]}">★${p.star}</small>`:""}</td><td class="nm">${p.pos}${(t.subs||[]).includes(p)?` <small class="dub">dự bị</small>`:""}</td><td class="nm"><span class="tier" style="background:${tierOf(p).c}">${tierOf(p).n}</span></td><td>${fmt1(overall(p))}</td>${COLS.map(k=>`<td>${Math.round(p[k])}</td>`).join("")}<td><span class="sta"><i style="width:${p.sta}%"></i></span></td></tr>`;
+  const row=(t,ti,p,i)=>`<tr><td class="nm"><i class="tdot" style="background:${t.color}" title="${t.name}"></i>${faceTag(p)}<button data-t="${ti}" data-i="${i}" style="color:${tierOf(p).c}">${p.n}</button>${p.star?` <small style="color:${STAR_COL[p.star]}">★${p.star}</small>`:""}</td><td class="nm">${p.pos}${(t.subs||[]).includes(p)?` <small class="dub">dự bị</small>`:""}</td><td class="nm"><span class="tier" style="background:${tierOf(p).c}">${tierOf(p).n}</span></td><td>${fmt1(overall(p))}</td>${COLS.map(k=>`<td>${Math.round(p[k])}</td>`).join("")}<td><span class="sta"><i style="width:${p.sta}%"></i></span></td></tr>`;
   document.getElementById("sq").innerHTML=`<tr><th>Cầu thủ</th><th>VT</th><th>Bậc</th><th>Thực lực</th>${COLS.map(k=>`<th>${LBL[k]}</th>`).join("")}<th>Thể lực</th></tr>`+squad(T.home).map((p,i)=>row(T.home,"home",p,i)).join("")+squad(T.away).map((p,i)=>row(T.away,"away",p,i)).join("");
 }
 /* ---------- Thẻ cầu thủ ---------- */
@@ -791,7 +791,7 @@ function openCard(team,i){
      <div class="use">Số màu xanh là chỉ số quan trọng nhất của vị trí này. Di chuột vào từng dòng để xem chỉ số dùng trong pha nào.</div></div></div>
     <div class="cbtn"><button data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button></div></div>`;
   modal.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{modal.hidden=true;mgrOpen(team,i,b.dataset.go)});
-  const c=document.createElement("canvas");c.width=110;c.height=140;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,55,134,120,true);document.getElementById("mav").appendChild(c);
+  document.getElementById("mav").appendChild(avatar(p,team,110,140));
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 modal.addEventListener("click",e=>{if(e.target===modal||e.target.id==="mclose")modal.hidden=true});
@@ -865,7 +865,10 @@ function starUp(p){
 }
 
 /* ---------- giao diện ---------- */
-function avatar(p,team,w=96,h=120){const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
+// ảnh chân dung cầu thủ (assets/players/*.webp); không có ảnh thì vẽ sprite như cũ
+const faceSrc=p=>typeof PLAYER_IMG!=="undefined"&&p&&PLAYER_IMG[p.n]||null;
+const faceTag=(p,cls="fc")=>{const s=faceSrc(p);return s?`<img class="${cls}" src="${s}" alt="">`:""};
+function avatar(p,team,w=96,h=120){const s=faceSrc(p);if(s){const im=new Image();im.src=s;im.className="favatar";im.alt=p.n;im.style.width=w+"px";im.style.height=h+"px";return im}const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
 function mgrOpen(team,i,tab){MG.team=team===T.home?"home":team===T.away?"away":team;MG.i=i;MG.tab=tab||MG.tab;MG.msg="";MG.preview=null;MG.impSel=null;mgrRender();document.getElementById("mgr").scrollIntoView({behavior:"smooth",block:"start"})}
 function listCols(p){const o=fmt1(overall(p)),mx=fmt1(overallMax(p));
   if(MG.tab==="plan")return[POSN[p.pos],fmt(Math.round(p.tp))];
@@ -967,7 +970,7 @@ function renderLineup(){
       ${jersey(t.color,numOf(p))}<span class="sn" style="color:${tierOf(p).c}">${p.n}</span><span class="sr${bad?" bad":""}">${slotLabel(c.form,i)}${bad?` ${Math.round(p.fit*100)}%`:""}</span></button>`}).join("");
   const bench=Array.from({length:7},(_,i)=>{const p=t.subs[i];return`<button class="bslot${isSel("sub",i)}" draggable="${p?"true":"false"}" data-kind="sub" data-i="${i}" title="${p?p.n+" ("+POSN[p.pos]+")":"Ghế trống"}">${p?jersey(t.color,numOf(p))+`<span class="sn" style="color:${tierOf(p).c}">${p.n}</span>`:jersey("#9aa4ae","",true)}</button>`}).join("");
   const rows=squad(t).map((p,j)=>{const k=j<11?"slot":"sub",i=j<11?j:j-11;return`<tr class="${isSel(k,i)}" draggable="true" data-kind="${k}" data-i="${i}">
-    <td><button class="pn" data-kind="${k}" data-i="${i}" style="color:${tierOf(p).c}">${p.n}</button></td><td>${POSN[p.pos]}</td><td>${j<11?slotLabel(c.form,i):"Dự bị"}</td><td>${fmt1(overall(p))}</td><td>${fmt1(overallMax(p))}</td><td>${p.kt}%</td></tr>`}).join("");
+    <td>${faceTag(p)}<button class="pn" data-kind="${k}" data-i="${i}" style="color:${tierOf(p).c}">${p.n}</button></td><td>${POSN[p.pos]}</td><td>${j<11?slotLabel(c.form,i):"Dự bị"}</td><td>${fmt1(overall(p))}</td><td>${fmt1(overallMax(p))}</td><td>${p.kt}%</td></tr>`}).join("");
   const tA=LU.half===1?c.atk:(c.atk2||c.atk),tD=LU.half===1?c.def:(c.def2||c.def);
   luEl.innerHTML=`<div class="gw"><div class="gh">GOAL · Lập đội hình — ${t.name}<span class="cur">Thực lực đội: ${avgOv}</span></div>
    <div class="gt"><button class="${LU.half===1?"on":""}" data-half="1">Hiệp 1</button><button class="${LU.half===2?"on":""}" data-half="2">Hiệp 2</button></div>
@@ -1091,7 +1094,7 @@ const STARS=[
  ["Son Heung-min","TĐ",4,"kr"],["Kim Min-jae","HV",3,"kr"],["Lee Kang-in","TV",3,"kr","T"],["Hwang Hee-chan","TĐ",2,"kr"],["Jo Hyeon-woo","TM",2,"kr"],["Hwang In-beom","TV",2,"kr"],
  ["Mitoma","TVC",3,"jp"],["Kubo","TVC",3,"jp","T"],["Endo","TV",3,"jp"],["Tomiyasu","HV",3,"jp"],["Minamino","TĐ",2,"jp"],["Doan Ritsu","TVC",2,"jp","T"],["Ueda Ayase","TĐ",2,"jp"],
  ["Chanathip","TV",3,"th"],["Supachok","TVC",2,"th"],["Teerasil","TĐ",2,"th"],["Theerathon","HVC",2,"th","T"],["Kawin","TM",2,"th"],["Suphanat","TVC",2,"th"],
- ["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",3,"vn"],["Công Phượng","TVC",2,"vn"],["Tiến Linh","TĐ",2,"vn"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn"],["Văn Lâm","TM",2,"vn"],["Tuấn Anh","TV",2,"vn"],["Văn Quyết","TĐ",2,"vn"],["Duy Mạnh","HV",2,"vn"],["Văn Toàn","TĐ",2,"vn"]];
+ ["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",5,"vn"],["Công Phượng","TVC",2,"vn"],["Tiến Linh","TĐ",2,"vn"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn"],["Văn Lâm","TM",2,"vn"],["Tuấn Anh","TV",2,"vn"],["Văn Quyết","TĐ",2,"vn"],["Duy Mạnh","HV",2,"vn"],["Văn Toàn","TĐ",2,"vn"],["Tiến Dũng","HV",2,"vn"],["Xuân Mạnh","HVC",2,"vn"],["Hùng Dũng","TV",2,"vn"]];
 const MAXSQ=25,HIRE_FEE=[3000,8000,25000,70000,180000,450000],ODDS=[46,30,14,7,2.5,0.5];
 const TCOL=["#4b5563","#15803d","#1d4ed8","#7e22ce","#b45309","#dc2626"]; // màu chữ bậc trên nền sáng
 const TROLY=typeof TROLY_SRC!=="undefined"?TROLY_SRC:"";
@@ -1127,7 +1130,7 @@ function renderBroker(){const b=brokerState(),c=club(),un=unlockedQ(),el=documen
    <div class="bkq" role="group" aria-label="Thị trường tìm kiếm"><button class="${b.q==="all"?"on":""}" data-q="all">Toàn cầu</button>${Object.entries(NATIONS).map(([k,v])=>un.has(k)?`<button class="${b.q===k?"on":""}" data-q="${k}">${v.n}</button>`:`<button disabled title="Mở khi tới phụ bản ${v.n}">🔒 ${v.n}</button>`).join("")}</div>
    <p class="wl">${b.q==="all"?"Tìm khắp các nước, 200 vàng mỗi lần.":`Chỉ tìm cầu thủ ${NATIONS[b.q].n}, 500 vàng mỗi lần, tỉ lệ ra bậc Tím/Vàng/Đỏ gấp đôi.`} Tỉ lệ cơ bản: ${ODDS.map((o,i)=>`<b style="color:${TCOL[i]}">${TIERS[i].n}</b> ${String(o).replace(".",",")}%`).join(" · ")}</p>
    <div class="bkw"><table class="bkt"><caption class="sr">Cầu thủ tìm được</caption><thead><tr><th>Tên cầu thủ</th><th>Quốc tịch</th><th>Vị trí</th><th>Th.lực</th><th>Max</th><th>Phí thuê</th><th>Thao tác</th></tr></thead><tbody>
-   ${b.list.map((p,i)=>`<tr><td><b style="color:${TCOL[p.tier]}">${p.n}</b> <small>${TIERS[p.tier].n}</small>${p.rec?' <em class="rec">Tiến cử</em>':""}</td><td>${NATIONS[p.q]?NATIONS[p.q].n:""}</td><td>${POSN[p.pos]}</td><td>${r1(overall(p))}</td><td>${r1(overallMax(p))}</td><td>${fmt(p.fee)}</td><td><button class="lnk" data-hire="${i}">Tuyển dụng</button></td></tr>`).join("")||`<tr><td colspan="7">Chưa có ứng viên.</td></tr>`}
+   ${b.list.map((p,i)=>`<tr><td>${faceTag(p)}<b style="color:${TCOL[p.tier]}">${p.n}</b> <small>${TIERS[p.tier].n}</small>${p.rec?' <em class="rec">Tiến cử</em>':""}</td><td>${NATIONS[p.q]?NATIONS[p.q].n:""}</td><td>${POSN[p.pos]}</td><td>${r1(overall(p))}</td><td>${r1(overallMax(p))}</td><td>${fmt(p.fee)}</td><td><button class="lnk" data-hire="${i}">Tuyển dụng</button></td></tr>`).join("")||`<tr><td colspan="7">Chưa có ứng viên.</td></tr>`}
    </tbody></table></div>
    <div class="bkf"><span>Chưa có ứng viên phù hợp? Bạn có thể tốn ${fmt(cost)} vàng để tìm lần nữa.</span><button class="pri" id="bkAgain">Tìm lần nữa</button></div>
    <p class="wl">Đang có ${fmt(c.gold)} vàng · Đội ${squad(T.home).length}/${MAXSQ} cầu thủ.</p></div>
@@ -1421,7 +1424,7 @@ function openCard(team,i){
     if(g==="sell"){if(SELL.p!==p){SELL.p=p;openCard(team,i);return}team.subs.splice(team.subs.indexOf(p),1);give({gold:price});SELL.p=null;modal.hidden=true;toast(`Đã bán ${p.n}: +${fmt(price)} vàng`);news(`${club().mgr.name} đã bán ${p.n}.`);applyLineup(team);saveLocal();render();renderSquad();if(!winEl.hidden){renderLineup()}return}
     if(g==="buytp"){if(T.club.phieu<10){toast("Cần 10 phiếu.");return}T.club.phieu-=10;p.tp+=1000;saveLocal();render();openCard(team,i);toast("+1.000 điểm huấn luyện");return}
     SELL.p=null;modal.hidden=true;mgrOpen(team,i,g)});
-  const cv2=document.createElement("canvas");cv2.width=110;cv2.height=140;drawChar(cv2.getContext("2d"),{p,team,face:1,anim:"pose"},0,55,134,120,true);document.getElementById("mav").appendChild(cv2);
+  document.getElementById("mav").appendChild(avatar(p,team,110,140));
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 
