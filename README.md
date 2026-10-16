@@ -1,6 +1,6 @@
 # Đam Mê Bóng Đá
 
-Web game quản lý đội bóng: mỗi tình huống hiện tối đa 4 cầu thủ, kết quả tính từ 19 chỉ số, có Kế hoạch huấn luyện, Kích thích, Cải tiến, Lên sao và kỹ năng mở khóa theo sao. Dữ liệu lưu trên Firebase Firestore (mỗi người chơi đăng nhập ẩn danh, có dữ liệu riêng).
+Web game quản lý đội bóng: lập đội hình (5 thế trận, kéo thả cầu thủ, chiến thuật theo hiệp), mỗi tình huống hiện tối đa 4 cầu thủ, kết quả tính từ 19 chỉ số, có Kế hoạch huấn luyện, Kích thích, Cải tiến, Lên sao và kỹ năng mở khóa theo sao. Dữ liệu lưu trên Firebase Firestore (mỗi người chơi đăng nhập ẩn danh, có dữ liệu riêng).
 
 ## Cấu trúc
 
