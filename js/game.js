@@ -1159,6 +1159,7 @@ function guideText(){const c=club(),f=c.flags,t=TASKS.find(x=>x.tab==="main"&&!c
   return`Bạn đã xong nhiệm vụ tân thủ. Phụ bản đang ở trận ${Math.min(10,c.campaign+1)}/10 — cố lên!`}
 /* ---------- chân dung vẽ bằng SVG (nhân vật tự thiết kế, không dùng ảnh ngoài) ---------- */
 function portrait(kind){
+  if(typeof NPC_IMG!=="undefined"&&NPC_IMG[kind])return`<img class="pt ni" src="${NPC_IMG[kind]}" alt="">`;
   if(kind==="trolý"&&TROLY)return`<img class="pt tl" src="${TROLY}" alt="">`;
   const P={
    moigioi:{bg:["#7a5c3a","#3b2a18"],skin:"#e8b98f",hair:"#2b1a10",suit:"#3b3f46",shirt:"#f3f3f3",tie:"#8b1e1e",hat:true},
