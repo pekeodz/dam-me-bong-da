@@ -251,11 +251,23 @@ function tryFoul(c,A,D,y0,a){const pF=clamp((0.06+0.22*(1-duel(eff(D,"xoac"),a,1
   c.S.push({dur:1,t:{D:[33.4,y0]},ball:{carry:"A"},anim:{D:"slide",A:"fall"},txt:`${D.n} phạm lỗi với ${A.n}. Trọng tài thổi phạt trực tiếp!`});
   if(rnd()<0.25&&Math.abs(y0-34)<14){c.S[c.S.length-1].txt=`${D.n} phạm lỗi với ${A.n} trong vòng cấm. PHẠT ĐỀN!`;M.queue={type:"pen",side:c.side}}
   else M.queue={type:"fk",side:c.side,pos:[33.5,y0]};return true}
+/* Chọn cầu thủ tham gia tình huống: MỌI cầu thủ trên sân (trừ thủ môn) đều có thể được chọn, như game gốc
+   (tiền vệ vẫn ra chặn, hậu vệ vẫn dâng lên tấn công). Vị trí chỉ quyết định khả năng được chọn,
+   ai có chỉ số liên quan cao hơn cũng dễ được chọn hơn một chút.                                         */
+const RW={
+ dNear:{HV:3,HVC:2.5,TV:1.6,TVC:1,"TĐ":.3},   // phòng ngự gần khung thành
+ dFar :{TV:3,HV:2,HVC:2,TVC:1.5,"TĐ":.6},      // phòng ngự xa (sút xa, solo, chặn chuyền)
+ aFin :{"TĐ":3,TVC:2,TV:1.4,HVC:.5,HV:.35},    // người dứt điểm
+ aMid :{TV:3,TVC:2.5,HVC:1.6,"TĐ":1,HV:.7},    // người cầm bóng / chuyền
+ aHead:{"TĐ":3,HV:1,TV:1,TVC:.8,HVC:.5}};       // người đội đầu
+function rp(team,w,k,not){const arr=team.players.filter(p=>roleOf(p)!=="TM"&&p!==not);const mx=Math.max(...arr.map(p=>p[k]||1));
+  const ws=arr.map(p=>(w[roleOf(p)]||.3)*(0.5+0.5*(p[k]||0)/mx));let r=rnd()*ws.reduce((a,b)=>a+b,0);
+  for(let i=0;i<arr.length;i++){r-=ws[i];if(r<=0)return arr[i]}return arr[arr.length-1]}
 const setup=(c,A,D,y0,B)=>{add(c,"A",A,c.atk,20,y0);add(c,"D",D,c.def,35,clamp(y0+(rnd()-.5)*8,10,58));add(c,"G",c.G,c.def,51,34);if(B)add(c,"B",B,c.atk,24,clamp(y0+(y0<34?15:-15),6,62))};
 const shotSpot=y=>[40+rnd()*4,clamp(y+(34-y)*.6,14,54)];
 // 1) Cơ hội sút gần 1 đấu 1: lừa qua (Rê dắt vs Xoạc) rồi tự dứt điểm
 function sceneDribble(c){
-  const A=pick(byPos(c.atk,"TV","TVC","TĐ"),p=>p.re-200),D=pick(byPos(c.def,"HV","HVC"),p=>p.xoac-200),y0=26+rnd()*24;setup(c,A,D,y0);
+  const A=rp(c.atk,RW.aFin,"re"),D=rp(c.def,RW.dNear,"xoac"),y0=26+rnd()*24;setup(c,A,D,y0);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
   if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
@@ -267,7 +279,7 @@ function sceneDribble(c){
 }
 // 2) Cơ hội sút gần 2 đánh 1: A lừa (Rê dắt) + B (Chuyền) vs hậu vệ cắt bóng (Đoạt) → A chuyền cho B dứt điểm
 function scenePass(c){
-  const A=pick(byPos(c.atk,"TV","TVC","TĐ"),p=>p.re-200),B=pick(byPos(c.atk,"TĐ","TVC","TV").filter(p=>p!==A),p=>p.sut+p.chuyen-500),D=pick(byPos(c.def,"HV","HVC"),p=>p.doat-200),y0=26+rnd()*24;setup(c,A,D,y0,B);
+  const A=rp(c.atk,RW.aMid,"re"),B=rp(c.atk,RW.aFin,"sut",A),D=rp(c.def,RW.dNear,"doat"),y0=26+rnd()*24;setup(c,A,D,y0,B);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15],B:[33,c.ids.B.y]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Gần",att:eff(A,"re")+0.5*eff(B,"chuyen"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re"),ent(B,c.atk,"chuyen")],R:[ent(D,c.def,"doat")],
     detail:`Rê dắt ${A.re} + 50%·Chuyền ${B.chuyen} vs Đoạt ${D.doat}`,t:{A:[33.5,y0],D:[34.5,y0]},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} đối mặt ${D.n}, ${B.n} băng lên phối hợp`});
@@ -277,7 +289,7 @@ function scenePass(c){
 }
 // 3) Cơ hội dứt điểm 2 đánh 1 [Sút vô-lê]: A chuyền, B tì đè (Thể lực + 10% Chuyền A) vs Thể lực hậu vệ
 function sceneCombo(c){
-  const A=pick(byPos(c.atk,"TV","TVC","HVC"),p=>p.chuyen-250),B=pick(byPos(c.atk,"TĐ","TVC","TV").filter(p=>p!==A),p=>p.the+p.sut-500),D=pick(byPos(c.def,"HV","TV"),p=>p.the-250),y0=26+rnd()*24;
+  const A=rp(c.atk,RW.aMid,"chuyen"),B=rp(c.atk,RW.aFin,"the",A),D=rp(c.def,RW.dNear,"the"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,20,y0);add(c,"B",B,c.atk,26,clamp(y0+(y0<34?14:-14),6,62));add(c,"D",D,c.def,34,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[27,y0],B:[31,c.ids.B.y],D:[34.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} cầm bóng, ${B.n} băng lên chờ đường chuyền`});
   const recv=[32,c.ids.B.y],y=recv[1];c.S.push({dur:0.8,t:{B:recv},ball:{fly:"B",to:recv},kicker:"A",txt:`[Sút vô-lê] ${B.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
@@ -289,7 +301,7 @@ function sceneCombo(c){
 }
 // 4) Cơ hội vô-lê 1 đấu 1 [Sút vô-lê]: Thể lực vs Thể lực
 function sceneVolley(c){
-  const A=pick(byPos(c.atk,"TĐ","TVC","TV"),p=>p.the+p.sut-500),D=pick(byPos(c.def,"HV","HVC"),p=>p.the-250),y0=26+rnd()*24;setup(c,A,D,y0);
+  const A=rp(c.atk,RW.aFin,"the"),D=rp(c.def,RW.dNear,"the"),y0=26+rnd()*24;setup(c,A,D,y0);
   c.S.push({dur:1.3,t:{A:[31,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{fly:null,to:[31,y0],h:2},label:{A:`Thể lực: ${A.the}`},txt:`[Sút vô-lê] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Vô-lê",att:eff(A,"the"),def:eff(D,"the")*defBoost(c.def,"the"),L:[ent(A,c.atk,"the")],R:[ent(D,c.def,"the")],
     detail:`Thể lực ${A.the} vs Thể lực ${D.the}`,t:{A:[33.5,y0],D:[34.2,y0+1]},label:{A:`Thể lực: ${A.the}`,D:`Thể lực: ${D.the}`},txt:`${A.n} tì đè ${D.n} chờ bóng rơi`});
@@ -299,7 +311,7 @@ function sceneVolley(c){
 }
 // 5) Cơ hội đá bổng: Tốc độ vs Đ.Đầu hậu vệ, rồi bấm bóng qua đầu thủ môn (Ch.dài vs Kh.Chiến)
 function sceneLob(c){
-  const A=pick(byPos(c.atk,"TĐ","TVC","TV"),p=>p.toc+p.cdai-500),D=pick(byPos(c.def,"HV","HVC"),p=>p.dau-200),y0=26+rnd()*24;
+  const A=rp(c.atk,RW.aFin,"toc"),D=rp(c.def,RW.dNear,"dau"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,34,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[30,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Tốc độ: ${A.toc}`},txt:`${A.n} dẫn bóng đột phá vòng vây`});
   const ok=lqStep(c,{title:"Cơ Hội Đá Bổng",att:eff(A,"toc"),def:eff(D,"dau")*defBoost(c.def,"dau"),L:[ent(A,c.atk,"toc")],R:[ent(D,c.def,"dau")],
@@ -310,7 +322,7 @@ function sceneLob(c){
 }
 // 6) Cơ hội Solo: bứt phá vòng vây (Bứt phá vs Tốc độ) rồi đối mặt thủ môn
 function sceneSolo(c){
-  const A=pick(byPos(c.atk,"TĐ","TVC","TV"),p=>p.bpha-250),D=pick(byPos(c.def,"HV","HVC","TV"),p=>p.toc-200),y0=26+rnd()*24;
+  const A=rp(c.atk,RW.aFin,"bpha"),D=rp(c.def,RW.dFar,"toc"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,33,clamp(y0+(rnd()<.5?6:-6),10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[29,y0],D:[33,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Bứt phá: ${A.bpha}`},txt:`[Solo] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(A,"bpha"),def:eff(D,"toc")*defBoost(c.def,"toc"),L:[ent(A,c.atk,"bpha")],R:[ent(D,c.def,"toc")],
@@ -323,9 +335,9 @@ function sceneSolo(c){
 //    Ch.dài (hoặc Phạt góc) người tạt + Đ.Đầu người đánh đầu  vs  Sức bật (Nhảy) hậu vệ + Kh.Chiến thủ môn → một tỉ lệ Sút vào.
 function sceneCross(c,corner){
   const out=c.atk.players.filter(p=>roleOf(p)!=="TM");
-  const C=corner?out.reduce((b,p)=>p.pgoc>b.pgoc?p:b):pick(byPos(c.atk,"TVC","HVC"),p=>p.cdai-300);
-  const H=pick(out.filter(p=>p!==C&&(roleOf(p)==="TĐ"||(corner&&roleOf(p)==="HV"))),p=>p.dau-300);
-  const D=pick(byPos(c.def,"HV"),p=>p.bat-200);const wing=rnd()<.5?7:61;
+  const C=corner?out.reduce((b,p)=>p.pgoc>b.pgoc?p:b):rp(c.atk,{TVC:3,HVC:2.5,TV:1.5,"TĐ":.6,HV:.4},"cdai");
+  const H=rp(c.atk,corner?{"TĐ":3,HV:2.5,TV:1,TVC:.7,HVC:.6}:RW.aHead,"dau",C);
+  const D=rp(c.def,{HV:3,HVC:1.5,TV:1.5,TVC:.6,"TĐ":.4},"bat");const wing=rnd()<.5?7:61;
   if(corner){add(c,"C",C,c.atk,52.2,wing<34?1.3:66.7);add(c,"H",H,c.atk,40,34+(rnd()-.5)*10);add(c,"D",D,c.def,41,c.ids.H.y+1);add(c,"G",c.G,c.def,51.6,34);c.ballStart=[52.4,wing<34?1.5:66.5]}
   else{add(c,"C",C,c.atk,32,wing);add(c,"H",H,c.atk,37,34+(rnd()-.5)*8);add(c,"D",D,c.def,41,c.ids.H.y+1.5);add(c,"G",c.G,c.def,51,34)}
   const hp=[46+rnd()*2.5,31+rnd()*6],k=corner?"pgoc":"cdai";
@@ -349,7 +361,7 @@ function sceneCross(c,corner){
 // 8) 2 đấu 2: Cơ hội Solo → Vô-lê. A chuyền dài cho B bứt tốc: Tốc độ B + ½·Ch.dài A vs Bứt phá hậu vệ,
 //    qua được thì "bật tường tam giác" rồi Cơ hội vô-lê: Sút B vs Cứu bóng.
 function sceneSoloVolley(c){
-  const A=pick(byPos(c.atk,"HVC","TV","TVC","HV"),p=>p.cdai-250),B=pick(byPos(c.atk,"TĐ","TVC","TV").filter(p=>p!==A),p=>p.toc+p.sut-500),D=pick(byPos(c.def,"HV","HVC"),p=>p.bpha-200),y0=26+rnd()*24;
+  const A=rp(c.atk,{HVC:2.5,TV:2.5,TVC:2,HV:1.2,"TĐ":.8},"cdai"),B=rp(c.atk,RW.aFin,"toc",A),D=rp(c.def,RW.dFar,"bpha"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,14,y0);add(c,"B",B,c.atk,18,clamp(y0+(y0<34?-14:14),8,60));add(c,"D",D,c.def,36,clamp(c.ids.B.y+(rnd()-.5)*6,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[20,y0],B:[24,c.ids.B.y],D:[34,c.ids.D.y],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Ch.dài: ${A.cdai}`,B:`Tốc độ: ${B.toc}`,D:`Bứt phá: ${D.bpha}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const recv=[33,c.ids.B.y];c.S.push({dur:0.9,t:{B:recv,D:[35,c.ids.B.y+1.5]},ball:{fly:null,to:recv,h:3},kicker:"A",txt:`${A.n} chuyển bóng lên phía trên cho ${B.n}`});
@@ -362,7 +374,7 @@ function sceneSoloVolley(c){
 }
 // 9) 2 đấu 2: Cơ hội sút xa. B lừa (Rê dắt) + ½·Chuyền A vs Xoạc hậu vệ, rồi A chuyền cho B sút xa
 function sceneLong2(c){
-  const A=pick(byPos(c.atk,"TV","TVC","HVC"),p=>p.chuyen-250),B=pick(byPos(c.atk,"TĐ","TV","TVC").filter(p=>p!==A),p=>p.re+p.sxa-500),D=pick(byPos(c.def,"HV","HVC","TV"),p=>p.xoac-200),y0=26+rnd()*24;
+  const A=rp(c.atk,RW.aMid,"chuyen"),B=rp(c.atk,RW.aFin,"sxa",A),D=rp(c.def,RW.dFar,"xoac"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,16,y0);add(c,"B",B,c.atk,22,clamp(y0+(y0<34?12:-12),8,60));add(c,"D",D,c.def,30,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[21,y0],B:[26,c.ids.B.y],D:[29.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(B,"re")+0.5*eff(A,"chuyen"),def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(B,c.atk,"re"),ent(A,c.atk,"chuyen")],R:[ent(D,c.def,"xoac")],holder:"A",
@@ -375,7 +387,7 @@ function sceneLong2(c){
 }
 // 7) Cơ hội sút xa [Sút xa]: lừa qua (Rê dắt vs Đoạt) để có khoảng trống, rồi Sút xa vs Cứu bóng
 function sceneLong(c){
-  const A=pick(byPos(c.atk,"TV","TVC","TĐ"),p=>p.sxa-250),D=pick(byPos(c.def,"HV","HVC","TV"),p=>p.doat-200),y0=26+rnd()*24;
+  const A=rp(c.atk,{TV:3,TVC:2,"TĐ":2,HVC:.8,HV:.6},"sxa"),D=rp(c.def,RW.dFar,"doat"),y0=26+rnd()*24;
   add(c,"A",A,c.atk,18,y0);add(c,"D",D,c.def,30,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[25,y0],D:[29,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`[Sút xa] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(A,"re"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re")],R:[ent(D,c.def,"doat")],
@@ -403,7 +415,7 @@ function scenePen(c){
 // 6) Đá phạt trực tiếp (hậu vệ đứng làm hàng rào)
 function sceneFK(c,pos){
   const K=c.atk.players.filter(p=>roleOf(p)!=="TM").reduce((b,p)=>p.dphat>b.dphat?p:b);
-  const W=pick(byPos(c.def,"HV","HVC"),p=>p.bat);
+  const W=rp(c.def,{HV:3,HVC:2,TV:2,TVC:1,"TĐ":1},"bat");
   const dx=52.5-pos[0],dy=34-pos[1],dd=Math.hypot(dx,dy),wall=[pos[0]+dx/dd*9.15,pos[1]+dy/dd*9.15];
   add(c,"K",K,c.atk,pos[0]-2.5,pos[1]+1.2);add(c,"D",W,c.def,wall[0],wall[1]);add(c,"G",c.G,c.def,51.5,34+(pos[1]-34)*0.12);c.ballStart=pos;
   c.S.push({dur:1.2,t:{K:[pos[0]-0.8,pos[1]+0.4]},ball:{},label:{K:`Đá phạt: ${K.dphat}`,D:"Hàng rào"},txt:`${K.n} đứng trước quả đá phạt`});
