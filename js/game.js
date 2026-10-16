@@ -537,7 +537,7 @@ const popEl=document.getElementById("pop");
 function miniSprite(e,flip){const c=document.createElement("canvas");c.width=78;c.height=102;const g=c.getContext("2d");
   drawChar(g,{p:e.p,team:e.team,face:flip?-1:1,anim:"pose"},0,39,98,88,true);return c}
 function popCol(e,flip){const d=document.createElement("div");d.className="pc";
-  d.innerHTML=`<span class="nm" style="color:${tierOf(e.p).c}">${e.p.n}</span><span class="ln">Vị trí: ${({TM:"T.Môn",HV:"Tr.Vệ",HVC:"H.Vệ",TV:"T.Vệ",TVC:"T.Vệ C","TĐ":"T.Đạo"})[roleOf(e.p)]}</span><span class="ln">${e.lab}: <b>${fmt1(e.v)}</b></span>`;d.appendChild(miniSprite(e,flip));return d}
+  d.innerHTML=`<span class="nm" style="color:${tierOf(e.p).c}">${e.p.n}</span><span class="ln">Vị trí: ${({TM:"T.Môn",HV:"Tr.Vệ",HVC:"H.Vệ",TV:"T.Vệ",TVC:"T.Vệ C","TĐ":"T.Đạo"})[roleOf(e.p)]}</span><span class="ln">${e.lab}: <b class="lv">${fmt1(e.v)}</b></span>`;d.appendChild(miniSprite(e,flip));return d}
 function showPop(pp){
   const L=document.getElementById("popL"),R=document.getElementById("popR2");L.innerHTML="";R.innerHTML="";
   pp.L.forEach(e=>L.appendChild(popCol(e,false)));pp.R.forEach(e=>R.appendChild(popCol(e,true)));
