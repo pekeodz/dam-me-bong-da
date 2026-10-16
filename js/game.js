@@ -2,7 +2,7 @@
 const ATTR=[
  ["toc","Tốc độ","Hậu vệ đuổi theo cầu thủ Solo bứt phá; góp vào sức công/thủ"],
  ["bat","Sức bật","Tranh chấp bóng bổng, đánh đầu, thủ môn băng ra bắt bóng"],
- ["the","Thể lực","Độ dẻo dai: cùng S.Bền giữ sức suốt trận; góp vào sức phòng ngự của đội"],
+ ["the","Thể lực","(Thể trạng) Tì đè qua người ở Cơ hội dứt điểm, hậu vệ tì lại để lấy bóng"],
  ["ben","S.Bền","Độ giảm thể lực mỗi phút (cao thì mệt chậm, cuối trận vẫn đá tốt)"],
  ["sut","Sút","Dứt điểm trong vòng cấm"],
  ["re","Rê dắt","Lừa qua hậu vệ (1 đấu 1, 2 đấu 2)"],
@@ -147,7 +147,7 @@ const eff=(p,k)=>(p.fit||1)*p[k]/6.5*(0.6+0.4*p.sta/100)*(0.94+0.12*morOf(p)/100
    Kết quả: hơn 1 bậc thắng ~65–70%, hơn 2 bậc ~90%, kích 100% vs 70% ~85%, 10 sao vs 0 sao ~+20%.
    Mọi thế trận và chiến thuật ngang nhau (±3%); mỗi chỉ số +25% đều làm đội mạnh lên. */
 const GK_F=0.65, DUEL_G=13, MOR_E=0.25, POS_E=0.4;
-const GAP=()=>8+Math.floor(rnd()*8); // số phút giữa hai pha bóng → khoảng 8 pha/trận
+const GAP=()=>7+Math.floor(rnd()*8); // số phút giữa hai pha bóng → khoảng 8–9 pha/trận
 const STAR_GAIN=0.012; // mỗi cấp sao: +1.2% tiềm năng (×0.75–1 theo thích nghi) → 10 sao ≈ +9–12%
 const duel=(a,d,k=12)=>{a=Math.max(a,0.1);d=Math.max(d,0.1);const g=DUEL_G/k,x=Math.pow(a/d,g);return x/(1+x)};
 const pick=(arr,w)=>{let s=arr.reduce((t,x)=>t+Math.max(1,w(x)),0),r=rnd()*s;for(const x of arr){r-=Math.max(1,w(x));if(r<=0)return x}return arr[0]};
@@ -159,7 +159,7 @@ const fmt1=v=>(Math.round(v*10)/10).toString();
 const PW={TV:1,TVC:.8,HV:.35,HVC:.5,"TĐ":.4,TM:0};
 /* Điểm Công – Thủ của đội: chỉ số mỗi cầu thủ × mức quan trọng của vị trí.
    Công cao → nhiều cơ hội tấn công; Thủ cao → giảm cơ hội của đối phương. */
-const ATK_K={sut:.25,re:.15,toc:.15,bpha:.1,chuyen:.15,sxa:.1,dau:.1},DEF_K={xoac:.3,doat:.3,bat:.15,the:.15,toc:.1};
+const ATK_K={sut:.25,re:.15,toc:.15,bpha:.1,chuyen:.15,sxa:.1,dau:.1},DEF_K={xoac:.3,doat:.3,bat:.15,the:.1,toc:.15};
 const WA={"TĐ":1,TVC:.8,TV:.6,HVC:.3,HV:.1,TM:0},WD={TM:1.2,HV:1,HVC:.8,TV:.5,TVC:.3,"TĐ":.1};
 const rate=(p,K)=>Object.entries(K).reduce((s,[k,w])=>s+eff(p,k)*w,0);
 function atkDef(t){let a=0,d=0;for(const p of t.players){a+=WA[roleOf(p)]*rate(p,ATK_K);d+=WD[roleOf(p)]*(roleOf(p)==="TM"?eff(p,"cuu"):rate(p,DEF_K))}return{a:r1(a*1.6),d:r1(d*1.6)}}
@@ -184,8 +184,8 @@ const OUT=[[8,10],[8,58],[6,34]];
 /* Tỉ lệ "Sút vào" của một cơ hội — cách tính của game gốc: so TỔNG chỉ số bên công với TỔNG bên thủ.
    x = (công/thủ)^2.675 ; tỉ lệ = x / (x + (1-base)/base). base = tỉ lệ khi hai bên ngang nhau.
    Dò từ game gốc: Cơ hội đội đầu 558+392 vs 290+592 → 39%, 101+218 vs 374+448 → 4%; Sút gần 766 vs 448 → 90%;
-   Cơ hội đá bổng (Lừa qua) Tốc độ 245 vs Đội đầu 498 → 24%. */
-const CH_G=2.675,CH_BASE={lq:0.678,sut:0.68,dau:0.344,sxa:0.3,dphat:0.24,pden:0.78};
+   Cơ hội đá bổng (Lừa qua) Tốc độ 245 vs Đội đầu 498 → 24%; Cơ hội dứt điểm (Lừa qua) Thể trạng 435 (+ Chuyền 69) vs 377 → 44%. */
+const CH_G=2.675,CH_BASE={lq:0.678,dd:0.344,sut:0.68,dau:0.344,sxa:0.3,dphat:0.24,pden:0.78};
 function chanceP(att,def,base){const x=Math.pow(Math.max(att,.1)/Math.max(def,.1),CH_G),k=(1-base)/base;return clamp(x/(x+k),0.02,0.97)}
 function finishShot(c,o){
   const {role,from,stat,title}=o;const Sh=c.ids[role].p,G=c.G;M.shots[c.side]++;
@@ -226,7 +226,7 @@ function outcome(c,o){
    1 đấu 1  : lừa qua hậu vệ (Rê dắt vs Xoạc) → Cơ hội sút gần (Sút vs Cứu bóng)   — sceneDribble
               hoặc sút xa                                                           — sceneLong
               hoặc đá bổng qua đầu hậu vệ (Tốc độ vs Đ.Đầu) → sút gần             — sceneLob
-   2 đấu 2  : lừa qua rồi chuyền cho đồng đội dứt điểm                              — sceneCombo
+   2 đánh 1 : chuyền cho đồng đội, đồng đội dùng Thể lực qua người rồi dứt điểm     — sceneCombo
               hoặc chuyền dài cho đồng đội đội đầu (Nhảy hậu vệ + Kh.Chiến thủ môn)  — sceneCross
    Solo     : bứt phá vòng vây (Bứt phá vs Tốc độ) → Cơ hội Solo sút vào             — sceneSolo  */
 // lừa qua người: dùng chung cho 1 đấu 1 và 2 đấu 2. Trả về {ok, a(sức lừa), y0}
@@ -257,16 +257,25 @@ function sceneDribble(c){
   c.S.push({dur:1.3,t:{A:sp,D:[sp[0]-3,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} đảo người qua ${D.n} đầy tinh tế!`});
   return finishShot(c,{role:"A",from:sp,stat:"sut",pressure:0.95,title:"Cơ Hội Sút Gần"});
 }
-// 2) 2 đấu 2: lừa qua hậu vệ rồi chuyền cho đồng đội dứt điểm
+// 2) 2 đánh 1 "Cơ Hội Dứt Điểm" (như game gốc): A chuyền cho B, B dùng Thể lực (Thể trạng) qua hậu vệ rồi sút gần
+//    Lừa qua = Thể lực B (+10% Chuyền A) vs Thể lực hậu vệ. Ví dụ gốc: Chuyền 69 + Thể trạng 435 vs 377 → 44%.
 function sceneCombo(c){
-  const A=pick(byPos(c.atk,"TV","TVC"),p=>p.re+p.chuyen-500),B=pick(byPos(c.atk,"TĐ","TVC").filter(p=>p!==A),p=>p.sut-200);
-  const D=pick(byPos(c.def,"HV","HVC"),p=>p.xoac-200),y0=26+rnd()*24;
-  add(c,"A",A,c.atk,20,y0);add(c,"D",D,c.def,35,clamp(y0+(rnd()-.5)*8,10,58));add(c,"G",c.G,c.def,51,34);add(c,"B",B,c.atk,23,clamp(y0+(y0<34?16:-16),6,62));
-  const r=beatMan(c,A,D,y0,"Cơ Hội Phối Hợp",`${A.n} cầm bóng, ${B.n} băng lên chờ đường chuyền`);if(!r.ok)return r.foul?"foul":"lost";
-  const recv=[40+rnd()*3,clamp(c.ids.B.y+(34-c.ids.B.y)*.5,14,54)];
-  c.S.push({dur:0.9,t:{A:[36,y0],D:[33,y0+1],B:recv},ball:{carry:"A"},txt:`${A.n} vượt qua ${D.n}!`});
-  c.S.push({dur:0.8,t:{B:recv},ball:{fly:"B",to:recv},kicker:"A",txt:`${A.n} chuyền vừa tầm cho ${B.n} dứt điểm`});
-  return finishShot(c,{role:"B",from:recv,stat:"sut",title:"Cơ Hội Sút Gần"});
+  const A=pick(byPos(c.atk,"TV","TVC","HVC"),p=>p.chuyen-250),B=pick(byPos(c.atk,"TĐ","TVC").filter(p=>p!==A),p=>p.the+p.sut-500);
+  const D=pick(byPos(c.def,"HV","TV"),p=>p.the-250),y0=26+rnd()*24;
+  add(c,"A",A,c.atk,20,y0);add(c,"B",B,c.atk,26,clamp(y0+(y0<34?14:-14),6,62));add(c,"D",D,c.def,34,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
+  c.S.push({dur:1.3,t:{A:[27,y0],B:[31,c.ids.B.y],D:[34.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} cầm bóng, ${B.n} băng lên chờ đường chuyền`});
+  const recv=[32,c.ids.B.y];
+  c.S.push({dur:0.8,t:{B:recv},ball:{fly:"B",to:recv},kicker:"A",txt:`${B.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
+  const att=eff(B,"the")+0.1*eff(A,"chuyen"),def=eff(D,"the")*defBoost(c.def,"the");
+  const p=chanceP(att,def,CH_BASE.dd),ok=rnd()<p;
+  roll("Lừa qua (Dứt điểm)",p,ok,`Thể lực ${B.the} + 10%·Chuyền ${A.chuyen} vs Thể lực ${D.the}`);
+  const y=recv[1];
+  c.S.push({dur:0.9,t:{B:[34,y],D:[34.6,y+(rnd()<.5?1:-1)]},ball:{carry:"B"},popup:{title:"Cơ Hội Dứt Điểm",sub:"Lừa qua",L:[ent(A,c.atk,"chuyen"),ent(B,c.atk,"the")],R:[ent(D,c.def,"the")],p,ok},label:{B:`Thể lực: ${B.the}`,D:`Thể lực: ${D.the}`},txt:`${B.n} tì đè ${D.n}`});
+  if(!ok){c.S.push({dur:0.9,t:{D:[34.4,y],B:[33.6,y+1.5]},ball:{carry:"D"},anim:{D:"slide",B:"fall"},txt:`${D.n} tì vai lấy được bóng`});
+    c.S.push({dur:1,t:{},ball:{fly:null,to:OUT[(rnd()*3)|0],h:2},txt:`${D.n} phá bóng ra xa`});return "lost"}
+  const sp=[41+rnd()*3,clamp(y+(34-y)*.5,14,54)];
+  c.S.push({dur:1.1,t:{B:sp,D:[sp[0]-4,sp[1]+3],A:[36,y0]},ball:{carry:"B"},txt:`${B.n} vượt qua ${D.n}, đối mặt thủ môn!`});
+  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Sút Gần"});
 }
 // Đá bổng: hất bóng qua đầu hậu vệ (Tốc độ vs Đ.Đầu hậu vệ) rồi sút gần
 function sceneLob(c){
@@ -374,7 +383,7 @@ function buildScene(){
     const ov=avg(atk.players.map(overall)),wC=0.42*avg(byPos(atk,"TVC","HVC").map(p=>p.cdai))/ov*avg(byPos(atk,"TĐ").map(p=>p.dau))/ov;
     const wL=0.5*avg(byPos(atk,"TV","TVC").map(p=>p.sxa))/ov,wS=0.35*avg(byPos(atk,"TĐ","TVC").map(p=>p.bpha))/ov;
     const at=ATK_TAC[halfTac(atk).atk]||{},lv=1+0.15*(tacOf(atk).atkLv-1),m=k=>at[k]?at[k]*lv:1;
-    type=pick([["drib",0.7*m("drib")],["combo",1*m("combo")],["solo",wS*m("solo")],["lob",0.3*m("lob")],["cross",wC*m("cross")],["long",wL*m("long")]],x=>x[1]*100)[0];
+    type=pick([["drib",0.85*m("drib")],["combo",0.75*m("combo")],["solo",wS*m("solo")],["lob",0.3*m("lob")],["cross",wC*m("cross")],["long",wL*m("long")]],x=>x[1]*100)[0];
   }
   const c=makeCtx(atk,def,side);
   c.res=type==="drib"?sceneDribble(c):type==="combo"?sceneCombo(c):type==="solo"?sceneSolo(c):type==="lob"?sceneLob(c):type==="cross"?sceneCross(c,false):type==="corner"?sceneCross(c,true):type==="long"?sceneLong(c):type==="pen"?scenePen(c):sceneFK(c,q.pos);
@@ -632,7 +641,7 @@ requestAnimationFrame(frame);
 
 /* ================== VÒNG TRẬN ================== */
 // S.Bền cao → mất thể lực chậm hơn
-function tickMinutes(n){M.min=Math.min(90,M.min+n);T.home.players.concat(T.away.players).forEach(p=>{p.sta=clamp(p.sta-n*0.6*(1-0.6*Math.min(1,(0.6*p.ben+0.4*p.the)/tierOf(p).cap)),0,100)})}
+function tickMinutes(n){M.min=Math.min(90,M.min+n);T.home.players.concat(T.away.players).forEach(p=>{p.sta=clamp(p.sta-n*0.6*(1-0.6*Math.min(1,p.ben/tierOf(p).cap)),0,100)})}
 const mmss=(m,s)=>`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 function narrate(){
   const [h,a]=M.score,m=M.min,H=T.home.name,A=T.away.name,mh=M.mor?M.mor[0]:500,ma=M.mor?M.mor[1]:500;
