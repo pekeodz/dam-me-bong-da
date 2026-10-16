@@ -551,7 +551,7 @@ function drawSprite(g,a,now,x,y,sc){
 const SPR={};
 for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={img,ready:false,tint:{}};img.onload=()=>{SPR[k].ready=true;if(window.mgrRender)mgrRender()};img.src=src}
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
-const FPS={lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
+const FPS={nga:9,lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
 const CONTACT={volley:.56,pass:.55,shot:.6,long:.55,fk:.65};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
@@ -579,6 +579,7 @@ function pickFrame(a,key,now){
   if(an==="pose"){r.an="idle";r.i=0;return r}
   if(an==="kick"){const k=kickAnim(key,a.kickSet||"shot");if(k){[r.an,r.i]=once(k);return r}}
   if(an==="slide"){if(A.slide){[r.an,r.i]=once("slide");return r}const k=clamp(t/0.25,0,1);r.an=A.run?"run":"idle";r.i=A.run?2:0;r.rot=-1.1*k;r.dy=0.25*k;return r}
+  if(an==="fall"&&A.nga){[r.an,r.i]=once("nga");return r}
   if(an==="fall"){const k=clamp(t/0.4,0,1);r.an="idle";r.i=0;r.rot=1.35*k;r.dy=0.2*k;return r}
   if(an==="dive"||(an==="jump"&&key==="gk")){const set=A[a.diveSet]?a.diveSet:"dive";[r.an,r.i]=once(set);if(a.at<0)r.i=0;r.dy=set==="dive"?-0.35*Math.sin(clamp(t/0.5,0,1)*Math.PI):0;return r}
   if(an==="jump"){[r.an,r.i]=A.head?once("head"):["idle",0];r.dy=-0.55*Math.sin(clamp(t/0.6,0,1)*Math.PI);return r}
