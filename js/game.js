@@ -250,7 +250,10 @@ function outcome(c,o){
 // Bước "Lừa qua": hiện bảng, tung xác suất, diễn hoạt. Trả về true nếu qua được.
 function lqStep(c,o){const p=chanceP(o.att,o.def,o.base??CH_BASE.lq,o.g??LQ_G),ok=rnd()<p;
   roll(o.rollLab||"Lừa qua",p,ok,o.detail);
-  c.S.push({dur:o.dur||0.9,t:o.t||{},ball:o.ball||{carry:o.holder||"A"},anim:o.anim,popup:{title:o.title,sub:"Lừa qua",L:o.L,R:o.R,p,ok},label:o.label,txt:o.txt});
+  // bảng hiện trước (cầu thủ đứng đối mặt), động tác lừa/kỹ năng diễn SAU khi bảng đóng để người chơi nhìn thấy
+  c.S.push({dur:0.6,t:o.t||{},ball:o.ball||{carry:o.holder||"A"},popup:{title:o.title,sub:"Lừa qua",L:o.L,R:o.R,p,ok},label:o.label,txt:o.txt});
+  if(ok&&o.anim){const who=Object.keys(o.anim)[0],nm=o.anim[who],sk=SKILLS[nm];
+    c.S.push({dur:sk?1.1:0.9,t:{},ball:{carry:who},anim:o.anim,label:sk?{[who]:sk.n+"!"}:undefined,txt:sk?`${c.ids[who].p.n} tung kỹ năng ${sk.n}!`:`${c.ids[who].p.n} đảo người lừa bóng`})}
   return ok}
 function lostBall(c,D,who,txt){c.S.push({dur:0.9,t:{D:[c.ids[who].x+0.6,c.ids[who].y]},ball:{carry:"D"},anim:{D:"slide",[who]:"fall"},txt:txt||`${D.n} xoạc bóng chuẩn xác`});
   c.S.push({dur:1,t:{},ball:{fly:null,to:OUT[(rnd()*3)|0],h:2},txt:`${D.n} phá bóng ra xa`});return "lost"}
@@ -283,7 +286,7 @@ function sceneDribble(c){
   const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
   if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
   const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(A,c.atk,"re")],R:[ent(D,c.def,"xoac")],
-    detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:skl?{A:skl}:undefined,label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
+    detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:skl||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
   if(!ok)return lostBall(c,D,"A");if(tryFoul(c,A,D,y0,a))return "foul";
   const sp=shotSpot(y0);c.S.push({dur:1.3,t:{A:sp,D:[sp[0]-3,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} đảo người qua ${D.n} đầy tinh tế!`});
   return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Sút Gần"});
@@ -293,7 +296,7 @@ function scenePass(c){
   const A=rp(c.atk,RW.aMid,"re"),B=rp(c.atk,RW.aFin,"sut",A),D=rp(c.def,RW.dNear,"doat",null,A),y0=laneY(A);setup(c,A,D,y0,B);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15],B:[33,c.ids.B.y]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Gần",att:eff(A,"re")+0.5*eff(B,"chuyen"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re"),ent(B,c.atk,"chuyen")],R:[ent(D,c.def,"doat")],
-    detail:`Rê dắt ${A.re} + 50%·Chuyền ${B.chuyen} vs Đoạt ${D.doat}`,t:{A:[33.5,y0],D:[34.5,y0]},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} đối mặt ${D.n}, ${B.n} băng lên phối hợp`});
+    detail:`Rê dắt ${A.re} + 50%·Chuyền ${B.chuyen} vs Đoạt ${D.doat}`,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:"lua"},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} đối mặt ${D.n}, ${B.n} băng lên phối hợp`});
   if(!ok)return lostBall(c,D,"A",`${D.n} đọc tình huống và cắt bóng!`);
   const recv=shotSpot(c.ids.B.y);c.S.push({dur:0.9,t:{A:[36,y0],B:recv,D:[34,y0+1]},ball:{fly:"B",to:recv},kicker:"A",txt:`${A.n} chuyền bóng lên phía trên cho ${B.n}`});
   return finishShot(c,{role:"B",from:recv,stat:"sut",title:"Cơ Hội Sút Gần"});
@@ -392,7 +395,7 @@ function sceneLong2(c){
   add(c,"A",A,c.atk,16,y0);add(c,"B",B,c.atk,22,clamp(y0+(y0<34?12:-12),8,60));add(c,"D",D,c.def,30,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[21,y0],B:[26,c.ids.B.y],D:[29.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(B,"re")+0.5*eff(A,"chuyen"),def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(B,c.atk,"re"),ent(A,c.atk,"chuyen")],R:[ent(D,c.def,"xoac")],holder:"A",
-    detail:`Rê dắt ${B.re} + 50%·Chuyền ${A.chuyen} vs Xoạc ${D.xoac}`,t:{B:[28,c.ids.B.y],D:[29,c.ids.B.y+0.8]},label:{B:`Rê dắt: ${B.re}`,D:`Xoạc: ${D.xoac}`},txt:`${B.n} thoát khỏi sự đeo bám của ${D.n}`});
+    detail:`Rê dắt ${B.re} + 50%·Chuyền ${A.chuyen} vs Xoạc ${D.xoac}`,t:{B:[28,c.ids.B.y],D:[29,c.ids.B.y+0.8]},anim:{B:"lua"},label:{B:`Rê dắt: ${B.re}`,D:`Xoạc: ${D.xoac}`},txt:`${B.n} thoát khỏi sự đeo bám của ${D.n}`});
   if(!ok){c.S.push({dur:0.8,t:{D:[27,(y0+c.ids.B.y)/2]},ball:{fly:"D",to:[27,(y0+c.ids.B.y)/2]},kicker:"A",anim:{D:"slide"},txt:`${D.n} xoạc chân ra cắt đường chuyền`});
     c.S.push({dur:1,t:{},ball:{fly:null,to:OUT[(rnd()*3)|0],h:2},txt:`${D.n} phá bóng ra xa`});return "lost"}
   const sp=[29+rnd()*3,clamp(c.ids.B.y+(34-c.ids.B.y)*.3,12,56)];
@@ -405,7 +408,7 @@ function sceneLong(c){
   add(c,"A",A,c.atk,18,y0);add(c,"D",D,c.def,30,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[25,y0],D:[29,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`[Sút xa] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(A,"re"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re")],R:[ent(D,c.def,"doat")],
-    detail:`Rê dắt ${A.re} vs Đoạt ${D.doat}`,t:{A:[27.5,y0],D:[28.5,y0]},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} tìm khoảng trống trước ${D.n}`});
+    detail:`Rê dắt ${A.re} vs Đoạt ${D.doat}`,t:{A:[27.5,y0],D:[28.5,y0]},anim:{A:"lua"},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} tìm khoảng trống trước ${D.n}`});
   if(!ok){const corner=rnd()<.35;c.S.push({dur:0.6,t:{D:[28.8,y0]},ball:{fly:null,to:[29,y0],h:0.8},anim:{D:"slide"},kicker:"A",txt:`${D.n} lao người chặn cú sút`});
     c.S.push({dur:0.9,t:{},ball:{fly:null,to:corner?[53.5,y0<34?12:56]:OUT[(rnd()*3)|0],h:2},txt:corner?"Bóng đổi hướng đi hết đường biên ngang. Phạt góc!":"Bóng bật ra, hàng thủ phá đi"});
     if(corner)M.queue={type:"corner",side:c.side};return "blocked"}
@@ -548,7 +551,7 @@ function drawSprite(g,a,now,x,y,sc){
 const SPR={};
 for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={img,ready:false,tint:{}};img.onload=()=>{SPR[k].ready=true;if(window.mgrRender)mgrRender()};img.src=src}
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
-const FPS={volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
+const FPS={lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
 const CONTACT={volley:.56,pass:.55,shot:.6,long:.55,fk:.65};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
@@ -581,7 +584,7 @@ function pickFrame(a,key,now){
   if(an==="jump"){[r.an,r.i]=A.head?once("head"):["idle",0];r.dy=-0.55*Math.sin(clamp(t/0.6,0,1)*Math.PI);return r}
   if(an==="bike"&&A.bike){[r.an,r.i]=once("bike");r.dy=-0.5*Math.sin(clamp(t/0.7,0,1)*Math.PI);return r}
   if(an==="regret"&&A.regret){[r.an,r.i]=once("regret");return r}
-  if((an==="stepover"||an==="roulette")&&A[an]){[r.an,r.i]=once(an);return r}
+  if((an==="stepover"||an==="roulette"||an==="lua")&&A[an]){[r.an,r.i]=once(an);return r}
   if(an==="celebrate"){const sv=hasSkill(a.p,"siu")&&A.siu?"siu":"cele";if(A[sv]){[r.an,r.i]=once(sv);return r}r.an="idle";r.i=0;r.dy=-0.35*Math.abs(Math.sin(t*7));return r}
   if(a.moving&&!A.run){r.an="idle";r.i=Math.floor((a.phase||0)*1.2)%A.idle.length;r.dy=-0.04*Math.abs(Math.sin((a.phase||0)*1.6));return r}
   if(a.moving){const set=(A.drib&&scene&&scene.holder===a.role)?"drib":"run";const n=A[set].length;r.an=set;r.i=Math.floor((a.phase||0)*n/5.7)%n;return r}
