@@ -140,7 +140,10 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const rnd=Math.random;
 // tinh thần đội (M.mor) ~ 200–800, 500 là trung tính: ±6% chỉ số
 const morOf=p=>(typeof M!=="undefined"&&M&&M.mor&&p._side!==undefined)?M.mor[p._side]:500;
-const eff=(p,k)=>(p.fit||1)*p[k]/6.5*(0.6+0.4*p.sta/100)*(0.94+0.12*morOf(p)/1000);
+/* Tinh thần thi đấu (như game gốc): chỉ số cầu thủ ngoài sân × (0.5 + tinh thần/1000) → 500 giữ nguyên, 824 ×1.32, 352 ×0.85.
+   Thủ môn không bị ảnh hưởng. Dò từ game gốc: đội đầu 151+138 vs 172+346 khi tinh thần 824/352 vẫn ra 26%. */
+const morMul=p=>roleOf(p)==="TM"?1:0.5+morOf(p)/1000;
+const eff=(p,k)=>(p.fit||1)*p[k]/6.5*(0.6+0.4*p.sta/100)*morMul(p);
 /* Đối đầu theo TỈ LỆ (không theo hiệu số), nên cân bằng giữ nguyên dù chỉ số đang 80 hay 600.
    g = 48/k: k=12 → g=4 (mạnh hơn 20% thắng ~67%, mạnh hơn 50% thắng ~83%). */
 /* ===== THAM SỐ CÂN BẰNG (dò bằng mô phỏng hàng nghìn trận / kịch bản, công cụ tools/mo-phong-can-bang.js) =====
@@ -150,7 +153,7 @@ const eff=(p,k)=>(p.fit||1)*p[k]/6.5*(0.6+0.4*p.sta/100)*(0.94+0.12*morOf(p)/100
    MOR_E / POS_E: tinh thần đầu trận và lợi thế giành quyền tấn công theo Công/Thủ
    Kết quả: hơn 1 bậc thắng ~65–70%, hơn 2 bậc ~90%, kích 100% vs 70% ~85%, 10 sao vs 0 sao ~+20%.
    Mọi thế trận và chiến thuật ngang nhau (±3%); mỗi chỉ số +25% đều làm đội mạnh lên. */
-const GK_F=0.65, DUEL_G=13, MOR_E=0.25, POS_E=0.4;
+const GK_F=0.65, DUEL_G=13, MOR_E=0.12, POS_E=0.4;
 const GAP=()=>8+Math.floor(rnd()*8); // số phút giữa hai pha bóng → khoảng 8 pha/trận
 const STAR_GAIN=0.012; // mỗi cấp sao: +1.2% tiềm năng (×0.75–1 theo thích nghi) → 10 sao ≈ +9–12%
 const duel=(a,d,k=12)=>{a=Math.max(a,0.1);d=Math.max(d,0.1);const g=DUEL_G/k,x=Math.pow(a/d,g);return x/(1+x)};
@@ -365,7 +368,7 @@ function sceneCross(c,corner){
     if(r<0.35){const punch=c.G.dbong>c.G.kchien||rnd()<.4;
       if(punch){c.S.push({dur:0.9,t:{},ball:{fly:null,to:[34,10+rnd()*48],h:3.5},kicker:"G",txt:`${c.G.n} vượt lên đấm bóng ra xa`});return "lost"}
       c.S.push({dur:0.9,t:{G:[hp[0]+0.8,hp[1]]},ball:{carry:"G"},txt:`${c.G.n} băng ra bắt gọn bóng trên không`});return "lost"}
-    if(r<0.7){const cn=rnd()<0.4;c.S.push({dur:1,t:{},ball:{fly:null,to:cn?[53.5,hp[1]<34?10:58]:[34,10+rnd()*48],h:3},kicker:"D",txt:cn?`${D.n} bật cao đánh đầu chịu phạt góc`:`${D.n} bật cao hơn, đánh đầu phá bóng`});if(cn)M.queue={type:"corner",side:c.side};return "lost"}}
+    if(r<0.7){const cn=rnd()<0.4;c.S.push({dur:1,t:{},ball:{fly:null,to:cn?[53.5,hp[1]<34?10:58]:[34,10+rnd()*48],h:3},kicker:"D",txt:cn?`Hậu vệ ${D.n} về kịp lúc, dũng cảm phá bóng ra ngoài biên`:`${D.n} bật cao hơn, đánh đầu phá bóng`});if(cn)M.queue={type:"corner",side:c.side};return "lost"}}
   c.S.push({dur:0.4,t:{G:[51.2,hp[1]+(rnd()-.5)*2]},ball:{},txt:goal?`${H.n} bật cao hơn tất cả!`:`${H.n} chạm bóng trước ${D.n}`});
   return finishShot(c,{role:"H",from:hp,header:true,bike,p,goal,pop,popShown:true,title:pop.title});
 }
