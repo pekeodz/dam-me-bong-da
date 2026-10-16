@@ -10,9 +10,9 @@ const stub={textContent:'',innerHTML:'',style:{},value:'',prepend(){},append(){}
 global.window=global;global.document={getElementById:()=>stub,createElement:()=>stub,querySelector:()=>stub,addEventListener(){}};
 global.scene=null;global.hidePop=()=>{};global.render=()=>{};global.renderSquad=()=>{};global.localStorage={getItem(){return null},setItem(){}};
 eval(src+`
-const STATS={};const TYPES=["drib","pass","cross","corner","long","pen","fk"];
+const STATS={};const TYPES=["drib","combo","solo","cross","corner","long","pen","fk"];
 function wrap(name,type){const f=eval(name);return c=>{const r=f(c);const s=STATS[type]||(STATS[type]={n:0,g:0,shot:0});s.n++;if(r==="goal")s.g++;return r}}
-sceneDribble=wrap("sceneDribble","drib");scenePass=wrap("scenePass","pass");sceneLong=wrap("sceneLong","long");scenePen=wrap("scenePen","pen");
+sceneDribble=wrap("sceneDribble","drib");sceneCombo=wrap("sceneCombo","combo");sceneSolo=wrap("sceneSolo","solo");sceneLong=wrap("sceneLong","long");scenePen=wrap("scenePen","pen");
 {const f=sceneCross;sceneCross=(c,corner)=>{const t=corner?"corner":"cross";const r=f(c,corner);const s=STATS[t]||(STATS[t]={n:0,g:0});s.n++;if(r==="goal")s.g++;return r}}
 {const f=sceneFK;sceneFK=(c,pos)=>{const r=f(c,pos);const s=STATS.fk||(STATS.fk={n:0,g:0});s.n++;if(r==="goal")s.g++;return r}}
 const F=["TM","HVC","HV","HV","HVC","TVC","TV","TV","TVC","TĐ","TĐ"];
