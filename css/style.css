@@ -19,6 +19,56 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);padding-left:m
 .wrap{max-width:max(320px,min(100%,calc((100vh - 48px) * 1.59375)));margin:0 auto;display:grid;gap:14px}
 .wrap:not(.lobby-mode){max-width:max(320px,min(100%,calc((100vh - 110px) * 1.59375)))}
 .game{user-select:none;-webkit-user-select:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pt.tl{object-fit:cover;object-position:50% 4%;background:linear-gradient(#e9c3cb,#8a3e50)}
+.mu{color:#6b7280;font-size:.85em;font-weight:400}
+/* ---- Nhiệm vụ ---- */
+.nvtabs{display:flex;gap:2px;flex-wrap:wrap}
+.wpane .nvtabs button{background:linear-gradient(#5d6a78,#3a4552);color:#fff;border:1px solid #2c3540;border-bottom:0;border-radius:4px 4px 0 0;padding:6px 16px}
+.wpane .nvtabs button.on{background:#fff;color:#1b1f24;border-color:#9aa6b2}
+.nvtabs b{color:#ffd23f}.nvtabs .on b{color:#b45309}
+.nvb{display:grid;grid-template-columns:minmax(160px,30%) minmax(0,1fr);background:#fff;border:1px solid #9aa6b2;min-height:320px}
+.nvl{display:flex;flex-direction:column;border-right:1px solid #c5ccd3;background:#eef2f6}
+.wpane .nvl button{all:unset;box-sizing:border-box;cursor:pointer;padding:11px 12px;border-bottom:1px solid #d5dbe2;font-weight:700;color:#24548f;background:linear-gradient(#fff,#e6ecf2)}
+.wpane .nvl button.sel{color:#dc2626;background:#fff}.wpane .nvl button:hover{color:#dc2626}
+.wpane .nvl button:focus-visible{outline:2px solid #2563eb;outline-offset:-2px}.wpane .nvl button.got{opacity:.55}
+.nvl .ck{font-style:normal;color:#fff;background:#16a34a;border-radius:3px;padding:0 4px;font-size:.8em}
+.nvd{padding:14px 22px}
+.nvd dl{display:grid;grid-template-columns:auto minmax(0,1fr);margin:0}
+.nvd dt{font-weight:700;color:#374151;padding:14px 16px 14px 0;border-bottom:1px solid #e5e7eb}
+.nvd dd{margin:0;padding:14px 0;border-bottom:1px solid #e5e7eb;line-height:1.5}.nvd dd b{color:#1d4ed8}
+.nva{margin-top:18px}.nva button{min-width:100px;padding:7px 16px}
+.nve{grid-column:1/-1;padding:40px 16px;text-align:center;color:#6b7280;margin:0}
+@media (max-width:600px){.nvb{grid-template-columns:1fr}.nvl{border-right:0;border-bottom:1px solid #c5ccd3}.nvd{padding:10px 12px}}
+/* ---- Môi giới ---- */
+.bk{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:14px;align-items:start}
+.bkq{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.wpane .bkq button{background:#dfe4e9;color:#1f2937;border:1px solid #b9c2cb;padding:4px 10px}
+.wpane .bkq button.on{background:linear-gradient(#4f86c6,#24548f);color:#fff;border-color:#1b3f6b}
+.wpane .bkq button:disabled{opacity:.5;cursor:not-allowed}
+.bkw{overflow-x:auto;background:#fff;border:1px solid #9aa6b2;border-radius:4px}
+.bkt{width:100%;border-collapse:collapse;font-size:.85rem}
+.bkt th{background:linear-gradient(#5d6a78,#3a4552);color:#fff;font-weight:600;padding:7px 9px;text-align:left!important;white-space:nowrap;border-bottom:0}
+.bkt td{text-align:left!important}
+.bkt td{padding:8px 9px;border-top:1px solid #e5e7eb;border-bottom:0;white-space:nowrap;text-align:left;font-family:var(--body);color:#1f2937;font-variant-numeric:tabular-nums}.bkt tr:nth-child(even) td{background:#f5f7f9}
+.bkt small{color:#6b7280}.bkt .rec{font-style:normal;background:#dc2626;color:#fff;border-radius:3px;padding:0 5px;font-size:.75em}
+.wpane button.lnk{all:unset;cursor:pointer;color:#1d4ed8;font-weight:700;text-decoration:underline}
+.wpane button.lnk:hover{color:#dc2626}.wpane button.lnk:focus-visible{outline:2px solid #2563eb}
+.bkf{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin:10px 0 4px;font-size:.85rem}
+.bkg{position:relative;display:grid}
+.bkg img{width:100%;max-height:250px;object-fit:contain;object-position:bottom;display:block}
+.bkb{position:relative;margin-top:-40px;background:#fff;border:1px solid #9aa3ad;border-radius:4px;padding:10px 12px;font-size:.82rem;line-height:1.5;box-shadow:0 4px 10px #0003}
+.bkb b{display:block;color:#b45309;margin-bottom:3px}.bkb p{margin:0}
+@media (max-width:760px){.bk{grid-template-columns:1fr}.bkg{display:none}}
+.topbar .fsbtn{font:inherit;font-size:.95em;color:#ffe08a;background:#ffffff14;border:1px solid #ffffff40;border-radius:6px;padding:.25em .7em;cursor:pointer;white-space:nowrap}
+.topbar .fsbtn:hover{background:#ffffff2a;color:#fff}.topbar .fsbtn:focus-visible{outline:2px solid #ffd23f}
+/* khi toàn màn hình: bỏ lề, game lấp đầy chiều cao màn hình */
+:root:fullscreen body{padding:0}
+:root:fullscreen .wrap{max-width:min(100%,calc(100vh * 1.59375));gap:6px}
+:root:fullscreen .wrap:not(.lobby-mode){max-width:min(100%,calc((100vh - 52px) * 1.59375))}
+:root:fullscreen .game{border-radius:0;border:0}
+:root:fullscreen #matchInfo{display:none}
+:root:fullscreen{background:#000}
 .game input,.game textarea{user-select:text;-webkit-user-select:text}
 
 /* ---------- KHUNG GAME ---------- */

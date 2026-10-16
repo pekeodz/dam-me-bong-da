@@ -21,6 +21,7 @@
       <span class="res"><i class="coin"></i>Vàng: <b id="gold">567.500</b></span>
       <span class="res"><i class="coin xu"></i>Xu: <b id="xu">0</b></span>
       <span class="res"><i class="coin ph"></i>Phiếu: <b id="phieu">1.000</b></span>
+      <button class="fsbtn" id="bFull" type="button" title="Toàn màn hình (phím F)">⛶ Toàn màn hình</button>
     </div>
     <div class="board">
       <div class="sb">
@@ -75,12 +76,14 @@
         <div class="wpane" id="qlnv" data-w="qlnv"></div>
         <div class="wpane" id="phuban" data-w="phuban"></div>
         <div class="wpane" id="tasks" data-w="nv"></div>
+        <div class="wpane" id="broker" data-w="mg"></div>
         <div class="wpane" id="shop" data-w="shop"></div>
         <div class="wpane" id="tc" data-w="tc"></div>
         <div class="card" data-w="caidat">
           <h2>Quản lý</h2>
           <label class="note" for="setname">Tên quản lý (hiện trong chat và tin hệ thống)</label>
           <input id="setname" maxlength="20" class="tin">
+          <div class="ctrl" style="margin-top:8px"><button id="bNewGame" type="button">Chơi lại từ đầu</button><span class="note">Xóa đội hiện tại, bắt đầu với đội cầu thủ vô danh.</span></div>
           <h2 style="margin-top:14px">Lưu dữ liệu (Firebase Firestore)</h2>
           <p class="note">Bản đưa lên hosting tự kết nối bằng file js/firebase-config.js. Ở đây có thể dán firebaseConfig (JSON) rồi bấm Kết nối. Mỗi người chơi đăng nhập ẩn danh và có dữ liệu riêng; hết trận tự lưu. Chưa kết nối thì game lưu tạm trong trình duyệt.</p>
           <textarea id="fbcfg" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
