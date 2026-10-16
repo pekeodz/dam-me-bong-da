@@ -55,15 +55,15 @@ const r1=v=>Math.round(v*10)/10;
 const SKILLS={
  stepover:{n:"Step Over",anim:"stepover",rate:.6,mult:1.15,desc:"Đi bóng qua người: đảo chân đánh lừa, sức đi bóng +15%"},
  roulette:{n:"Xoay Compa",anim:"roulette",rate:.6,mult:1.2,desc:"Đi bóng qua người: xoay người 360°, sức đi bóng +20%"},
- bike:{n:"Ngả Bàn Đèn",anim:"bike",rate:.45,mult:1.08,desc:"Thắng tranh chấp bóng bổng: tung người móc bóng, sức dứt điểm +8%"},
+ bike:{n:"Ngả Bàn Đèn",anim:"bike",rate:.6,mult:1.2,desc:"Cơ hội vô-lê: tung người ngả bàn đèn điêu luyện, sức sút vào +20%"},
  siu:{n:"Ăn mừng SIUUU",anim:"siu",rate:1,mult:1,desc:"Màn ăn mừng độc quyền sau khi ghi bàn"}};
 const SKILL_OWN={
  "Ronaldo":[["siu",0],["stepover",2],["bike",4]],
  "Messi":[["roulette",2],["stepover",3]],
  "Quang Hải":[["roulette",3]],
  "Công Phượng":[["stepover",2],["roulette",4]],
- "Tiến Linh":[["bike",3]],
- "Văn Quyết":[["bike",3]]};
+ "Tiến Linh":[],
+ "Văn Quyết":[]};
 const hasSkill=(p,id)=>(p.skills||[]).some(s=>s.id===id&&(p.star||0)>=s.star);
 // chọn kỹ năng đi bóng mạnh nhất đang mở và tung xác suất kích hoạt
 function trySkill(p,ids){const own=ids.filter(id=>hasSkill(p,id)).sort((a,b)=>SKILLS[b].mult-SKILLS[a].mult);for(const id of own)if(rnd()<SKILLS[id].rate)return id;return null}
@@ -199,16 +199,18 @@ function finishShot(c,o){
   const {role,from,stat,title}=o;const Sh=c.ids[role].p,G=c.G;M.shots[c.side]++;
   let p,goal,pop;
   if(o.p!==undefined){p=o.p;goal=o.goal;pop=o.pop} // đánh đầu: đã tính sẵn ở sceneCross
-  else{const dist=Math.hypot(52.5-from[0],34-from[1]),weak=rnd()<0.3;
-    const gs=stat==="cdai"?"kchien":"cuu",att=eff(Sh,stat)*(weak?0.9:1)*(o.pressure||1),def=stat==="sxa"?0.7*eff(G,"cuu")+0.3*eff(G,"dbong"):eff(G,gs);
+  else{const dist=Math.hypot(52.5-from[0],34-from[1]),weak=!o.volley&&rnd()<0.3;
+    if(o.volley&&hasSkill(Sh,"bike")&&rnd()<SKILLS.bike.rate){o.skill=true;o.title="Kỹ Năng: Ngả Bàn Đèn";roll("Kỹ năng: Ngả Bàn Đèn",SKILLS.bike.rate,true,`${Sh.n} ★${Sh.star} — sức sút vào ×${SKILLS.bike.mult}`)}
+    const gs=stat==="cdai"?"kchien":"cuu",att=eff(Sh,stat)*(weak?0.9:1)*(o.pressure||1)*(o.skill?SKILLS.bike.mult:1),def=stat==="sxa"?0.7*eff(G,"cuu")+0.3*eff(G,"dbong"):eff(G,gs);
     const base=CH_BASE[stat]*(stat==="sxa"?clamp(1.5-dist/40,0.8,1.05):stat==="sut"?clamp(1.25-dist/40,0.85,1.05):1);
     p=chanceP(att,def,base);goal=rnd()<p;
     roll("Sút vào",p,goal,`${LBL[stat]} ${Sh[stat]}${weak?" (chân không thuận ×0.9)":""} vs ${stat==="sxa"?`0.7·Cứu bóng ${G.cuu} + 0.3·Đấm bóng ${G.dbong}`:`${LBL[gs]} ${G[gs]}`}`);
     pop={title:o.title||title,sub:"Sút vào",L:[ent(Sh,c.atk,stat)],R:[ent(G,c.def,gs)],p,ok:goal}}
   const on=goal||rnd()<0.55,gk=eff(G,"cuu");
   const lab=o.header?`Đánh đầu: ${Sh.dau}`:`${LBL[stat]}: ${Sh[stat]}`;
-  if(!o.header)c.S.push({dur:0.4,t:{G:[51-(gk-60)/40,34+(from[1]-34)*0.25]},ball:{carry:o.noCarry?undefined:role},popup:pop,label:{[role]:lab},txt:`${Sh.n} lấy đà dứt điểm!`});
-  outcome(c,{goal,on,role,from,popup:o.header&&!o.popShown?pop:null,label:o.header?{[role]:o.bike?"Ngả bàn đèn!":lab}:null,peak:o.peak??(o.header?0.8:1.2),kicker:o.header?null:o.kicker,kind:stat==="sxa"?"long":stat==="dphat"?"fk":"shot",hAnim:o.bike?"bike":"jump",header:o.header});
+  if(!o.header)c.S.push({dur:0.4,t:{G:[51-(gk-60)/40,34+(from[1]-34)*0.25]},ball:o.volley?{fly:null,to:[from[0]+0.3,from[1]],h:1.6,endH:1.4}:{carry:o.noCarry?undefined:role},popup:pop,label:{[role]:lab},txt:o.volley?`Bóng bổng tới, ${Sh.n} tung người ngả bàn đèn!`:`${Sh.n} lấy đà dứt điểm!`});
+  const air=o.header||o.volley;
+  outcome(c,{goal,on,role,from,popup:o.header&&!o.popShown?pop:null,label:air?{[role]:o.volley?"Ngả bàn đèn!":lab}:null,peak:o.peak??(air?0.9:1.2),kicker:air?null:o.kicker,kind:stat==="sxa"?"long":stat==="dphat"?"fk":"shot",hAnim:o.volley||o.bike?"bike":"jump",header:o.header});
   return goal?"goal":on?"save":"miss";
 }
 function outcome(c,o){
@@ -303,7 +305,7 @@ function sceneCombo(c){
     detail:`Thể lực ${B.the} + 10%·Chuyền ${A.chuyen} vs Thể lực ${D.the}`,t:{B:[34,y],D:[34.6,y+(rnd()<.5?1:-1)]},label:{B:`Thể lực: ${B.the}`,D:`Thể lực: ${D.the}`},txt:`${B.n} tì đè ${D.n}`});
   if(!ok)return lostBall(c,D,"B",`${D.n} tì vai lấy được bóng`);
   const sp=shotSpot(y);c.S.push({dur:1.1,t:{B:sp,D:[sp[0]-4,sp[1]+3],A:[36,y0]},ball:{carry:"B"},txt:`${B.n} vượt qua ${D.n}, tung cú vô-lê!`});
-  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Dứt Điểm"});
+  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Dứt Điểm",volley:true});
 }
 // 4) Cơ hội vô-lê 1 đấu 1 [Sút vô-lê]: Thể lực vs Thể lực
 function sceneVolley(c){
@@ -313,7 +315,7 @@ function sceneVolley(c){
     detail:`Thể lực ${A.the} vs Thể lực ${D.the}`,t:{A:[33.5,y0],D:[34.2,y0+1]},label:{A:`Thể lực: ${A.the}`,D:`Thể lực: ${D.the}`},txt:`${A.n} tì đè ${D.n} chờ bóng rơi`});
   if(!ok)return lostBall(c,D,"A",`${D.n} tì vai lấy được bóng`);
   const sp=shotSpot(y0);c.S.push({dur:1,t:{A:sp,D:[sp[0]-3,sp[1]+3]},ball:{carry:"A"},txt:`${A.n} thoát khỏi ${D.n}, tung cú vô-lê!`});
-  return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Vô-lê"});
+  return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Vô-lê",volley:true});
 }
 // 5) Cơ hội đá bổng: Tốc độ vs Đ.Đầu hậu vệ, rồi bấm bóng qua đầu thủ môn (Ch.dài vs Kh.Chiến)
 function sceneLob(c){
@@ -349,7 +351,7 @@ function sceneCross(c,corner){
   const hp=[46+rnd()*2.5,31+rnd()*6],k=corner?"pgoc":"cdai";
   if(corner)c.S.push({dur:1.2,t:{H:[44,hp[1]+1],D:[44.5,hp[1]+1.8]},ball:{},label:{C:`Phạt góc: ${C.pgoc}`},txt:`${C.n} chuẩn bị đá phạt góc`});
   else c.S.push({dur:1.5,t:{C:[44,wing],H:[42,hp[1]],D:[43,hp[1]+1.2],G:[51,34+(wing-34)*.1]},ball:{carry:"C"},label:{C:`Ch.dài: ${C.cdai}`},txt:`${C.n} đi bóng dọc biên rồi chuẩn bị tạt`});
-  const bike=hasSkill(H,"bike")&&rnd()<SKILLS.bike.rate;
+  const bike=false;
   const att=(eff(C,k)+eff(H,"dau"))*(bike?SKILLS.bike.mult:1),def=eff(D,"bat")*defBoost(c.def,"bat")+eff(c.G,"kchien");
   const p=chanceP(att,def,CH_BASE.dau),goal=rnd()<p;
   if(bike)roll("Kỹ năng: Ngả Bàn Đèn",SKILLS.bike.rate,true,`${H.n} ★${H.star} — sức đánh đầu ×${SKILLS.bike.mult}`);
@@ -376,7 +378,7 @@ function sceneSoloVolley(c){
   if(!ok)return lostBall(c,D,"B",`${D.n} bứt tốc chặn trước ${B.n}`);
   const sp=shotSpot(recv[1]);c.S.push({dur:0.8,t:{B:[39,recv[1]],A:[38,y0]},ball:{fly:"A",to:[38,y0]},kicker:"B",txt:`${A.n} và ${B.n} thực hiện bật tường tam giác tuyệt đẹp`});
   c.S.push({dur:0.8,t:{B:sp,D:[sp[0]-4,sp[1]+3]},ball:{fly:null,to:sp,h:1.4},kicker:"A",txt:`${B.n} băng vào đón bóng`});
-  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Vô-lê"});
+  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Vô-lê",volley:true});
 }
 // 9) 2 đấu 2: Cơ hội sút xa. B lừa (Rê dắt) + ½·Chuyền A vs Xoạc hậu vệ, rồi A chuyền cho B sút xa
 function sceneLong2(c){
