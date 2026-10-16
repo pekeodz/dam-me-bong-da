@@ -791,7 +791,7 @@ function openCard(team,i){
      <div class="use">Số màu xanh là chỉ số quan trọng nhất của vị trí này. Di chuột vào từng dòng để xem chỉ số dùng trong pha nào.</div></div></div>
     <div class="cbtn"><button data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button></div></div>`;
   modal.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{modal.hidden=true;mgrOpen(team,i,b.dataset.go)});
-  document.getElementById("mav").appendChild(avatar(p,team,110,140));
+  {const _m=document.getElementById("mav");_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team,110,140))}
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 modal.addEventListener("click",e=>{if(e.target===modal||e.target.id==="mclose")modal.hidden=true});
@@ -868,7 +868,7 @@ function starUp(p){
 // ảnh chân dung cầu thủ (assets/players/*.webp); không có ảnh thì vẽ sprite như cũ
 const faceSrc=p=>typeof PLAYER_IMG!=="undefined"&&p&&PLAYER_IMG[p.n]||null;
 const faceTag=(p,cls="fc")=>{const s=faceSrc(p);return s?`<img class="${cls}" src="${s}" alt="">`:""};
-function avatar(p,team,w=96,h=120){const s=faceSrc(p);if(s){const im=new Image();im.src=s;im.className="favatar";im.alt=p.n;im.style.width=w+"px";im.style.height=h+"px";return im}const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
+function avatar(p,team,w=96,h=120){const s=faceSrc(p);if(s){const im=new Image();im.src=s;im.className="favatar";im.alt=p.n;const z=Math.min(128,Math.min(w,h)>=110?128:Math.min(w,h));im.width=z;im.height=z;im.style.width=z+"px";im.style.height=z+"px";return im}const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
 function mgrOpen(team,i,tab){MG.team=team===T.home?"home":team===T.away?"away":team;MG.i=i;MG.tab=tab||MG.tab;MG.msg="";MG.preview=null;MG.impSel=null;mgrRender();document.getElementById("mgr").scrollIntoView({behavior:"smooth",block:"start"})}
 function listCols(p){const o=fmt1(overall(p)),mx=fmt1(overallMax(p));
   if(MG.tab==="plan")return[POSN[p.pos],fmt(Math.round(p.tp))];
@@ -918,7 +918,7 @@ function mgrRender(){
     <select id="mgteam" aria-label="Chọn đội"><option value="home" ${MG.team==="home"?"selected":""}>${T.home.name}</option><option value="away" ${MG.team==="away"?"selected":""}>${T.away.name}</option></select></div>
    <div class="gb"><div class="gl"><table><tr><th>Tên cầu thủ</th>${HEAD[MG.tab].map(h=>`<th>${h}</th>`).join("")}</tr>${rows}</table></div>
    <div class="gr">${right}<div class="msg" role="status">${MG.msg}</div></div></div></div>`;
-  document.getElementById("mgav").appendChild(avatar(p,team));
+  {const _m=document.getElementById("mgav");_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team))}
 }
 mgEl.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;const p=cur();
@@ -1424,7 +1424,7 @@ function openCard(team,i){
     if(g==="sell"){if(SELL.p!==p){SELL.p=p;openCard(team,i);return}team.subs.splice(team.subs.indexOf(p),1);give({gold:price});SELL.p=null;modal.hidden=true;toast(`Đã bán ${p.n}: +${fmt(price)} vàng`);news(`${club().mgr.name} đã bán ${p.n}.`);applyLineup(team);saveLocal();render();renderSquad();if(!winEl.hidden){renderLineup()}return}
     if(g==="buytp"){if(T.club.phieu<10){toast("Cần 10 phiếu.");return}T.club.phieu-=10;p.tp+=1000;saveLocal();render();openCard(team,i);toast("+1.000 điểm huấn luyện");return}
     SELL.p=null;modal.hidden=true;mgrOpen(team,i,g)});
-  document.getElementById("mav").appendChild(avatar(p,team,110,140));
+  {const _m=document.getElementById("mav");_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team,110,140))}
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 

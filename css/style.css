@@ -21,7 +21,9 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);padding-left:m
 .game{user-select:none;-webkit-user-select:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 img.fc{width:22px;height:22px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:6px;background:#fff2;border:1px solid #0003}
-img.favatar{object-fit:cover;object-position:50% 15%;border-radius:6px;display:block;background:linear-gradient(#3b4b5c,#1b232c)}
+img.favatar{object-fit:contain;display:block;image-rendering:auto}
+.av.hasface,.mav.hasface,.pc2 .av.hasface{background:none;border:0}
+.mav.hasface{display:grid;place-items:center}
 .pt.ni{object-fit:cover;object-position:50% 20%;background:radial-gradient(circle at 50% 35%,#4a5a6e,#1c2430)}
 .pt.tl{object-fit:cover;object-position:50% 4%;background:linear-gradient(#e9c3cb,#8a3e50)}
 .mu{color:#6b7280;font-size:.85em;font-weight:400}
