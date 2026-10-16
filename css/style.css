@@ -367,6 +367,10 @@ tr.sel td{background:#fff3c4!important}
 .whead button{background:transparent;border:0;color:#fff;font-size:1.2rem;padding:0 6px}
 .wbody{overflow:auto;padding:12px}
 .wpane{background:#e7eaee;color:#1b1f24;border-radius:8px;padding:12px}
+/* cửa sổ nền sáng: khung trắng khít sát viền, bỏ lề xám đậm */
+.wbody:has(>.wpane:not([hidden])){padding:0;background:#e7eaee}
+.wbody>.wpane{border-radius:0;padding:14px 16px}
+.wbox:has(.wpane:not([hidden])){background:#e7eaee}
 .wl{margin:0 0 10px;font-size:.85rem;color:#3d4a56}
 .pbl,.tkl{display:grid;gap:8px}
 .pb,.tk{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;background:#fff;border:1px solid #c5ccd3;border-radius:6px;padding:8px 10px}
