@@ -13,11 +13,11 @@
 <script src="js/firebase-config.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="game" id="game">
+<div class="wrap lobby-mode">
+  <div class="game is-lobby" id="game">
     <canvas id="cv" width="1020" height="640"></canvas>
     <div class="topbar">
-      <span class="t">Đam Mê Bóng Đá · Hướng dẫn Chủ tịch</span>
+      <span class="t">Đam Mê Bóng Đá</span>
       <span class="res"><i class="coin"></i>Vàng: <b id="gold">567.500</b></span>
       <span class="res"><i class="coin xu"></i>Xu: <b id="xu">0</b></span>
       <span class="res"><i class="coin ph"></i>Phiếu: <b id="phieu">1.000</b></span>
@@ -42,41 +42,56 @@
     </div>
     <div class="idle" id="idle" aria-live="polite"></div>
     <div class="cmt" id="cmt">Bấm “Đá trận” để bắt đầu.</div>
+    <div class="lobby" id="lobby"></div>
+    <nav class="nav" id="nav" aria-label="Điều hướng"></nav>
+    <div class="toast" id="toast" role="status" hidden></div>
   </div>
 
-  <div class="ctrl">
+  <div class="ctrl" id="matchCtrl">
     <button class="pri" id="bPlay">▶ Đá trận</button>
     <button id="bNext">Tình huống tiếp</button>
     <button id="bFast">Mô phỏng nhanh hết trận</button>
     <label class="note" for="spd">Tốc độ</label>
     <select id="spd"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select>
-    <button id="bReset">Trận mới</button>
+    <button id="bReset">Đá lại từ đầu</button>
+    <button id="bLobby" class="back">← Về sảnh</button>
   </div>
 
-  <section class="mgr lu" id="lineup" aria-label="Lập đội hình"></section>
-
-  <div class="grid">
+  <div class="grid" id="matchInfo">
     <div class="card"><h2>Tung xúc xắc (xác suất từ chỉ số)</h2><div class="roll" id="roll"><span class="note">Mỗi pha sẽ hiện xác suất và kết quả.</span></div></div>
     <div class="card"><h2>Diễn biến</h2><div id="log"></div></div>
   </div>
 
-  <div class="card">
-    <h2>Đội hình &amp; chỉ số</h2>
-    <div class="tbl"><table id="sq"></table></div>
-    <p class="note">Bấm tên cầu thủ để xem thẻ đủ 19 chỉ số. Thanh xanh là thể lực còn lại trong trận.</p>
-  </div>
-  <section class="mgr" id="mgr" aria-label="Quản lý cầu thủ"></section>
-  <div class="modal" id="modal" hidden></div>
-
-  <div class="card">
-    <h2>Lưu dữ liệu (Firebase Firestore)</h2>
-    <p class="note">Bản đưa lên hosting tự kết nối bằng file js/firebase-config.js. Ở đây có thể dán firebaseConfig (JSON) rồi bấm Kết nối. Mỗi người chơi đăng nhập ẩn danh và có dữ liệu riêng; hết trận tự lưu. Chưa kết nối thì game lưu tạm trong trình duyệt.</p>
-    <textarea id="fbcfg" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
-    <div class="ctrl" style="margin-top:8px">
-      <button id="bFb">Kết nối</button><button id="bSave">Lưu đội + kết quả</button><button id="bLoad">Tải đội</button>
-      <span class="note" id="fbst">Chưa kết nối</span>
+  <div class="win" id="win" hidden>
+    <div class="wbox" role="dialog" aria-labelledby="wtitle">
+      <div class="whead"><span id="wtitle">Cửa sổ</span><button id="wclose" aria-label="Đóng">✕</button></div>
+      <div class="wbody">
+        <section class="mgr lu" id="lineup" data-w="doi" aria-label="Lập đội hình"></section>
+        <section class="mgr" id="mgr" data-w="ql" aria-label="Quản lý cầu thủ"></section>
+        <div class="card" data-w="ds">
+          <div class="tbl"><table id="sq"></table></div>
+          <p class="note">Bấm tên cầu thủ để xem thẻ đủ 19 chỉ số. Thanh xanh là thể lực còn lại trong trận.</p>
+        </div>
+        <div class="wpane" id="phuban" data-w="phuban"></div>
+        <div class="wpane" id="tasks" data-w="nv"></div>
+        <div class="wpane" id="shop" data-w="shop"></div>
+        <div class="wpane" id="tc" data-w="tc"></div>
+        <div class="card" data-w="caidat">
+          <h2>Quản lý</h2>
+          <label class="note" for="setname">Tên quản lý (hiện trong chat và tin hệ thống)</label>
+          <input id="setname" maxlength="20" class="tin">
+          <h2 style="margin-top:14px">Lưu dữ liệu (Firebase Firestore)</h2>
+          <p class="note">Bản đưa lên hosting tự kết nối bằng file js/firebase-config.js. Ở đây có thể dán firebaseConfig (JSON) rồi bấm Kết nối. Mỗi người chơi đăng nhập ẩn danh và có dữ liệu riêng; hết trận tự lưu. Chưa kết nối thì game lưu tạm trong trình duyệt.</p>
+          <textarea id="fbcfg" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
+          <div class="ctrl" style="margin-top:8px">
+            <button id="bFb">Kết nối</button><button id="bSave">Lưu đội + kết quả</button><button id="bLoad">Tải đội</button>
+            <span class="note" id="fbst">Chưa kết nối</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="modal" id="modal" hidden></div>
 </div>
 
 <script src="js/sprites.js"></script>

@@ -2,6 +2,10 @@
 
 Web game quản lý đội bóng: lập đội hình (5 thế trận, kéo thả cầu thủ, chiến thuật theo hiệp), mỗi tình huống hiện tối đa 4 cầu thủ, kết quả tính từ 19 chỉ số, có Kế hoạch huấn luyện, Kích thích, Cải tiến, Lên sao và kỹ năng mở khóa theo sao. Dữ liệu lưu trên Firebase Firestore (mỗi người chơi đăng nhập ẩn danh, có dữ liệu riêng).
 
+## Sảnh game
+
+Mở game là vào **sảnh**: thông tin quản lý (cấp, kinh nghiệm), nhiệm vụ tân thủ có thưởng, chỉ dẫn, **Phụ bản** (10 đội NPC mạnh dần, thắng lần đầu nhận vàng/phiếu/thẻ cầu thủ), cửa hàng, quà hằng ngày, kênh chat và thanh điều hướng (Nhiệm vụ, Quản lý, Đội, Cầu thủ, Thi đấu, Phụ bản, Shop, Cài đặt). Kênh chat dùng chung cho mọi người chơi khi đã kết nối Firebase (collection `chat`).
+
 ## Cấu trúc
 
 | Đường dẫn | Nội dung |
