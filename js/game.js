@@ -544,7 +544,7 @@ for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={i
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
 const FPS={volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
-const CONTACT={pass:.55,shot:.6,long:.55,fk:.65};
+const CONTACT={volley:.56,pass:.55,shot:.6,long:.55,fk:.65};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
 function kickAnim(key,set){for(const a of (KICK_FALLBACK[set]||["shot"]))if(hasAnim(key,a))return a;return null}
 function kickInfo(a){const key=charKey(a.p),an=kickAnim(key,a.kickSet||"shot");if(!an)return{dur:0.4,contact:0};
