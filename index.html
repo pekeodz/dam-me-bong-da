@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Đam Mê Bóng Đá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800&family=Be+Vietnam+Pro:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-app-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="game" id="game">
+    <canvas id="cv" width="1020" height="640"></canvas>
+    <div class="topbar">
+      <span class="t">Đam Mê Bóng Đá · Hướng dẫn Chủ tịch</span>
+      <span class="res"><i class="coin"></i>Vàng: <b id="gold">567.500</b></span>
+      <span class="res"><i class="coin xu"></i>Xu: <b id="xu">0</b></span>
+      <span class="res"><i class="coin ph"></i>Phiếu: <b id="phieu">1.000</b></span>
+    </div>
+    <div class="board">
+      <div class="sb">
+        <div class="tn l" id="hn">FC Sông Hồng</div>
+        <svg class="badge" id="hb" viewBox="0 0 40 40"></svg>
+        <div class="mid"><div class="clk" id="clk">00:00</div><div class="sc" id="sc">0:0</div></div>
+        <svg class="badge" id="ab" viewBox="0 0 40 40"></svg>
+        <div class="tn r" id="an">Sài Gòn United</div>
+      </div>
+      <div class="mor">
+        <div class="m"><i id="mh" style="width:60%"></i><span id="mht">Tinh thần thi đấu: 660</span></div>
+        <div class="m r"><i id="ma" style="width:60%"></i><span id="mat">Tinh thần thi đấu: 660</span></div>
+      </div>
+    </div>
+    <div class="pop" id="pop">
+      <div class="side" id="popL"></div>
+      <div class="ctr"><h3 id="popT">Cơ Hội Sút Xa</h3><div class="lb">Hiệu quả</div><div class="pct mono" id="popP">31%</div><div class="rs" id="popR"></div></div>
+      <div class="side r" id="popR2"></div>
+    </div>
+    <div class="idle" id="idle" aria-live="polite"></div>
+    <div class="cmt" id="cmt">Bấm “Đá trận” để bắt đầu.</div>
+  </div>
+
+  <div class="ctrl">
+    <button class="pri" id="bPlay">▶ Đá trận</button>
+    <button id="bNext">Tình huống tiếp</button>
+    <button id="bFast">Mô phỏng nhanh hết trận</button>
+    <label class="note" for="spd">Tốc độ</label>
+    <select id="spd"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select>
+    <button id="bReset">Trận mới</button>
+    <span class="tacbar" id="tacbar"></span>
+  </div>
+
+  <div class="grid">
+    <div class="card"><h2>Tung xúc xắc (xác suất từ chỉ số)</h2><div class="roll" id="roll"><span class="note">Mỗi pha sẽ hiện xác suất và kết quả.</span></div></div>
+    <div class="card"><h2>Diễn biến</h2><div id="log"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>Đội hình &amp; chỉ số</h2>
+    <div class="tbl"><table id="sq"></table></div>
+    <p class="note">Bấm tên cầu thủ để xem thẻ đủ 19 chỉ số. Thanh xanh là thể lực còn lại trong trận.</p>
+  </div>
+  <section class="mgr" id="mgr" aria-label="Quản lý cầu thủ"></section>
+  <div class="modal" id="modal" hidden></div>
+
+  <div class="card">
+    <h2>Lưu dữ liệu (Firebase Firestore)</h2>
+    <p class="note">Bản đưa lên hosting tự kết nối bằng file js/firebase-config.js. Ở đây có thể dán firebaseConfig (JSON) rồi bấm Kết nối. Mỗi người chơi đăng nhập ẩn danh và có dữ liệu riêng; hết trận tự lưu. Chưa kết nối thì game lưu tạm trong trình duyệt.</p>
+    <textarea id="fbcfg" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
+    <div class="ctrl" style="margin-top:8px">
+      <button id="bFb">Kết nối</button><button id="bSave">Lưu đội + kết quả</button><button id="bLoad">Tải đội</button>
+      <span class="note" id="fbst">Chưa kết nối</span>
+    </div>
+  </div>
+</div>
+
+<script src="js/sprites.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
