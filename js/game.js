@@ -914,7 +914,7 @@ function mgrRender(){
     right=head+`<div class="sgrid">${order.map(k=>statRow(k,`<span class="sv">${fmt1(p.base[k])}</span><input type="checkbox" id="pl_${k}" data-pl="${k}" ${p.plan.includes(k)?"checked":""} aria-label="Luyện ${LBL[k]}">`)).join("")}</div>
      <div class="mrow"><span>Điểm huấn luyện: <b>${fmt(Math.round(p.tp))}</b> (1 điểm = +${TP_PER} chỉ số)</span><button data-act="all">Chọn/Bỏ hết</button></div>
      <div class="mrow"><button class="pri" data-act="train">Thực hiện</button><button data-act="buytp">Cấp tốc nhận điểm (${TP_PACK[0]} Phiếu → ${fmt(TP_PACK[1])} điểm)</button></div>
-     <p class="hint">Thanh đỏ là chỉ số đã luyện, vạch trắng là giới hạn hiện tại theo độ kích thích. Thanh đỏ đậm là đã chạm giới hạn. Kế hoạch được lưu ngay khi đánh dấu.</p>`;
+     <p class="hint">Thanh xanh là chỉ số đã luyện, vạch trắng là giới hạn hiện tại theo độ kích thích. Thanh vàng là đã chạm giới hạn. Kế hoạch được lưu ngay khi đánh dấu.</p>`;
   }else if(MG.tab==="kich"){
     right=head+`<div class="sgrid">${order.map(k=>`<div class="sr"><span class="sl">${LBL[k]}</span><span class="sv w">${fmt1(p.base[k])} / ${fmt1(maxOf(p,k))}</span></div>`).join("")}</div>
      <div class="kbox"><div>Độ kích thích hiện tại: <b>${p.kt}%</b></div><div>Phạm vi mỗi lần kích thích: 1%–7%</div>
@@ -992,10 +992,10 @@ function renderLineup(){
   const AD=atkDef(t),avgOv=r1(t.players.reduce((s,p)=>s+overall(p),0)/t.players.length);
   const isSel=(k,i)=>LU.sel&&LU.sel.kind===k&&LU.sel.i===i?" sel":"";
   const slots=f.map(([r,x,y],i)=>{const p=t.players[i],bad=p.fit<1;
-    return`<button class="slot${isSel("slot",i)}" draggable="true" data-kind="slot" data-i="${i}" style="left:${x}%;top:${y}%" title="${p.n} (${POSN[p.pos]}) → ${slotLabel(c.form,i)}${bad?` · sai vị trí, còn ${Math.round(p.fit*100)}% sức`:""}">
+    return`<button class="slot${isSel("slot",i)}" draggable="false" data-kind="slot" data-i="${i}" style="left:${x}%;top:${y}%" title="${p.n} (${POSN[p.pos]}) → ${slotLabel(c.form,i)}${bad?` · sai vị trí, còn ${Math.round(p.fit*100)}% sức`:""}">
       ${jersey(t.color,numOf(p))}<span class="sn" style="color:${tierOf(p).c}">${p.n}</span><span class="sr${bad?" bad":""}">${slotLabel(c.form,i)}${bad?` ${Math.round(p.fit*100)}%`:""}</span></button>`}).join("");
-  const bench=Array.from({length:7},(_,i)=>{const p=t.subs[i];return`<button class="bslot${isSel("sub",i)}" draggable="${p?"true":"false"}" data-kind="sub" data-i="${i}" title="${p?p.n+" ("+POSN[p.pos]+")":"Ghế trống"}">${p?jersey(t.color,numOf(p))+`<span class="sn" style="color:${tierOf(p).c}">${p.n}</span>`:jersey("#9aa4ae","",true)}</button>`}).join("");
-  const rows=squad(t).map((p,j)=>{const k=j<11?"slot":"sub",i=j<11?j:j-11;return`<tr class="${isSel(k,i)}" draggable="true" data-kind="${k}" data-i="${i}">
+  const bench=Array.from({length:7},(_,i)=>{const p=t.subs[i];return`<button class="bslot${isSel("sub",i)}" draggable="false" data-kind="sub" data-i="${i}" title="${p?p.n+" ("+POSN[p.pos]+")":"Ghế trống"}">${p?jersey(t.color,numOf(p))+`<span class="sn" style="color:${tierOf(p).c}">${p.n}</span>`:jersey("#9aa4ae","",true)}</button>`}).join("");
+  const rows=squad(t).map((p,j)=>{const k=j<11?"slot":"sub",i=j<11?j:j-11;return`<tr class="${isSel(k,i)}" draggable="false" data-kind="${k}" data-i="${i}">
     <td>${faceTag(p)}<button class="pn" data-kind="${k}" data-i="${i}" style="color:${tierOf(p).c}">${p.n}</button></td><td>${POSN[p.pos]}</td><td>${j<11?slotLabel(c.form,i):"Dự bị"}</td><td>${fmt1(overall(p))}</td><td>${fmt1(overallMax(p))}</td><td>${p.kt}%</td></tr>`}).join("");
   const tA=LU.half===1?c.atk:(c.atk2||c.atk),tD=LU.half===1?c.def:(c.def2||c.def);
   luEl.innerHTML=`<div class="gw"><div class="gh">GOAL · Lập đội hình — ${t.name}<span class="cur">Thực lực đội: ${avgOv}</span></div>
@@ -1012,19 +1012,32 @@ function renderLineup(){
     <label>Phòng thủ (H${LU.half}) <select id="luDef">${Object.keys(DEF_TAC).map(k=>`<option ${k===tD?"selected":""}>${k}</option>`).join("")}</select></label>
     <span class="adv"><b class="ra">Tấn công: ${AD.a}</b> <b class="rd">Phòng thủ: ${AD.d}</b></span>
    </div>
-   <p class="hint lh">Kéo cầu thủ (trong danh sách, trên sân hoặc ghế dự bị) thả vào vị trí muốn đổi; hoặc bấm chọn 2 cầu thủ để đổi chỗ. Nhãn đỏ = đá sai sở trường, bị giảm sức. Chiến thuật hiệp 2 tự áp dụng từ phút 45.</p>
+   <p class="hint lh">Giữ và kéo cầu thủ (trên sân, ghế dự bị hoặc trong danh sách) thả vào vị trí hay cầu thủ muốn đổi chỗ. Nhãn đỏ = đá sai sở trường, bị giảm sức. Chiến thuật hiệp 2 tự áp dụng từ phút 45.</p>
    <div class="msg" role="status">${LU.msg?`<span class="${LU.ok?"mok":"mko"}">${LU.msg}</span>`:LU.sel?`Đã chọn <b>${(LU.sel.kind==="slot"?t.players:t.subs)[LU.sel.i].n}</b>, bấm cầu thủ hoặc vị trí khác để đổi chỗ.`:""}</div></div>`;
 }
 const keyOf=el=>{const x=el.closest("[data-kind]");return x?{kind:x.dataset.kind,i:+x.dataset.i}:null};
 luEl.addEventListener("click",e=>{
   const h=e.target.closest("[data-half]");if(h){LU.half=+h.dataset.half;renderLineup();return}
-  const k=keyOf(e.target);if(!k||!e.target.closest("button"))return;
-  const t=T.home,has=(k.kind==="slot"?t.players:(t.subs||[]))[k.i];
-  if(!LU.sel){if(!has)return;LU.sel=k;LU.msg="";renderLineup();return}
-  const a=LU.sel;LU.sel=null;if(a.kind===k.kind&&a.i===k.i){renderLineup();return}swapLU(a,k);if(LU.msg)renderLineup()});
-luEl.addEventListener("dragstart",e=>{const k=keyOf(e.target);if(!k)return;e.dataTransfer.setData("text/plain",JSON.stringify(k));e.dataTransfer.effectAllowed="move"});
-luEl.addEventListener("dragover",e=>{if(keyOf(e.target)){e.preventDefault();e.dataTransfer.dropEffect="move"}});
-luEl.addEventListener("drop",e=>{const k=keyOf(e.target);if(!k)return;e.preventDefault();try{const a=JSON.parse(e.dataTransfer.getData("text/plain"));LU.sel=null;swapLU(a,k);if(LU.msg)renderLineup()}catch(_){}});
+});
+/* đổi người chỉ bằng KÉO THẢ (chuột và cảm ứng): giữ cầu thủ, kéo tới vị trí/cầu thủ khác rồi thả */
+const DRG={};
+luEl.addEventListener("dragstart",e=>e.preventDefault());
+luEl.addEventListener("pointerdown",e=>{if(e.button>0)return;const src=e.target.closest(".slot,.bslot,tr[data-kind]");if(!src||e.target.closest("select,input"))return;
+  if(src.matches("tr")&&e.pointerType!=="mouse"&&!e.target.closest(".pn"))return; // trên điện thoại: kéo bằng tên để danh sách vẫn cuộn được
+  const k=keyOf(src),t=T.home;if(!k||!(k.kind==="slot"?t.players:(t.subs||[]))[k.i])return;
+  Object.assign(DRG,{k,src,x:e.clientX,y:e.clientY,on:false,id:e.pointerId});});
+function drgTarget(x,y){if(DRG.gh)DRG.gh.style.display="none";const el=document.elementFromPoint(x,y);if(DRG.gh)DRG.gh.style.display="";return el&&luEl.contains(el)?el.closest(".slot,.bslot,tr[data-kind]"):null}
+window.addEventListener("pointermove",e=>{if(!DRG.k||e.pointerId!==DRG.id)return;
+  if(!DRG.on){if(Math.hypot(e.clientX-DRG.x,e.clientY-DRG.y)<6)return;DRG.on=true;
+    const p=(DRG.k.kind==="slot"?T.home.players:T.home.subs)[DRG.k.i],gh=document.createElement("div");gh.className="lu-ghost";
+    gh.innerHTML=`${jersey(T.home.color,numOf(p))}<b>${p.n}</b><span>${POSN[p.pos]}</span>`;document.body.appendChild(gh);DRG.gh=gh;DRG.src.classList.add("lu-from");luEl.classList.add("lu-dragging")}
+  e.preventDefault();DRG.gh.style.left=e.clientX+"px";DRG.gh.style.top=e.clientY+"px";
+  const tg=drgTarget(e.clientX,e.clientY);if(tg!==DRG.tg){if(DRG.tg)DRG.tg.classList.remove("lu-over");DRG.tg=tg;if(tg&&tg!==DRG.src)tg.classList.add("lu-over")}},{passive:false});
+function drgEnd(e,cancel){if(!DRG.k||(e&&e.pointerId!==DRG.id))return;const was=DRG.on,a=DRG.k,tg=!cancel&&was&&e?drgTarget(e.clientX,e.clientY):null;
+  if(DRG.gh)DRG.gh.remove();if(DRG.tg)DRG.tg.classList.remove("lu-over");if(DRG.src)DRG.src.classList.remove("lu-from");luEl.classList.remove("lu-dragging");
+  for(const k in DRG)delete DRG[k];
+  if(tg){const b=keyOf(tg);if(b&&!(b.kind===a.kind&&b.i===a.i)){LU.sel=null;swapLU(a,b);if(LU.msg)renderLineup()}}}
+window.addEventListener("pointerup",e=>drgEnd(e));window.addEventListener("pointercancel",e=>drgEnd(e,true));
 luEl.addEventListener("change",e=>{const c=tacOf(T.home),v=e.target.value;
   if(e.target.id==="luForm"){c.form=v;autoArrange(T.home);LU.ok=true;LU.msg=`Đã chuyển sang ${v} và tự xếp lại 11 cầu thủ đá chính vào vị trí hợp nhất.`;afterLU();LU.msg="";LU.ok=false}
   else if(e.target.id==="luAtk"){if(LU.half===1)c.atk=v;else c.atk2=v;afterLU()}
@@ -1123,6 +1136,7 @@ const STARS=[
  ["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",5,"vn"],["Công Phượng","TVC",2,"vn"],["Tiến Linh","TĐ",2,"vn"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn"],["Văn Lâm","TM",2,"vn"],["Tuấn Anh","TV",2,"vn"],["Văn Quyết","TĐ",2,"vn"],["Duy Mạnh","HV",2,"vn"],["Văn Toàn","TĐ",2,"vn"],["Tiến Dũng","HV",2,"vn"],["Xuân Mạnh","HVC",2,"vn"],["Hùng Dũng","TV",2,"vn"]];
 const MAXSQ=25,HIRE_FEE=[3000,8000,25000,70000,180000,450000],ODDS=[46,30,14,7,2.5,0.5];
 const TCOL=["#4b5563","#15803d","#1d4ed8","#7e22ce","#b45309","#dc2626"]; // màu chữ bậc trên nền sáng
+if(document.documentElement.classList.contains("fifa"))TCOL.splice(0,6,"#d6d9de","#3ddc84","#5aa9ff","#c58bff","#ffcf4a","#ff5a52");
 const TROLY=typeof TROLY_SRC!=="undefined"?TROLY_SRC:"";
 function dayStat(){const c=club(),d=new Date().toDateString();
   if(!c.day||c.day.d!==d){c.day={d,m:0,w:0,s:0};for(const k of Object.keys(c.claimed))if(k.includes("@"))delete c.claimed[k]}return c.day}
