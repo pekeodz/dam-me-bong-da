@@ -643,7 +643,7 @@ function showPop(pp){
   pp.L.forEach(e=>L.appendChild(popCol(e,false)));pp.R.forEach(e=>R.appendChild(popCol(e,true)));
   document.getElementById("popT").textContent=pp.title;const lb=document.getElementById("popLb");if(lb)lb.textContent=(pp.sub||"Hiệu quả")+":";document.getElementById("popP").textContent=Math.round(pp.p*100)+"%";
   const rs=document.getElementById("popR");rs.textContent="";rs.className="rs";popEl.classList.add("on");
-  const se=pp.L.find(e=>e.skill)||pp.R.find(e=>e.skill);if(se)skillFx(se.p,se.skill,se.team,pp.R.includes(se)?"r":"l")}
+  const se=pp.L.find(e=>e.skill)||pp.R.find(e=>e.skill);if(se){skillFx(se.p,se.skill,se.team,pp.R.includes(se)?"r":"l");M.skWait=performance.now()+3000}}
 function revealPop(pp){const rs=document.getElementById("popR");rs.textContent=pp.ok?"THÀNH CÔNG!":"THẤT BẠI";rs.className="rs "+(pp.ok?"ok":"ko")}
 function hidePop(){popEl.classList.remove("on");const s=document.getElementById("skfx");if(s&&s.classList.contains("under")&&s.classList.contains("on")&&!s.classList.contains("out")){s.classList.add("out");clearTimeout(skfxT);skfxT=setTimeout(()=>s.className="skfx",380)}}
 
@@ -662,7 +662,7 @@ function skillFx(p,id,team,pos){const sk=SKILLS[id];if(!sk||!p)return;const g=do
     el.style.top=((pr.top-gr.top)+hh+0.8*k)+"px";
     if(pos==="r"){el.style.right=(gr.right-(cx+w/2))+"px";el.classList.remove("h");el.classList.add("a")}else{el.style.left=(cx-w/2-gr.left)+"px";el.classList.remove("a");el.classList.add("h")}
     el.style.setProperty("--edge",home?"#e8372c":"#2f7ff0")};place();setTimeout(place,260);
-  clearTimeout(skfxT);skfxT=setTimeout(()=>{el.classList.add("out");skfxT=setTimeout(()=>el.className="skfx",400)},Math.max(1500,2600/Math.max(1,spd()/2)))}
+  clearTimeout(skfxT);if(!pos)skfxT=setTimeout(()=>{el.classList.add("out");skfxT=setTimeout(()=>el.className="skfx",400)},Math.max(1500,2600/Math.max(1,spd()/2)))}
 
 /* ================== DIỄN HOẠT ================== */
 let scene=null,stepI=0,stepT=0,ball={x:30,y:34,from:null,to:null,h:0};
@@ -695,6 +695,7 @@ function frame(ts){
   const dt=Math.min(0.05,(ts-last)/1000||0)*spd();last=ts;
   if(M.hold>0&&scene){
     M.hold-=dt;if(M.hold<0.9&&M.holdPop){revealPop(M.holdPop);M.holdPop=null}
+    if(M.skWait){if(ts<M.skWait)M.hold=Math.max(M.hold,0.001);else M.skWait=0}
     if(M.hold<=0)hidePop();
     for(const a of scene.actors)a.moving=false;
   }else if(scene&&stepI<scene.steps.length){
@@ -777,7 +778,7 @@ function finish(){M.done=true;M.auto=false;M.min=90;M.queue=null;hidePop();
   T.home.players.concat(T.away.players).forEach(p=>{const w=(p._side===0&&won)||(p._side===1&&M.score[1]>M.score[0]);p.tp=(p.tp||0)+Math.round((200+(M.inv.has(p)?50:0)+(p._goals||0)*150+(w?100:0))*(p._side===0?1+0.02*(window.mstat?mstat("kh"):0):1));p._goals=0});
   if(window.onMatchEnd)onMatchEnd();render();addLog(`Hết trận: ${T.home.name} ${M.score[0]} – ${M.score[1]} ${T.away.name}. Cầu thủ nhận điểm huấn luyện.`,true);saveLocal();scene=null;showIdle(mmss(90,0));if(typeof db!=="undefined"&&db)fbSave(true).catch(()=>{});if(window.mgrRender)mgrRender()}
 function fastSim(){
-  M.auto=false;scene=null;M.hold=0;hidePop();
+  M.auto=false;scene=null;M.hold=0;M.skWait=0;hidePop();
   while(M.min<90){tickMinutes(M.queue?1:GAP());if(M.min>=90)break;const s=buildScene();s.actors.forEach(a=>a.p.sta-=1.5);
     s.actors.forEach(a=>M.inv.add(a.p));if(s.res==="goal"){M.score[s.side]++;goalMor(s.side,s.scorer);addLog(`${s.scorer.n} ghi bàn cho ${s.atk.name}`,true)}}
   M.busy=false;finish();renderSquad();
