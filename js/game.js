@@ -209,7 +209,7 @@ function finishShot(c,o){
     const base=CH_BASE[stat]*(stat==="sxa"?clamp(1.5-dist/40,0.8,1.05):stat==="sut"?clamp(1.25-dist/40,0.85,1.05):1);
     p=chanceP(att,def,base);goal=rnd()<p;
     roll("Sút vào",p,goal,`${LBL[stat]} ${Sh[stat]}${weak?" (chân không thuận ×0.9)":""} vs ${stat==="sxa"?`0.7·Cứu bóng ${G.cuu} + 0.3·Đấm bóng ${G.dbong}`:`${LBL[gs]} ${G[gs]}`}`);
-    pop={title:o.title||title,sub:"Sút vào",L:[ent(Sh,c.atk,stat)],R:[ent(G,c.def,gs)],p,ok:goal}}
+    pop={title:o.title||title,sub:"Sút vào",L:[{...ent(Sh,c.atk,stat),skill:o.skill?"bike":null}],R:[ent(G,c.def,gs)],p,ok:goal}}
   const on=goal||rnd()<0.55,gk=eff(G,"cuu");
   const lab=o.header?`Đánh đầu: ${Sh.dau}`:`${LBL[stat]}: ${Sh[stat]}`;
   if(!o.header)c.S.push({dur:0.4,t:{G:[51-(gk-60)/40,34+(from[1]-34)*0.25]},ball:o.volley?{fly:null,to:[from[0]+0.3,from[1]],h:1.6,endH:1.4}:{carry:o.noCarry?undefined:role},popup:pop,label:{[role]:o.volley?(o.skill?"Ngả bàn đèn!":"Vô-lê!"):lab},txt:o.volley?(o.skill?`Bóng bổng tới, ${Sh.n} tung người ngả bàn đèn!`:`Bóng bổng tới, ${Sh.n} tung chân vô-lê!`):`${Sh.n} lấy đà dứt điểm!`});
@@ -286,7 +286,7 @@ function sceneDribble(c){
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
   if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
-  const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(A,c.atk,"re")],R:[ent(D,c.def,"xoac")],
+  const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[{...ent(A,c.atk,"re"),skill:skl}],R:[ent(D,c.def,"xoac")],
     detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:skl||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
   if(!ok)return lostBall(c,D,"A");if(tryFoul(c,A,D,y0,a))return "foul";
   const sp=shotSpot(y0);c.S.push({dur:1.3,t:{A:sp,D:[sp[0]-3,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} đảo người qua ${D.n} đầy tinh tế!`});
@@ -636,14 +636,33 @@ const popEl=document.getElementById("pop");
 function miniSprite(e,flip){const c=document.createElement("canvas");c.width=78;c.height=102;const g=c.getContext("2d");
   drawChar(g,{p:e.p,team:e.team,face:flip?-1:1,anim:"pose"},0,39,98,88,true);return c}
 function popCol(e,flip){const d=document.createElement("div");d.className="pc";
-  d.innerHTML=`<span class="nm" style="color:${(e.p.tier??2)<1?"#10240f":TCOL[e.p.tier]}">${e.p.n}</span><span class="ln">Vị trí: ${posLabel(e.p)}</span><span class="ln">${e.lab}: <b class="lv">${fmt1(e.v)}</b></span>`;d.appendChild(miniSprite(e,flip));return d}
+  d.innerHTML=`<span class="nm" style="color:${(e.p.tier??2)<1?"#10240f":TCOL[e.p.tier]}">${e.p.n}</span><span class="ln">Vị trí: ${posLabel(e.p)}</span><span class="ln">${e.lab}: <b class="lv">${fmt1(e.v)}</b></span>`;
+  d.appendChild(miniSprite(e,flip));return d}
 function showPop(pp){
   const L=document.getElementById("popL"),R=document.getElementById("popR2");L.innerHTML="";R.innerHTML="";
   pp.L.forEach(e=>L.appendChild(popCol(e,false)));pp.R.forEach(e=>R.appendChild(popCol(e,true)));
   document.getElementById("popT").textContent=pp.title;const lb=document.getElementById("popLb");if(lb)lb.textContent=(pp.sub||"Hiệu quả")+":";document.getElementById("popP").textContent=Math.round(pp.p*100)+"%";
-  const rs=document.getElementById("popR");rs.textContent="";rs.className="rs";popEl.classList.add("on")}
+  const rs=document.getElementById("popR");rs.textContent="";rs.className="rs";popEl.classList.add("on");
+  const se=pp.L.find(e=>e.skill)||pp.R.find(e=>e.skill);if(se)skillFx(se.p,se.skill,se.team,pp.R.includes(se)?"r":"l")}
 function revealPop(pp){const rs=document.getElementById("popR");rs.textContent=pp.ok?"THÀNH CÔNG!":"THẤT BẠI";rs.className="rs "+(pp.ok?"ok":"ko")}
-function hidePop(){popEl.classList.remove("on")}
+function hidePop(){popEl.classList.remove("on");const s=document.getElementById("skfx");if(s&&s.classList.contains("under")&&s.classList.contains("on")&&!s.classList.contains("out")){s.classList.add("out");clearTimeout(skfxT);skfxT=setTimeout(()=>s.className="skfx",380)}}
+
+/* ===== Hiệu ứng tung kỹ năng kiểu FIFA: chân dung + tên kỹ năng ===== */
+let skfxT=0;
+function skillFx(p,id,team,pos){const sk=SKILLS[id];if(!sk||!p)return;const g=document.getElementById("game");if(!g)return;
+  let el=document.getElementById("skfx");if(!el){el=document.createElement("div");el.id="skfx";el.className="skfx";el.setAttribute("aria-live","polite");g.appendChild(el)}
+  const home=team?team===T.home:squad(T.home).includes(p),img=faceSrc(p),st=(p.skills||[]).find(s=>s.id===id);
+  el.className="skfx";void el.offsetWidth;
+  el.innerHTML=`<div class="sk-card">
+    <div class="sk-face"><i class="sk-rays"></i>${img?`<img src="${img}" alt="">`:`<canvas width="160" height="160"></canvas>`}<i class="sk-shine"></i><i class="sk-spark a"></i><i class="sk-spark b"></i></div>
+    <div class="sk-plate"><small>Kỹ năng${st&&st.star?` · ★${st.star}`:""}</small><b>${sk.n}</b><span>${p.n}</span></div></div>`;
+  const cv=el.querySelector("canvas");if(cv)drawChar(cv.getContext("2d"),{p,team:home?T.home:T.away,face:1,anim:"pose"},0,80,345,290,true);
+  el.className=`skfx on ${home?"h":"a"} t${p.tier??2}${pos?" under":""}`;el.style.cssText="";
+  const place=()=>{if(!pos||!popEl)return;const gr=g.getBoundingClientRect(),pr=popEl.getBoundingClientRect(),k=gr.width/100,cx=pr.left+pr.width/2,w=popEl.offsetWidth,hh=popEl.offsetHeight;
+    el.style.top=((pr.top-gr.top)+hh+0.8*k)+"px";
+    if(pos==="r"){el.style.right=(gr.right-(cx+w/2))+"px";el.classList.remove("h");el.classList.add("a")}else{el.style.left=(cx-w/2-gr.left)+"px";el.classList.remove("a");el.classList.add("h")}
+    el.style.setProperty("--edge",home?"#e8372c":"#2f7ff0")};place();setTimeout(place,260);
+  clearTimeout(skfxT);skfxT=setTimeout(()=>{el.classList.add("out");skfxT=setTimeout(()=>el.className="skfx",400)},Math.max(1500,2600/Math.max(1,spd()/2)))}
 
 /* ================== DIỄN HOẠT ================== */
 let scene=null,stepI=0,stepT=0,ball={x:30,y:34,from:null,to:null,h:0};
@@ -665,6 +684,8 @@ function startStep(){
     if(an==="dive"){k.diveDir=Math.sign((st.ball.to?st.ball.to[1]:34)-k.y)||1;k.diveSet=(st.ball.endH??0)>1.1?"dive":"catch";k.at=-(ball.delay||0)}
     if(an==="jump"&&roleOf(k.p)==="TM")k.diveSet="dive";
     if(an==="slide"||an==="fall"||an==="dive")puff(k.x,k.y,8,"#cfe3c0")}
+  for(const [r,an] of Object.entries(st.anim||{})){const k=byRole(r);if(!k)continue;
+    if(an==="celebrate"&&hasSkill(k.p,"siu"))skillFx(k.p,"siu")}
   addLog(st.txt,st.goal);
   if(st.popup){showPop(st.popup);M.hold=2.4;M.holdPop=st.popup}
   if(st.goal){M.score[scene.side]++;goalMor(scene.side,scene.scorer);render();setTimeout(()=>{fx.net=1;fx.shake=1;fx.banner=2},st.dur*600/spd())}
