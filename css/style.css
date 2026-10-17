@@ -105,6 +105,17 @@ canvas#cv{display:block;width:100%;aspect-ratio:1020/640;max-width:100%}
 /* bảng tình huống */
 .pop{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) scale(.96);width:min(84%,820px);background:var(--pop);border:1px solid var(--popEdge);border-radius:4px;box-shadow:0 6px 24px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.25);display:grid;grid-template-columns:minmax(0,1fr) minmax(16cqw,auto) minmax(0,1fr);gap:1.6cqw;padding:1.3cqw 1.8cqw;color:#0e2412;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none}
 .pop.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+/* bảng cơ hội kiểu game gốc: rộng, chữ trái-thẳng hàng, % đỏ, "Lừa qua:" vàng */
+.pop{width:min(76%,820px)!important;grid-template-columns:minmax(0,1fr) minmax(17cqw,auto) minmax(0,1fr)!important;gap:1.4cqw!important;padding:1.3cqw 1.8cqw 1.1cqw!important;background:linear-gradient(#6fae5e,#4f9442)!important;border:1px solid #2f6a2a!important;border-radius:6px!important}
+.pop .side{gap:1.2cqw}
+.pop .pc{width:auto;min-width:9cqw;justify-items:start;text-align:left;font-size:1.25cqw;line-height:1.55;gap:0}
+.pop .pc .nm{font-size:1.3cqw;font-weight:700;max-width:12cqw;text-shadow:0 0 3px #ffffff80!important}
+.pop .pc .ln,.pop .pc .lv{color:#10240f!important;text-shadow:none}
+.pop .pc .lv{font-weight:700}
+.pop .pc canvas{width:6.2cqw;height:8cqw;margin-top:.4cqw;justify-self:center}
+.pop .ctr h3{font-size:2.1cqw;font-weight:500;color:#10240f;max-width:24cqw}
+.pop .ctr .lb{font-size:1.35cqw;color:#f3e98a;margin-top:.5cqw}
+.pop .ctr .pct{font-size:6cqw;color:#e8231d;text-shadow:0 1px 0 #7a0d0a55;margin:.2cqw 0}
 .side{display:flex;gap:.6cqw;align-items:flex-start;min-width:0}
 .side.r{justify-content:flex-end}
 .pc{display:grid;justify-items:center;gap:.15cqw;width:11.5cqw;font-size:1.15cqw;line-height:1.35;text-align:center}
