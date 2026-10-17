@@ -457,3 +457,199 @@ tr.sel td{background:#fff3c4!important}
 .hint{margin:0;color:#5a6670;font-size:.74rem}
 .msg{font-size:.82rem;min-height:1.2em}
 .mok{color:#11823b;font-weight:600}.mko{color:#c0392b;font-weight:600}.nw{color:#2563eb;font-weight:700}
+/* ===== thẻ cầu thủ kiểu FIFA ===== */
+.pcard.fc{width:min(1000px,100%);background:#15201b;color:#eef4ef;border-color:#2a3d33}
+.pcard.fc .hd{background:linear-gradient(#24362d,#182520)}
+.fc-main{display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;padding:16px 18px 18px}
+@media (max-width:720px){.fc-main{grid-template-columns:1fr;justify-items:center}}
+.fc-col{display:grid;gap:10px;justify-items:center;align-content:start}
+.fc-card{--c1:#0b2d6b;--c2:#2f72e0;--c3:#bfe0ff;--ink:#f2f8ff;position:relative;width:260px;max-width:100%;aspect-ratio:280/400;clip-path:polygon(50% 0,100% 6%,100% 86%,50% 100%,0 86%,0 6%);background:linear-gradient(160deg,var(--c3) 0%,var(--c2) 18%,var(--c1) 62%,#0a0a0a 100%);color:var(--ink);overflow:hidden;font-family:"Barlow Condensed","Arial Narrow",var(--body)}
+.fc-card::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,#ffffff0d 0 2px,transparent 2px 14px),radial-gradient(90% 55% at 60% 30%,#ffffff40,transparent 70%)}
+.fc-card::after{content:"";position:absolute;inset:0;clip-path:polygon(50% 0,100% 6%,100% 86%,50% 100%,0 86%,0 6%,0 6%,5px calc(6% + 4px),5px calc(86% - 2px),50% calc(100% - 7px),calc(100% - 5px) calc(86% - 2px),calc(100% - 5px) calc(6% + 4px),50% 6px,5px calc(6% + 4px),0 6%);background:var(--c3);opacity:.9}
+.ft5{--c1:#6e0b10;--c2:#d1222a;--c3:#ffd36b;--ink:#fff3d9}.ft4{--c1:#7a5300;--c2:#e7b21e;--c3:#fff1a8;--ink:#2a1a00}.ft3{--c1:#3b1170;--c2:#8b3de0;--c3:#e6c8ff;--ink:#fbf3ff}
+.ft2{--c1:#0b2d6b;--c2:#2f72e0;--c3:#bfe0ff;--ink:#f2f8ff}.ft1{--c1:#0d4a25;--c2:#21a356;--c3:#c8f5d5;--ink:#f1fff5}.ft0{--c1:#5b6470;--c2:#c7ccd3;--c3:#f4f6f8;--ink:#1d232a}
+.fc-ovr{position:absolute;left:24px;top:30px;display:grid;justify-items:center;line-height:.85;z-index:2}
+.fc-ovr b{font-size:2.9rem;font-weight:800}.fc-ovr span{font-size:1.1rem;font-weight:700;letter-spacing:.06em;margin-top:6px}
+.fc-ovr i{font:600 .66rem var(--body);font-style:normal;opacity:.85;margin-top:6px;text-align:center;max-width:62px}
+.fc-ovr em{margin-top:8px;font:700 .64rem var(--body);font-style:normal;background:#0006;border:1px solid var(--c3);border-radius:4px;padding:2px 6px;text-transform:uppercase;letter-spacing:.04em}
+.fc-face{position:absolute;right:12px;top:26px;width:158px;height:158px;z-index:1;display:grid;place-items:end center}
+.fc-face img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 8px #0007)}.fc-face canvas{width:150px;height:170px}
+.fc-nm{position:absolute;left:0;right:0;top:190px;text-align:center;z-index:2;font-size:1.6rem;font-weight:800;line-height:1;text-transform:uppercase;letter-spacing:.03em;text-shadow:0 2px 0 #0005;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 18px}
+.fc-rule{position:absolute;left:32px;right:32px;top:226px;height:1px;background:var(--c3);opacity:.7;z-index:2}
+.fc-six{position:absolute;left:34px;right:34px;top:236px;display:grid;grid-template-columns:1fr 1fr;column-gap:16px;row-gap:3px;z-index:2}
+.fc-six div{display:flex;gap:7px;align-items:baseline;font-variant-numeric:tabular-nums}.fc-six div:nth-child(odd){border-right:1px solid #fff3;padding-right:8px}
+.fc-six b{font-size:1.3rem;font-weight:800;min-width:40px;text-align:right}.fc-six span{font-size:.95rem;font-weight:700;letter-spacing:.06em;opacity:.9}
+.fc-stars{color:#ffd23f;font-size:1.05rem;letter-spacing:1px}.fc-stars i{font-style:normal;color:#ffffff22}
+.fc .skg{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}
+.fc-info{display:grid;gap:12px;min-width:0;width:100%;align-content:start}
+.fc-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fc-head h3{margin:0 6px 0 0;font:800 1.9rem/1 "Barlow Condensed","Arial Narrow",var(--body);text-transform:uppercase;letter-spacing:.02em;color:#eef4ef}
+.fc-chip{font:600 .76rem var(--body);background:#1b2a23;border:1px solid #2a3d33;border-radius:999px;padding:3px 10px;color:#eef4ef;white-space:nowrap}
+.fc-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.fc-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fc-meta div{background:#1b2a23;border:1px solid #2a3d33;border-radius:8px;padding:7px 10px;display:grid;gap:2px}
+.fc-meta small{color:#93a89a;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em}
+.fc-meta b{font:700 1.2rem "Barlow Condensed","Arial Narrow",var(--body);font-variant-numeric:tabular-nums;color:#eef4ef}
+.fc-kt{height:5px;background:#ffffff14;border-radius:3px;overflow:hidden}.fc-kt i{display:block;height:100%;background:linear-gradient(90deg,#3ddc84,#b6e35a)}
+.fc-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
+@media (max-width:560px){.fc-groups{grid-template-columns:1fr}}
+.fc-grp h4{margin:0 0 4px;display:flex;justify-content:space-between;font:700 .9rem "Barlow Condensed","Arial Narrow",var(--body);letter-spacing:.1em;text-transform:uppercase;color:#93a89a}
+.fc-grp h4 b{font-size:1.05rem}
+.fc-row{display:grid;grid-template-columns:80px minmax(0,1fr) 46px;gap:10px;align-items:center;padding:2px 0;font-size:.84rem;color:#dfe8e2}
+.fc-bar{position:relative;height:7px;background:#ffffff10;border-radius:4px}.fc-bar i{position:absolute;inset:0 auto 0 0;border-radius:4px}.fc-lim,.fc-limk{background:#ffffff1c}
+.fc-v{font:700 1.02rem "Barlow Condensed","Arial Narrow",var(--body);text-align:right;font-variant-numeric:tabular-nums}
+.fq0{color:#c7ccd3}.fq1{color:#3ddc84}.fq2{color:#5b9bff}.fq3{color:#b57bff}.fq4{color:#f2c94c}.fq5{color:#ff5a52}
+.fb0{background:#9aa3ad}.fb1{background:#3ddc84}.fb2{background:#5b9bff}.fb3{background:#b57bff}.fb4{background:#f2c94c}.fb5{background:#ff5a52}
+.fc-leg{display:flex;gap:12px;flex-wrap:wrap;color:#93a89a;font-size:.72rem}.fc-leg span{display:inline-flex;align-items:center;gap:5px}.fc-leg i{width:14px;height:6px;border-radius:3px;display:inline-block}
+.fc-tp{margin:0;color:#c9d6cd;font-size:.85rem}.fc-tp .lnk{color:#7cc4ff}
+.fc-acts{display:flex;flex-wrap:wrap;gap:8px}
+.fc-acts button{font:700 .92rem "Barlow Condensed","Arial Narrow",var(--body);letter-spacing:.06em;text-transform:uppercase;padding:7px 15px;border-radius:6px;border:1px solid #2a3d33;background:#1b2a23;color:#eef4ef;cursor:pointer}
+.fc-acts button.pri{background:linear-gradient(#e2a400,#a86d00);border-color:#7a5000;color:#1a1100}
+.fc-acts button:disabled{opacity:.45;cursor:not-allowed}.fc-acts button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.fc .skg{background:none;border:0;padding:0;width:auto;grid-template-columns:none}
+.fc .sk2{position:relative;width:36px;height:36px;display:inline-block;border:0;background:none}
+.fc .sk2 svg{width:100%;height:100%;display:block}.fc .sk2 i{position:absolute;right:-4px;bottom:-4px;font-size:.7rem;font-style:normal}
+.fc .sk2:empty{display:none}
+/* ===== sảnh kiểu FIFA ===== */
+.game.is-lobby .topbar,.game.is-lobby .nav{display:none!important}
+.game.is-lobby .lobby{position:absolute!important;inset:0!important;display:block!important;padding:0!important;background:none!important;z-index:4;font-size:1.19cqw;color:#eef5f0}
+.fl{--acc:#c6ff3d;--acc2:#3de0a4;--gold:#ffcf4a;--red:#ff5a52;--ln:#25402f;--mu:#8fa797;--s1:#0e1a15;--s2:#13241d;--fd:"Barlow Condensed","Arial Narrow",sans-serif;
+  position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;font-family:var(--body);
+  background:radial-gradient(70% 60% at 85% 0%,#1d4a33ee 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3aee 0%,transparent 60%),linear-gradient(160deg,#0c1a14f2,#060b09f5)}
+.fl::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(118deg,transparent 0 9em,#ffffff05 9em 9.15em,transparent 9.15em 19em)}
+:where(.fl) button{font:inherit;color:inherit}
+.fl-top{position:relative;display:flex;align-items:center;gap:.9em;padding:.6em 1.2em;border-bottom:1px solid var(--ln);background:#050a08cc}
+.fl-club{all:unset;cursor:pointer;display:flex;align-items:center;gap:.8em;min-width:0}
+.fl-crest{width:3em;height:3.4em;flex:none;filter:drop-shadow(0 .2em .4em #0008)}
+.fl-cn{display:grid;gap:.2em;min-width:0}.fl-cn>b{font:800 1.6em/1 var(--fd);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.fl-cn>span{font-size:.8em;color:var(--mu);display:flex;align-items:center;gap:.6em}
+.fl-lv{background:var(--acc);color:#0b1405;font:800 .95em var(--fd);font-style:normal;padding:0 .5em;border-radius:.3em;letter-spacing:.05em}
+.fl-xp{width:8em;height:.4em;background:#ffffff14;border-radius:.3em;overflow:hidden}.fl-xp i{display:block;height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc))}
+.fl-cur{margin-left:auto;display:flex;gap:.6em}
+.fl-pill{display:flex;align-items:center;gap:.5em;background:var(--s1);border:1px solid var(--ln);border-radius:999px;padding:.2em 1em .2em .3em}
+.fl-pill img{width:2.4em;height:2em;object-fit:contain}
+.fl-pill b{font:700 1.25em/1 var(--fd);font-variant-numeric:tabular-nums;color:#fff}
+.fl-pill small{display:block;color:var(--mu);font-size:.66em;text-transform:uppercase;letter-spacing:.08em;line-height:1.1}
+.fl-add{all:unset;cursor:pointer;width:1.4em;height:1.4em;border-radius:50%;background:var(--acc);color:#0b1405;font:800 1em/1.4em var(--fd);text-align:center}
+.fl-ib{all:unset;cursor:pointer;width:2.6em;height:2.6em;border-radius:.7em;border:1px solid var(--ln);background:var(--s1);display:grid;place-items:center}
+.fl-ib svg{width:1.35em;height:1.35em}.fl-ib:hover{border-color:var(--acc)}
+.fl-body{position:relative;display:grid;grid-template-columns:12.5em minmax(0,1fr) 17em;min-height:0}
+.fl-nav{display:flex;flex-direction:column;gap:.1em;padding:.8em .7em;border-right:1px solid var(--ln);background:#050a0880;overflow:auto}
+.fl-nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:.7em;padding:.5em .8em;border-radius:.55em;font:700 1.05em var(--fd);letter-spacing:.06em;text-transform:uppercase;color:var(--mu);white-space:nowrap}
+.fl-nav svg{width:1.15em;height:1.15em;flex:none}.fl-nav button:hover{color:#fff;background:#ffffff08}
+.fl-nav button[aria-current="page"]{color:#0b1405;background:var(--acc)}
+.fl-badge{margin-left:auto;background:var(--red);color:#fff;font:700 .7em var(--body);font-style:normal;border-radius:999px;padding:0 .5em;letter-spacing:0}
+.fl-grid{padding:.9em;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto auto auto auto;gap:.75em;align-content:start;overflow:auto;min-height:0}
+.fl-tile{position:relative;border-radius:.8em;border:1px solid var(--ln);background:linear-gradient(160deg,var(--s2),var(--s1));padding:.85em;overflow:hidden;display:flex;flex-direction:column;gap:.45em;cursor:pointer;transition:transform .15s,border-color .15s;min-width:0}
+.fl-tile:hover{border-color:var(--acc);transform:translateY(-.12em)}
+.fl-tile h3{margin:0;font:800 1.3em/1 var(--fd);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fl-k{font:600 .72em var(--body);color:var(--acc);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fl-tile p{margin:0;color:var(--mu);font-size:.8em;line-height:1.4}
+.fl-hero{grid-column:span 3;justify-content:space-between;gap:.5em;padding:1em 1.3em;border-color:#2f6a40;background:linear-gradient(90deg,#071a10f2 0%,#071a10b3 45%,transparent 78%),repeating-linear-gradient(90deg,#1f6b38 0 3em,#1b5f32 3em 6em)}
+.fl-hero::after{content:"";position:absolute;right:-4em;top:-3em;width:22em;height:22em;border:.2em solid #ffffff22;border-radius:50%;pointer-events:none}
+.fl-vs{display:flex;align-items:center;gap:1em;margin-top:.3em;min-width:0}
+.fl-team{display:grid;gap:.1em;min-width:0}.fl-team b{font:800 1.75em/1 var(--fd);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fl-team span{color:#cfe7d6;font-size:.8em}
+.fl-x{font:800 1.4em var(--fd);color:var(--acc)}
+.fl-ovrs{display:flex;gap:.7em;align-items:flex-end}.fl-ovrs div{display:grid;justify-items:center}
+.fl-ovrs b{font:800 2.2em/1 var(--fd);font-variant-numeric:tabular-nums}.fl-ovrs b.dim{color:#cfe7d6}.fl-ovrs small{font-size:.66em;color:#cfe7d6;text-transform:uppercase;letter-spacing:.1em}
+.fl-playrow{display:grid;gap:.6em}
+.fl-play{all:unset;cursor:pointer;justify-self:start;display:inline-flex;align-items:center;gap:.6em;background:var(--acc);color:#0b1405;font:800 1.4em var(--fd);letter-spacing:.08em;text-transform:uppercase;padding:.35em 1.4em;border-radius:.4em;box-shadow:0 .3em 0 #6c9c12,0 .6em 1.4em #0008}
+.fl-play svg{width:1em;height:1em}.fl-play:hover{filter:brightness(1.08)}
+.fl-prog{display:flex;gap:.3em}.fl-prog i{flex:1;height:.4em;border-radius:.2em;background:#ffffff22}.fl-prog i.d{background:var(--acc)}.fl-prog i.c{background:#fff}
+.fl-teamt{grid-row:span 1}
+.fl-tm{display:flex;justify-content:space-between;align-items:baseline}.fl-tm b{font:800 1.7em var(--fd)}
+.fl-pitch{position:relative;flex:1;min-height:9em;border-radius:.5em;background:repeating-linear-gradient(0deg,#1f6b38 0 1.2em,#1b5f32 1.2em 2.4em);border:1px solid #ffffff2a}
+.fl-pitch::before{content:"";position:absolute;left:25%;right:25%;bottom:0;height:14%;border:1px solid #ffffff33;border-bottom:0}
+.fl-pitch::after{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #ffffff33}
+.fl-dot{position:absolute;width:.9em;height:.9em;border-radius:50%;transform:translate(-50%,-50%);border:.15em solid #fff;box-shadow:0 .1em .3em #0008}
+.fl-dot.t0{background:#c7ccd3}.fl-dot.t1{background:#21a356}.fl-dot.t2{background:#2f72e0}.fl-dot.t3{background:#8b3de0}.fl-dot.t4{background:#e7b21e}.fl-dot.t5{background:#d1222a}
+.fl-mk{grid-column:span 2}
+.fl-fan{position:relative;height:9.4em}
+.fl-mini{position:absolute;bottom:0;width:6.4em;height:9em;clip-path:polygon(50% 0,100% 6%,100% 86%,50% 100%,0 86%,0 6%);background:linear-gradient(160deg,var(--c3),var(--c2) 22%,var(--c1) 70%);color:#fff;font-family:var(--fd);box-shadow:0 .4em .8em #0008}
+.fl-mini b{position:absolute;left:.55em;top:.8em;font-size:1.4em;font-weight:800;line-height:1}.fl-mini span{position:absolute;left:.75em;top:3em;font-size:.72em;font-weight:700}
+.fl-mini img{position:absolute;right:.1em;top:.8em;width:4.3em;height:4.3em;object-fit:contain}
+.fl-mini em{position:absolute;left:0;right:0;bottom:1.6em;text-align:center;font-style:normal;font-weight:800;font-size:.85em;text-transform:uppercase;white-space:nowrap;overflow:hidden;padding:0 .5em;text-overflow:ellipsis}
+.m5{--c1:#6e0b10;--c2:#d1222a;--c3:#ffd36b}.m4{--c1:#7a5300;--c2:#e7b21e;--c3:#fff1a8}.m3{--c1:#3b1170;--c2:#8b3de0;--c3:#e6c8ff}.m2{--c1:#0b2d6b;--c2:#2f72e0;--c3:#bfe0ff}
+.fl-odds{display:flex;gap:.4em;flex-wrap:wrap}.fl-odds span{font:600 .66em var(--body);padding:.1em .45em;border-radius:.3em;background:#ffffff0d}
+.fl-task{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.1em .5em;font-size:.8em;padding:.35em 0;border-top:1px solid #ffffff10}
+.fl-task:first-of-type{border-top:0}.fl-task em{grid-column:1/-1;font-style:normal;color:var(--gold);font-size:.88em}.fl-task .st{font:700 .85em var(--body);color:var(--acc)}
+.fl-ico{width:2.8em;height:2.8em;border-radius:.75em;display:grid;place-items:center;background:#ffffff0d;border:1px solid #ffffff14;flex:none}
+.fl-ico svg{width:1.6em;height:1.6em}.fl-ico img{width:2.3em;height:2em;object-fit:contain}
+.fl-gift{background:linear-gradient(160deg,#4a2a06,#1f1203);border-color:#7a4c10}.fl-gift .fl-k,.fl-gift .fl-ico{color:var(--gold)}
+.fl-gift.hot{animation:flglow 1.6s ease-in-out infinite}
+@keyframes flglow{50%{box-shadow:0 0 1.2em #ffcf4a66}}
+.fl-sm{flex-direction:row;align-items:center;gap:.7em}.fl-sm>div:last-child{min-width:0}.fl-sm h3{font-size:1.1em}
+.fl-npcs{grid-column:span 4;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.6em;cursor:default;padding:.6em}
+.fl-npcs:hover{transform:none;border-color:var(--ln)}
+.fl-npc{all:unset;cursor:pointer;display:grid;grid-template-columns:2.9em minmax(0,1fr);gap:.55em;align-items:center;padding:.35em;border-radius:.6em}
+.fl-npc:hover{background:#ffffff0a}
+.fl-np{width:2.9em;height:2.9em;border-radius:.6em;overflow:hidden;background:#22382c;display:block}.fl-np .pt{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 20%}
+.fl-npc b{font:700 .95em var(--fd);letter-spacing:.04em;text-transform:uppercase;display:block;white-space:nowrap}.fl-npc span span{font-size:.68em;color:var(--mu);white-space:nowrap}.fl-npc>span{min-width:0}
+.fl-side{border-left:1px solid var(--ln);background:#050a0880;display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);min-height:0}
+.fl-guide{display:grid;grid-template-columns:4.8em minmax(0,1fr);gap:.7em;padding:.9em;border-bottom:1px solid var(--ln);align-items:start}
+.fl-gimg{width:4.8em;height:6.4em;border-radius:.55em;overflow:hidden;background:#22382c;display:block}.fl-gimg .pt{width:100%;height:100%;object-fit:cover;object-position:50% 8%;display:block}
+.fl-guide b{font:800 1.05em var(--fd);text-transform:uppercase;letter-spacing:.06em;color:var(--acc)}
+.fl-guide p{margin:.15em 0 0;font-size:.78em;line-height:1.45;color:#d3e2d8}.fl-guide p b{color:var(--gold);font:inherit;font-weight:700;text-transform:none;letter-spacing:0}
+.fl-chat{padding:.8em .9em;overflow:auto;display:grid;gap:.5em;align-content:start;font-size:.78em;min-height:0}
+.fl-chat h4{margin:0;font:700 1.05em var(--fd);letter-spacing:.12em;text-transform:uppercase;color:var(--mu);display:flex;justify-content:space-between}
+.fl-chat h4 i{font-style:normal;color:var(--acc2)}
+.fl-msg{line-height:1.4;word-break:break-word}.fl-msg b{color:var(--acc2)}.fl-msg.sys b{color:var(--gold)}.fl-mu{color:var(--mu);margin:0}
+.fl-cin{display:flex;gap:.4em;padding:.65em .9em;border-top:1px solid var(--ln)}
+.fl-cin input{flex:1;min-width:0;background:var(--s1);border:1px solid var(--ln);border-radius:.5em;color:#eef5f0;padding:.45em .7em;font:inherit;font-size:.8em}
+.fl-cin button{all:unset;cursor:pointer;background:var(--acc);color:#0b1405;border-radius:.5em;padding:0 .8em;font:800 .95em var(--fd)}
+.fl-tick{position:relative;display:flex;gap:.8em;align-items:center;padding:.45em 1.2em;border-top:1px solid var(--ln);background:#050a08cc;font-size:.8em;overflow:hidden;white-space:nowrap}
+.fl-tick b{font:800 1.05em var(--fd);letter-spacing:.1em;background:var(--red);padding:0 .55em;border-radius:.3em;flex:none}
+.fl-tick span{overflow:hidden;text-overflow:ellipsis}
+.fl button:focus-visible,.fl .fl-tile:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.fl-tile{transition:none}.fl-gift.hot{animation:none}}
+
+/* ===== XEM TRƯỚC: giao diện trận đấu kiểu truyền hình FIFA ===== */
+html.fifa{--acc:#c6ff3d;--acc2:#3de0a4;--glass:rgba(6,12,10,.82);--glass2:rgba(14,26,21,.9);--ln:#2a4535}
+html.fifa body{background:radial-gradient(70% 50% at 80% 0%,#173126,#070d0b 60%)}
+html.fifa .game{border:1px solid var(--ln);border-radius:12px}
+html.fifa .topbar{background:linear-gradient(#050a08f0,#050a08b0)!important;border-bottom:1px solid var(--ln)}
+html.fifa .topbar .t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+/* bảng tỉ số góc trái kiểu FIFA */
+html.fifa .board{left:1.6cqw;top:6.2cqw;transform:none;width:auto;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+html.fifa .sb{grid-template-columns:auto auto auto auto auto;gap:0;padding:0;background:none;border:0;border-radius:0;box-shadow:0 .4cqw 1.2cqw #0008;overflow:hidden}
+html.fifa .sb>*{height:3.6cqw;display:grid;place-items:center}
+html.fifa .sb .tn{background:var(--glass2);color:#fff;font:800 1.9cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.03em;text-transform:uppercase;padding:0 1.2cqw;text-shadow:none;max-width:24cqw}
+html.fifa .sb .tn.l{border-left:.45cqw solid #e8372c;order:1}
+html.fifa #hb{order:2;background:var(--glass2);padding:0 .4cqw;width:3.6cqw;height:3.6cqw}
+html.fifa .sb .mid{order:3;display:flex;align-items:stretch;background:none;padding:0}
+html.fifa #ab{order:4;background:var(--glass2);padding:0 .4cqw;width:3.6cqw;height:3.6cqw}
+html.fifa .sb .tn.r{order:5;border-right:.45cqw solid #2f7ff0}
+html.fifa .mid .sc{background:#f4f7f2;color:#0b140d;font:800 2.5cqw "Barlow Condensed","Arial Narrow",sans-serif;padding:0 1.2cqw;text-shadow:none;display:grid;place-items:center;letter-spacing:.08em;order:1}
+html.fifa .mid .clk{order:2;background:var(--acc);color:#0b1405;font:800 1.7cqw "Barlow Condensed","Arial Narrow",sans-serif;padding:0 1cqw;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+html.fifa .mor{grid-template-columns:1fr 1fr;gap:.4cqw;margin-top:.35cqw}
+html.fifa .mor .m{height:1.5cqw;background:var(--glass);border:0;border-radius:0}
+html.fifa .mor .m i{background:linear-gradient(90deg,#e8372c,#ff7a6e)}html.fifa .mor .m.r i{background:linear-gradient(270deg,#2f7ff0,#7cb4ff)}
+html.fifa .mor .m span{font:600 .95cqw "Be Vietnam Pro",sans-serif;line-height:1.5cqw;letter-spacing:.02em}
+/* dòng bình luận: lower-third */
+html.fifa .cmt{left:1.6cqw;right:auto;transform:none;width:auto;max-width:72%;bottom:1.8cqw;background:var(--glass);border:0;border-left:.5cqw solid var(--acc);border-radius:0 .4cqw .4cqw 0;padding:.9cqw 1.6cqw .9cqw 1.4cqw;font:600 clamp(10px,1.45cqw,22px) "Be Vietnam Pro",sans-serif;box-shadow:0 .4cqw 1.2cqw #0007}
+html.fifa .cmt::before{content:"BÌNH LUẬN";display:block;font:800 .95cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;color:var(--acc);margin-bottom:.2cqw}
+/* bảng cơ hội: kính tối, thẻ cầu thủ, % xanh chanh */
+html.fifa .pop{background:linear-gradient(160deg,rgba(14,28,22,.94),rgba(5,10,8,.94))!important;border:1px solid var(--ln)!important;border-top:.35cqw solid var(--acc)!important;border-radius:.6cqw!important;box-shadow:0 1.2cqw 3cqw #000a!important;color:#eef5f0}
+html.fifa .pop .pc{background:#ffffff08;border:1px solid #ffffff14;border-radius:.5cqw;padding:.6cqw .8cqw;justify-items:center;text-align:center;min-width:10.5cqw}
+html.fifa .pop .pc .nm{font:800 1.45cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:none!important;color:#fff!important}
+html.fifa .pop .pc .ln,html.fifa .pop .pc .lv{color:#cfe0d5!important}
+html.fifa .pop .pc .lv{color:#fff!important;font:800 1.35cqw "Barlow Condensed","Arial Narrow",sans-serif}
+html.fifa .pop{grid-template-columns:minmax(0,1fr) minmax(21cqw,auto) minmax(0,1fr)!important;width:min(82%,900px)!important}
+html.fifa .pop .ctr h3{max-width:21cqw;font:800 2cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+html.fifa .pop .ctr .lb{color:#9fb8a8;font:600 1.1cqw "Be Vietnam Pro",sans-serif;letter-spacing:.12em;text-transform:uppercase}
+html.fifa .pop .ctr .pct{font:800 6.4cqw "Barlow Condensed","Arial Narrow",sans-serif;color:var(--acc);text-shadow:0 0 2cqw #c6ff3d55}
+html.fifa .pop .ctr .rs{font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+html.fifa .pop .ctr .rs.ok{color:var(--acc)}html.fifa .pop .ctr .rs.ko{color:#ff5a52}
+/* màn giữa các pha */
+html.fifa .idle{background:linear-gradient(180deg,rgba(4,10,8,.55),rgba(4,10,8,.75))}
+html.fifa .idle .iclk{font-family:"Barlow Condensed","Arial Narrow",sans-serif;color:var(--acc)}
+html.fifa .idle .il{font-family:"Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#cfe0d5}
+/* thanh điều khiển + bảng dưới */
+html.fifa #matchCtrl button,html.fifa #matchCtrl select{font:700 1rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#13241d;border:1px solid var(--ln);color:#eef5f0;border-radius:8px;padding:8px 16px}
+html.fifa #matchCtrl button.pri{background:var(--acc);border-color:#8cbf1c;color:#0b1405;box-shadow:0 4px 0 #6c9c12}
+html.fifa .card{background:#0e1a15;border-color:var(--ln)}
+html.fifa .card h2{font-family:"Barlow Condensed","Arial Narrow",sans-serif;color:var(--acc);letter-spacing:.12em}
+html.fifa .topbar .coin{width:2.4cqw;height:2cqw;background:url(../assets/ui/vang.webp) center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:0!important}
+html.fifa .topbar .coin.xu{background-image:url(../assets/ui/xu.webp)!important}html.fifa .topbar .coin.ph{background-image:url(../assets/ui/phieu.webp)!important}
+html.fifa .topbar .res{background:#0e1a15;border:1px solid var(--ln);border-radius:999px;padding:.2cqw 1cqw .2cqw .4cqw}
+html.fifa .topbar .res b{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:1.2em;color:#fff}

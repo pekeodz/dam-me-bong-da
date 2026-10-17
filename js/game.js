@@ -1,3 +1,4 @@
+document.documentElement.classList.add("fifa");
 /* ================== BỘ CHỈ SỐ (giống thẻ cầu thủ gốc) ================== */
 const ATTR=[
  ["toc","Tốc độ","Cơ hội đá bổng (tấn công); đuổi theo cầu thủ Solo (phòng ngự)"],
@@ -635,11 +636,11 @@ const popEl=document.getElementById("pop");
 function miniSprite(e,flip){const c=document.createElement("canvas");c.width=78;c.height=102;const g=c.getContext("2d");
   drawChar(g,{p:e.p,team:e.team,face:flip?-1:1,anim:"pose"},0,39,98,88,true);return c}
 function popCol(e,flip){const d=document.createElement("div");d.className="pc";
-  d.innerHTML=`<span class="nm" style="color:${tierOf(e.p).c}">${e.p.n}</span><span class="ln">Vị trí: ${posLabel(e.p)}</span><span class="ln">${e.lab}: <b class="lv">${fmt1(e.v)}</b></span>`;d.appendChild(miniSprite(e,flip));return d}
+  d.innerHTML=`<span class="nm" style="color:${(e.p.tier??2)<1?"#10240f":TCOL[e.p.tier]}">${e.p.n}</span><span class="ln">Vị trí: ${posLabel(e.p)}</span><span class="ln">${e.lab}: <b class="lv">${fmt1(e.v)}</b></span>`;d.appendChild(miniSprite(e,flip));return d}
 function showPop(pp){
   const L=document.getElementById("popL"),R=document.getElementById("popR2");L.innerHTML="";R.innerHTML="";
   pp.L.forEach(e=>L.appendChild(popCol(e,false)));pp.R.forEach(e=>R.appendChild(popCol(e,true)));
-  document.getElementById("popT").textContent=pp.title;const lb=document.getElementById("popLb");if(lb)lb.textContent=pp.sub||"Hiệu quả";document.getElementById("popP").textContent=Math.round(pp.p*100)+"%";
+  document.getElementById("popT").textContent=pp.title;const lb=document.getElementById("popLb");if(lb)lb.textContent=(pp.sub||"Hiệu quả")+":";document.getElementById("popP").textContent=Math.round(pp.p*100)+"%";
   const rs=document.getElementById("popR");rs.textContent="";rs.className="rs";popEl.classList.add("on")}
 function revealPop(pp){const rs=document.getElementById("popR");rs.textContent=pp.ok?"THÀNH CÔNG!":"THẤT BẠI";rs.className="rs "+(pp.ok?"ok":"ko")}
 function hidePop(){popEl.classList.remove("on")}
@@ -1292,40 +1293,67 @@ function portrait(kind){
   ${c.long?`<path d="M54 36 Q58 52 56 64 L62 64 Q62 48 55 32 Z M26 36 Q22 52 24 64 L18 64 Q18 48 25 32 Z" fill="${c.hair}"/>`:""}
   </svg>`}
 const NPC_PT={"Môi giới":"moigioi","Huấn luyện":"hlv","Chiến thuật":"chienthuat","Tài chính":"taichinh","Chỉ dẫn":"trolý"};
+/* ===== SẢNH KIỂU FIFA (thay sảnh cũ) ===== */
+const FL_SVG=p=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const FLI={home:'<path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/>',play:'<circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z" fill="currentColor"/>',team:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 12h16M12 3v4M12 17v4"/>',
+ train:'<circle cx="9" cy="14" r="5"/><path d="M9 9h11v5h-6"/>',market:'<path d="M5 8h14l-1.5 12h-11z"/><path d="M9 8a3 3 0 0 1 6 0"/>',pb:'<path d="M12 3l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.4l6-.8z"/>',
+ task:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>',shop:'<path d="M4 7h16l-1 4H5z"/><path d="M5 11v9h14v-9"/>',bag:'<rect x="4" y="7" width="16" height="13" rx="2"/><path d="M4 12h16M9 7V5h6v2"/>',
+ list:'<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',cog:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+ gift:'<rect x="4" y="10" width="16" height="10"/><path d="M3 7h18v3H3zM12 7v13M12 7c-2-4-6-3-4 0M12 7c2-4 6-3 4 0"/>',full:'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+ friend:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c1-3 3-4 5-4s4 1 5 4M11 19c1-3 3-4 5-4s4 1 5 4"/>',save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v5h8V3M8 21v-7h8v7"/>'};
+const FL_NAV=[["home","Trang chủ","home"],["play","Thi đấu","thidau"],["team","Đội hình","doi"],["list","Cầu thủ","ds"],["train","Huấn luyện","ql"],["market","Môi giới","mg"],["pb","Phụ bản","phuban"],["task","Nhiệm vụ","nv"],["shop","Cửa hàng","shop"],["bag","Rương","ruong"],["cog","Cài đặt","caidat"]];
+const flEsc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const CUR=k=>typeof CUR_IMG!=="undefined"&&CUR_IMG[k]?`<img src="${CUR_IMG[k]}" alt="">`:"";
+let FL_STARS=null;
+function flStars(){if(FL_STARS)return FL_STARS;FL_STARS=["Ronaldo","Xuân Son","Quang Hải"].map(n=>{const s=STARS.find(x=>x[0]===n);const p=mk(n,s[1],s[2],s[4]||"P");return{n,pos:s[1],tier:s[2],ovr:Math.round(overall(p)),img:faceSrc(p)}});return FL_STARS}
+function flCrest(t){const ini=t.name.split(" ").map(w=>w[0]).join("").slice(0,3).toUpperCase();
+  return`<svg class="fl-crest" viewBox="0 0 46 52" aria-hidden="true"><path d="M23 1 44 7v18c0 13-9 21-21 26C11 46 2 38 2 25V7z" fill="#d1222a" stroke="#ffd36b" stroke-width="2"/><path d="M23 9 36 13v12c0 8-6 13-13 17-7-4-13-9-13-17V13z" fill="#8f1016"/><text x="23" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="13" fill="#fff">${ini}</text></svg>`}
 function lobbyRender(){if(MODE!=="lobby")return;const c=club(),m=c.mgr,el=document.getElementById("lobby");
-  const ov=r1(avg(T.home.players.map(overall))),today=new Date().toDateString(),gift=c.lastGift!==today;
-  const chat=[...CHAT.map(x=>({who:x.name,text:x.text})),...c.news.map(n=>({sys:1,text:n.text}))].slice(0,30);
-  const canTrain=squad(T.home).filter(p=>p.tp>=500&&p.plan.some(k=>p.base[k]<maxOf(p,k))).length,cl=claimable();
-  const expPct=Math.min(100,Math.round(m.exp/(m.lv*300)*100)),ovMax=r1(avg(T.home.players.map(overallMax)));
-  const news0=c.news[0]?c.news[0].text:`Chào mừng ${m.name} đến với Đam Mê Bóng Đá! Hãy hoàn thành nhiệm vụ tân thủ để nhận quà.`;
-  const pointPB=c.campaign<1&&c.flags.lineup;
-  el.innerHTML=`
-  <div class="lp tick"><b>Thông báo</b><div class="tk2"><span>${news0.replace(/</g,"&lt;")}</span></div>
-    <nav class="links"><span>Chào, <b>${m.name.replace(/</g,"&lt;")}</b></span><button data-go="caidat">Cài đặt</button><button data-go="nap">Nạp</button><button data-go="guide">Giúp</button><button data-go="save">Lưu</button></nav></div>
-  <div class="lp prof"><div class="pav" data-go="qlnv" role="button" tabindex="0" title="Quản lý nhân vật">${portrait("chienthuat")}<b class="lvb">${m.lv}</b></div>
-    <div class="pin"><b class="mn">${m.name.replace(/</g,"&lt;")}</b>
-      <span class="bar g" title="Thực lực đội / tối đa hiện tại"><i style="width:${Math.min(100,ov/ovMax*100)}%"></i><em>${ov}</em></span>
-      <span class="bar b" title="Kinh nghiệm quản lý"><i style="width:${expPct}%"></i><em>${expPct}%</em></span>
-      <span class="ib"><button data-go="nv" title="Nhiệm vụ">✉</button><button data-go="ds" title="Cầu thủ">☰</button><button data-go="caidat" title="Cài đặt">⚙</button><em>Lv.${m.lv} · ${T.home.name}</em></span></div></div>
-  <div class="lp stat">
-    <button data-go="thidau">☑ Trạng thái: ${M.done||M.min===0?"Rảnh":"Đang thi đấu"}</button>
-    <button data-go="phuban">☑ Có thể vào phụ bản (${c.campaign}/10)</button>
-    <button data-go="ql">☑ Có thể huấn luyện (${canTrain})</button>
-    <button data-go="nv">☑ Nhiệm vụ có thể nhận (${cl})</button>
-    <button data-go="thidau">☑ Giao hữu để lấy kinh nghiệm</button>
-    <button data-go="gift">☑ Quà hằng ngày: ${gift?"có thể nhận":"đã nhận"}</button></div>
-  <div class="lp guide"><div class="gav">${portrait("trolý")}</div><div class="gb2"><b class="gtab">Chỉ dẫn!</b><p>${guideText()}</p></div></div>
-  <div class="lp big">${pointPB?`<span class="here">Bấm ở đây</span>`:""}<button data-go="phuban" class="bigb${pointPB?" hl":""}">Phụ bản</button><button data-go="world" class="bigb">Thế Giới</button></div>
-  <div class="lp clubn"><i></i>${T.home.name}<span>▾</span></div>
-  <div class="lp menu">${MENU.map(([n,g])=>`<button data-go="${g||"dev"}">${n}</button>`).join("")}</div>
-  <div class="lp npcs">${NPCS.map(([n,i,g])=>`<button data-go="${g||"dev"}"><span class="pf">${portrait(NPC_PT[n])}</span><span class="pl">${n}</span></button>`).join("")}</div>
-  <div class="lp gifts"><button data-go="gift" class="gbtn${gift?" hot":""}"><span>Quà</span></button><button data-go="dev" class="ebtn">Dự đoán &amp;<br>Sự kiện</button></div>
-  <div class="lp chat"><div class="ctabs"><span class="on">Chat</span><span>${db?"Online":"Ngoại tuyến"}</span></div><div class="cl">${chat.map(x=>x.sys?`<p><span class="sy">[Hệ thống]</span> ${x.text}</p>`:`<p><span class="nm2">${(x.who||"?").replace(/</g,"&lt;")}:</span> ${String(x.text).replace(/</g,"&lt;")}</p>`).join("")||"<p class='mu'>Chưa có tin nhắn.</p>"}</div>
-    <form class="cf" id="chatf"><label for="chati">Gửi</label><input id="chati" maxlength="200" placeholder="Nhập tin nhắn…"><button aria-label="Gửi">➜</button></form></div>`;
-  document.getElementById("nav").innerHTML=NAV.map(([n,g])=>`<button data-go="${g}">${n}${g==="nv"&&cl?`<b class="cnt">(${cl})</b>`:""}</button>`).join("")+`<button data-go="gift" class="r">Nhận túi quà</button>`;
+  const ov=Math.round(avg(T.home.players.map(overall))),today=new Date().toDateString(),gift=c.lastGift!==today;
+  const stage=Math.min(c.campaign,CAMPAIGN.length-1),done=c.campaign>=CAMPAIGN.length,opp=CAMPAIGN[stage],oppOv=Math.round(avg(npcTeam(stage).players.map(overall)));
+  const cl=claimable(),expPct=Math.min(100,Math.round(m.exp/(m.lv*300)*100));
+  const canTrain=squad(T.home).filter(p=>p.tp>=500&&p.plan.some(k=>p.base[k]<maxOf(p,k))).length,tp=Math.round(avg(squad(T.home).map(p=>p.tp)));
+  const F=FORMS[tacOf(T.home).form],chat=[...CHAT.map(x=>({who:x.name,text:x.text})),...c.news.slice(0,12).map(n=>({sys:1,text:n.text}))].slice(0,30);
+  const tasks=TASKS.filter(t=>tkSt(t)!=="got").sort((a,b)=>(tkSt(b)==="ok")-(tkSt(a)==="ok")).slice(0,3);
+  const news=c.news.slice(0,3).map(n=>n.text).join(" · ")||`Chào mừng ${m.name} đến với Đam Mê Bóng Đá! Hoàn thành nhiệm vụ tân thủ để nhận quà.`;
+  el.innerHTML=`<div class="fl">
+  <header class="fl-top"><button type="button" class="fl-club" data-go="qlnv" title="Quản lý nhân vật">${flCrest(T.home)}<span class="fl-cn"><b>${flEsc(T.home.name)}</b><span><em class="fl-lv">LV ${m.lv}</em>${flEsc(m.name)}<span class="fl-xp" title="Kinh nghiệm quản lý ${expPct}%"><i style="width:${expPct}%"></i></span></span></span></button>
+    <div class="fl-cur"><div class="fl-pill">${CUR("vang")}<span><small>Vàng</small><b>${fmt(c.gold||0)}</b></span></div>
+     <div class="fl-pill">${CUR("xu")}<span><small>Xu</small><b>${fmt(c.xu||0)}</b></span><button type="button" class="fl-add" data-go="nap" aria-label="Nạp xu">+</button></div>
+     <div class="fl-pill">${CUR("phieu")}<span><small>Phiếu</small><b>${fmt(c.phieu||0)}</b></span></div></div>
+    <button type="button" class="fl-ib" data-go="save" title="Lưu">${FL_SVG(FLI.save)}</button><button type="button" class="fl-ib" data-go="full" title="Toàn màn hình (F)">${FL_SVG(FLI.full)}</button><button type="button" class="fl-ib" data-go="caidat" title="Cài đặt">${FL_SVG(FLI.cog)}</button></header>
+  <div class="fl-body">
+   <nav class="fl-nav" aria-label="Menu chính">${FL_NAV.map(([i,n,g],k)=>`<button type="button" data-go="${g}" ${k===0?'aria-current="page"':""}>${FL_SVG(FLI[i])}<span>${n}</span>${g==="nv"&&cl?`<em class="fl-badge">${cl}</em>`:""}</button>`).join("")}</nav>
+   <main class="fl-grid">
+    <section class="fl-tile fl-hero" data-go="pbnext"><div><div class="fl-k">${done?"Đã chinh phục 10 phụ bản · đá lại":"Phụ bản "+(stage+1)+"/10"} · ${NATIONS[opp.q].n}</div>
+      <div class="fl-vs"><div class="fl-team"><b>${flEsc(T.home.name)}</b><span>Đội của bạn · ${tacOf(T.home).form}</span></div><span class="fl-x">VS</span><div class="fl-team"><b>${opp.n}</b><span>${NATIONS[opp.q].n} · thưởng + tiến cử cầu thủ</span></div></div></div>
+      <div class="fl-ovrs"><div><b>${ov}</b><small>Thực lực</small></div><span class="fl-x">·</span><div><b class="dim">${oppOv}</b><small>Đối thủ</small></div></div>
+      <div class="fl-playrow"><button type="button" class="fl-play" data-go="pbnext">${FL_SVG(FLI.play)} Thi đấu</button>
+       <div class="fl-prog" aria-label="Tiến độ phụ bản">${CAMPAIGN.map((_,i)=>`<i class="${i<c.campaign?"d":i===c.campaign?"c":""}"></i>`).join("")}</div></div></section>
+    <section class="fl-tile fl-teamt" data-go="doi"><div class="fl-k">Đội hình</div><div class="fl-tm"><h3>${tacOf(T.home).form}</h3><b>${ov}</b></div>
+      <div class="fl-pitch">${T.home.players.map((p,i)=>`<span class="fl-dot t${p.tier??2}" style="left:${F[i][1]}%;top:${F[i][2]}%" title="${flEsc(p.n)}"></span>`).join("")}</div></section>
+    <section class="fl-tile fl-mk" data-go="mg"><div class="fl-k">Môi giới · Chiêu mộ</div><h3>Tìm ngôi sao</h3>
+      <div class="fl-fan">${flStars().map((s,i)=>`<div class="fl-mini m${s.tier}" style="left:${8+i*27}%;transform:rotate(${(i-1)*7}deg);z-index:${i===1?3:1}"><b>${s.ovr}</b><span>${s.pos}</span>${s.img?`<img src="${s.img}" alt="">`:""}<em>${s.n}</em></div>`).join("")}</div>
+      <div class="fl-odds"><span>200 vàng / lần</span><span style="color:#ff5a52">Đỏ 0,5%</span><span style="color:#f2c94c">Vàng 2,5%</span><span style="color:#b57bff">Tím 7%</span></div></section>
+    <section class="fl-tile" data-go="nv"><div class="fl-k">Nhiệm vụ${cl?` · ${cl} chờ nhận`:""}</div>${tasks.map(t=>`<div class="fl-task"><span>${t.n}</span><span class="st">${tkSt(t)==="ok"?"Nhận":"Đi làm"}</span><em>${rwTxt(t.rw)}</em></div>`).join("")||"<p>Đã xong hết nhiệm vụ.</p>"}</section>
+    <section class="fl-tile fl-gift ${gift?"hot":""}" data-go="gift"><div class="fl-ico">${FL_SVG(FLI.gift)}</div><div class="fl-k">Quà hằng ngày</div><h3>${gift?"Nhận ngay":"Đã nhận"}</h3><p>${gift?"5.000 vàng · 5 phiếu · 1 vật phẩm":"Quay lại vào ngày mai"}</p></section>
+    <section class="fl-tile fl-sm" data-go="shop"><div class="fl-ico">${CUR("xu")||FL_SVG(FLI.shop)}</div><div><div class="fl-k">Cửa hàng</div><h3>Mua sắm</h3></div></section>
+    <section class="fl-tile fl-sm" data-go="thidau"><div class="fl-ico" style="color:#3de0a4">${FL_SVG(FLI.friend)}</div><div><div class="fl-k">Giao hữu</div><h3>${flEsc((T.rival||T.away).name)}</h3></div></section>
+    <section class="fl-tile fl-sm" data-go="ql"><div class="fl-ico" style="color:#c6ff3d">${FL_SVG(FLI.train)}</div><div><div class="fl-k">Huấn luyện</div><h3>${canTrain} cầu thủ</h3></div></section>
+    <section class="fl-tile fl-sm" data-go="ruong"><div class="fl-ico" style="color:#f2c94c">${FL_SVG(FLI.bag)}</div><div><div class="fl-k">Rương</div><h3>Trang bị</h3></div></section>
+    <section class="fl-tile fl-npcs" aria-label="Nhân viên CLB">${[["moigioi","Môi giới","Tìm cầu thủ","mg"],["hlv","Huấn luyện","Kế hoạch tập","ql"],["chienthuat","Chiến thuật","Đội hình","doi"],["taichinh","Tài chính","Thu chi","tc"],["trolý","Chỉ dẫn","Hướng dẫn","guide"]].map(([k,n,s,g])=>`<button type="button" class="fl-npc" data-go="${g}"><span class="fl-np">${portrait(k)}</span><span><b>${n}</b><span>${s}</span></span></button>`).join("")}</section>
+   </main>
+   <aside class="fl-side"><div class="fl-guide"><span class="fl-gimg">${portrait("trolý")}</span><div><b>Chỉ dẫn</b><p>${guideText()}</p></div></div>
+    <div class="fl-chat"><h4>Chat <i>${db?"● Online":"○ Ngoại tuyến"}</i></h4>${chat.map(x=>x.sys?`<div class="fl-msg sys"><b>[Hệ thống]</b> ${flEsc(x.text)}</div>`:`<div class="fl-msg"><b>${flEsc(x.who||"?")}:</b> ${flEsc(x.text)}</div>`).join("")||"<p class='fl-mu'>Chưa có tin nhắn.</p>"}</div>
+    <form class="fl-cin" id="chatf"><label for="chati" class="sr">Tin nhắn</label><input id="chati" maxlength="200" placeholder="Nhập tin nhắn…" autocomplete="off"><button>Gửi</button></form></aside>
+  </div>
+  <div class="fl-tick"><b>TIN</b><span>${flEsc(news)}</span></div></div>`;
   document.getElementById("chatf").onsubmit=e=>{e.preventDefault();const i=document.getElementById("chati");chatSend(i.value);i.value=""};
 }
 function navGo(g){
+  if(g==="home")return;
+  if(g==="full"){const f=document.getElementById("bFull");if(f)f.click();return}
+  if(g==="pbnext"){const c=club(),s=Math.min(c.campaign,CAMPAIGN.length-1);startMatch(npcTeam(s),{type:"campaign",stage:s});return}
   if(g==="thidau"){startMatch(T.rival||T.away,{type:"friendly"});return}
   if(g==="world"){toast("Thế giới (đấu với người chơi khác) đang phát triển.");return}
   if(g==="dev"){toast("Tính năng đang phát triển.");return}
@@ -1336,7 +1364,7 @@ function navGo(g){
   if(g==="gift"){const c=club(),d=new Date().toDateString();if(c.lastGift===d){toast("Hôm nay bạn đã nhận quà rồi, quay lại vào ngày mai nhé.");return}
     c.lastGift=d;give({gold:5000,phieu:5});const gi=GIFT_DROP[Math.floor(Math.random()*GIFT_DROP.length)];addItem(gi);toast(`Quà hằng ngày: +5.000 vàng, +5 phiếu, ${ITEMS[gi].n}`);render();saveLocal();lobbyRender();return}
   openWin(g)}
-document.getElementById("lobby").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)navGo(b.dataset.go)});
+document.getElementById("lobby").addEventListener("click",e=>{if(e.target.closest("form"))return;const b=e.target.closest("[data-go]");if(b){e.stopPropagation();navGo(b.dataset.go)}});
 document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)navGo(b.dataset.go)});
 document.getElementById("bLobby").onclick=backToLobby;
 
@@ -1412,22 +1440,38 @@ function openCard(team,i){
   const isSub=(team.subs||[]).includes(p),own=team===T.home,price=Math.round(overall(p)*80/100)*100;
   const sk=Array.from({length:8},(_,j)=>{const s=(p.skills||[])[j];if(!s)return`<span class="sk2"></span>`;const k=SKILLS[s.id],on=(p.star||0)>=s.star;
     return`<span class="sk2 ${on?"on":""}" title="${k.n}${on?"":` — cần ★${s.star}`}: ${k.desc}"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="${on?"#f59e0b":"#6b7280"}"/><text x="20" y="25" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${k.n.split(" ").map(w=>w[0]).join("").slice(0,2)}</text></svg>${on?"":"<i>🔒</i>"}</span>`}).join("");
-  modal.innerHTML=`<div class="pcard pc2" role="dialog" aria-label="Thẻ cầu thủ ${p.n}"><div class="hd"><span class="ctab">Cầu thủ</span><button id="mclose" aria-label="Đóng">✕</button></div>
-   <div class="bd"><div class="cl2"><div class="av" id="mav"></div>
-    <div class="info"><span>Tên: <b style="color:${tierOf(p).c};text-shadow:0 1px 0 #0004">${p.n}</b> <small>(${tierOf(p).n}${p.star?` ★${p.star}`:""})</small></span>
-     <span>Vị trí: <b class="r">${POSN[p.pos]}</b> · Thuận: <b class="r">Chân ${p.chan==="T"?"trái":"phải"}</b></span>
-     <span>Độ kích thích: <b>${Math.round(p.kt)}%</b> · Kích thích: <b>${p.ktUsed}/10</b></span>
-     <span>Thực lực: <b class="bl">${fmt1(overall(p))}</b></span><span>Max: <b class="bl">${fmt1(overallMax(p))}</b> · Thích nghi ${p.tn}%</span></div>
-    <div class="skg">${sk}</div></div>
-    <div class="cr2"><span class="ntab">Năng lực</span><div class="attrs"><div>${ATTR_COL1.map(at).join("")}</div><div>${ATTR_COL2.map(at).join("")}</div>
-     <div class="use"><button class="lnk" data-go="plan">Lập kế hoạch huấn luyện</button></div></div>
-     <p class="tpl">Điểm huấn luyện: <b>${fmt(Math.round(p.tp))}</b> <button class="lnk" data-go="buytp">Cấp tốc nhận điểm</button></p></div></div>
-    <div class="cbtn">${own?`<button data-go="sell" ${isSub?"":"disabled title=\"Chỉ bán được cầu thủ dự bị\""}>${SELL.p===p?`Xác nhận bán (+${fmt(price)} vàng)`:"Bán cầu thủ"}</button><button data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button>`:`<span class="note2">Cầu thủ đội bạn</span>`}</div></div>`;
+  /* thẻ kiểu FIFA: khiên màu theo bậc + 19 chỉ số chia nhóm (màu số theo mức bậc mà chỉ số đạt tới) */
+  const POS_AB={TM:"TM",HV:"TRV",HVC:"HVC",TV:"TV",TVC:"TVC","TĐ":"TĐ"},CAPS=[250,330,410,500,625];
+  const qv=v=>{let k=0;while(k<5&&v>=CAPS[k])k++;return k},av=a=>a.reduce((s,x)=>s+x,0)/a.length;
+  const six=p.pos==="TM"?[["CỨU",p.cuu],["ĐẤM",p.dbong],["KHC",p.kchien],["NHẢY",p.bat],["TĐ",p.toc],["THỂ",p.the]]
+    :[["TĐ",av([p.toc,p.bpha])],["SÚT",av([p.sut,p.sxa])],["CHU",av([p.chuyen,p.cdai])],["RÊ",p.re],["THỦ",av([p.xoac,p.doat])],["THỂ",av([p.the,p.ben,p.bat])]];
+  const GR=[["Tấn công",["sut","sxa","dau","pden","dphat"]],["Kỹ thuật",["re","chuyen","cdai","pgoc"]],["Thể chất",["toc","bpha","bat","the","ben"]],["Phòng ngự",["xoac","doat"]],["Thủ môn",["cuu","dbong","kchien"]]];
+  const ord=p.pos==="TM"?[4,2,0,1,3]:[0,1,2,3,4],nat=NATIONS[p.q]?NATIONS[p.q].n:"Việt Nam",img=faceSrc(p);
+  const grp=gi=>{const [gn,ks]=GR[gi],ga=av(ks.map(k=>p[k]));return`<div class="fc-grp"><h4>${gn}<b class="fq${qv(ga)}">${Math.round(ga)}</b></h4>${ks.map(k=>{const v=p[k],m=maxOf(p,k)+(p.imp[k]||0)+(p.starB[k]||0),c=qv(v);
+    return`<div class="fc-row" title="${ATTR.find(x=>x[0]===k)[2]}"><span>${LBL[k]}</span><span class="fc-bar"><i class="fc-lim" style="width:${Math.min(100,m/7.5)}%"></i><i class="fc-cur fb${c}" style="width:${Math.min(100,v/7.5)}%"></i></span><span class="fc-v fq${c}">${fmt1(v)}</span></div>`}).join("")}</div>`};
+  modal.innerHTML=`<div class="pcard fc" role="dialog" aria-label="Thẻ cầu thủ ${p.n}"><div class="hd"><span class="ctab">Cầu thủ</span><button id="mclose" aria-label="Đóng">✕</button></div>
+   <div class="fc-main"><div class="fc-col">
+     <div class="fc-card ft${p.tier??2}"><div class="fc-ovr"><b>${Math.round(overall(p))}</b><span>${POS_AB[p.pos]}</span><i>${nat}</i><em>${tierOf(p).n}</em></div>
+      <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
+      <div class="fc-nm">${p.n}</div><div class="fc-rule"></div>
+      <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div></div>
+     <div class="fc-stars" aria-label="${p.star||0} sao">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></div>
+     <div class="skg">${sk}</div></div>
+    <div class="fc-info">
+     <div class="fc-head"><h3>${p.n}</h3><span class="fc-chip" style="border-color:${tierOf(p).c};color:${tierOf(p).c}">Bậc ${tierOf(p).n} · trần ${tierOf(p).cap}</span><span class="fc-chip">${POSN[p.pos]}</span><span class="fc-chip">Chân ${p.chan==="T"?"trái":"phải"}</span><span class="fc-chip">${nat}</span></div>
+     <div class="fc-meta"><div><small>Thực lực</small><b>${fmt1(overall(p))}</b></div><div><small>Tối đa hiện tại</small><b>${fmt1(overallMax(p))}</b></div>
+      <div><small>Độ kích thích · ${p.ktUsed}/10 lần</small><b>${Math.round(p.kt)}%</b><span class="fc-kt"><i style="width:${p.kt}%"></i></span></div>
+      <div><small>Tuổi · Cao · Nặng</small><b>${p.age} · ${p.cao} · ${p.nang}</b></div></div>
+     <div class="fc-groups">${ord.map(grp).join("")}</div>
+     <div class="fc-leg"><span>Màu theo mức bậc:</span><span><i class="fb0"></i>&lt;250</span><span><i class="fb1"></i>250+</span><span><i class="fb2"></i>330+</span><span><i class="fb3"></i>410+</span><span><i class="fb4"></i>500+</span><span><i class="fb5"></i>625+</span><span><i class="fc-limk"></i>giới hạn luyện hiện tại</span></div>
+     <p class="fc-tp">Điểm huấn luyện: <b>${fmt(Math.round(p.tp))}</b> · Thích nghi ${p.tn}% <button class="lnk" data-go="buytp">Cấp tốc nhận điểm</button></p>
+     <div class="fc-acts">${own?`<button class="pri" data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button><button data-go="sell" ${isSub?"":"disabled title=\"Chỉ bán được cầu thủ dự bị\""}>${SELL.p===p?`Xác nhận bán (+${fmt(price)} vàng)`:"Bán cầu thủ"}</button>`:`<span class="note2">Cầu thủ đội bạn</span>`}</div>
+    </div></div></div>`;
   modal.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{const g=b.dataset.go;
     if(g==="sell"){if(SELL.p!==p){SELL.p=p;openCard(team,i);return}team.subs.splice(team.subs.indexOf(p),1);give({gold:price});SELL.p=null;modal.hidden=true;toast(`Đã bán ${p.n}: +${fmt(price)} vàng`);news(`${club().mgr.name} đã bán ${p.n}.`);applyLineup(team);saveLocal();render();renderSquad();if(!winEl.hidden){renderLineup()}return}
     if(g==="buytp"){if(T.club.phieu<10){toast("Cần 10 phiếu.");return}T.club.phieu-=10;p.tp+=1000;saveLocal();render();openCard(team,i);toast("+1.000 điểm huấn luyện");return}
     SELL.p=null;modal.hidden=true;mgrOpen(team,i,g)});
-  {const _m=document.getElementById("mav");_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team,110,140))}
+  {const cv=document.getElementById("fcav");if(cv)drawChar(cv.getContext("2d"),{p,team,face:1,anim:"pose"},0,75,166,150,true)}
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 
