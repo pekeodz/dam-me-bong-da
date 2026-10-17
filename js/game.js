@@ -1012,32 +1012,17 @@ function renderLineup(){
     <label>Phòng thủ (H${LU.half}) <select id="luDef">${Object.keys(DEF_TAC).map(k=>`<option ${k===tD?"selected":""}>${k}</option>`).join("")}</select></label>
     <span class="adv"><b class="ra">Tấn công: ${AD.a}</b> <b class="rd">Phòng thủ: ${AD.d}</b></span>
    </div>
-   <p class="hint lh">Giữ và kéo cầu thủ (trên sân, ghế dự bị hoặc trong danh sách) thả vào vị trí hay cầu thủ muốn đổi chỗ. Nhãn đỏ = đá sai sở trường, bị giảm sức. Chiến thuật hiệp 2 tự áp dụng từ phút 45.</p>
+   <p class="hint lh">Bấm chọn 1 cầu thủ (trên sân, ghế dự bị hoặc trong danh sách), rồi bấm cầu thủ hoặc vị trí muốn đổi chỗ. Bấm lại để bỏ chọn. Nhãn đỏ = đá sai sở trường, bị giảm sức. Chiến thuật hiệp 2 tự áp dụng từ phút 45.</p>
    <div class="msg" role="status">${LU.msg?`<span class="${LU.ok?"mok":"mko"}">${LU.msg}</span>`:LU.sel?`Đã chọn <b>${(LU.sel.kind==="slot"?t.players:t.subs)[LU.sel.i].n}</b>, bấm cầu thủ hoặc vị trí khác để đổi chỗ.`:""}</div></div>`;
 }
 const keyOf=el=>{const x=el.closest("[data-kind]");return x?{kind:x.dataset.kind,i:+x.dataset.i}:null};
 luEl.addEventListener("click",e=>{
   const h=e.target.closest("[data-half]");if(h){LU.half=+h.dataset.half;renderLineup();return}
-});
-/* đổi người chỉ bằng KÉO THẢ (chuột và cảm ứng): giữ cầu thủ, kéo tới vị trí/cầu thủ khác rồi thả */
-const DRG={};
-luEl.addEventListener("dragstart",e=>e.preventDefault());
-luEl.addEventListener("pointerdown",e=>{if(e.button>0)return;const src=e.target.closest(".slot,.bslot,tr[data-kind]");if(!src||e.target.closest("select,input"))return;
-  if(src.matches("tr")&&e.pointerType!=="mouse"&&!e.target.closest(".pn"))return; // trên điện thoại: kéo bằng tên để danh sách vẫn cuộn được
-  const k=keyOf(src),t=T.home;if(!k||!(k.kind==="slot"?t.players:(t.subs||[]))[k.i])return;
-  Object.assign(DRG,{k,src,x:e.clientX,y:e.clientY,on:false,id:e.pointerId});});
-function drgTarget(x,y){if(DRG.gh)DRG.gh.style.display="none";const el=document.elementFromPoint(x,y);if(DRG.gh)DRG.gh.style.display="";return el&&luEl.contains(el)?el.closest(".slot,.bslot,tr[data-kind]"):null}
-window.addEventListener("pointermove",e=>{if(!DRG.k||e.pointerId!==DRG.id)return;
-  if(!DRG.on){if(Math.hypot(e.clientX-DRG.x,e.clientY-DRG.y)<6)return;DRG.on=true;
-    const p=(DRG.k.kind==="slot"?T.home.players:T.home.subs)[DRG.k.i],gh=document.createElement("div");gh.className="lu-ghost";
-    gh.innerHTML=`${jersey(T.home.color,numOf(p))}<b>${p.n}</b><span>${POSN[p.pos]}</span>`;document.body.appendChild(gh);DRG.gh=gh;DRG.src.classList.add("lu-from");luEl.classList.add("lu-dragging")}
-  e.preventDefault();DRG.gh.style.left=e.clientX+"px";DRG.gh.style.top=e.clientY+"px";
-  const tg=drgTarget(e.clientX,e.clientY);if(tg!==DRG.tg){if(DRG.tg)DRG.tg.classList.remove("lu-over");DRG.tg=tg;if(tg&&tg!==DRG.src)tg.classList.add("lu-over")}},{passive:false});
-function drgEnd(e,cancel){if(!DRG.k||(e&&e.pointerId!==DRG.id))return;const was=DRG.on,a=DRG.k,tg=!cancel&&was&&e?drgTarget(e.clientX,e.clientY):null;
-  if(DRG.gh)DRG.gh.remove();if(DRG.tg)DRG.tg.classList.remove("lu-over");if(DRG.src)DRG.src.classList.remove("lu-from");luEl.classList.remove("lu-dragging");
-  for(const k in DRG)delete DRG[k];
-  if(tg){const b=keyOf(tg);if(b&&!(b.kind===a.kind&&b.i===a.i)){LU.sel=null;swapLU(a,b);if(LU.msg)renderLineup()}}}
-window.addEventListener("pointerup",e=>drgEnd(e));window.addEventListener("pointercancel",e=>drgEnd(e,true));
+  // bấm chọn cầu thủ thứ nhất, bấm cầu thủ/vị trí thứ hai để đổi chỗ; bấm lại chính nó để bỏ chọn
+  const k=keyOf(e.target);if(!k||!e.target.closest("button,tr[data-kind]"))return;
+  const t=T.home,has=(k.kind==="slot"?t.players:(t.subs||[]))[k.i];
+  if(!LU.sel){if(!has)return;LU.sel=k;LU.msg="";renderLineup();return}
+  const a=LU.sel;LU.sel=null;if(a.kind===k.kind&&a.i===k.i){renderLineup();return}swapLU(a,k);renderLineup()});
 luEl.addEventListener("change",e=>{const c=tacOf(T.home),v=e.target.value;
   if(e.target.id==="luForm"){c.form=v;autoArrange(T.home);LU.ok=true;LU.msg=`Đã chuyển sang ${v} và tự xếp lại 11 cầu thủ đá chính vào vị trí hợp nhất.`;afterLU();LU.msg="";LU.ok=false}
   else if(e.target.id==="luAtk"){if(LU.half===1)c.atk=v;else c.atk2=v;afterLU()}

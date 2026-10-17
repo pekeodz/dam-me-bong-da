@@ -837,3 +837,14 @@ html.fifa .kbox input[type=radio]{accent-color:var(--acc)}
 html.fifa .kbox .mrow.ctr span{color:var(--mu);font:700 .9rem var(--fd);letter-spacing:.08em;text-transform:uppercase}
 html.fifa .kbox .mrow.ctr span span{font-size:1.6rem}
 html.fifa .wpane button:disabled,html.fifa .mgr button:disabled{opacity:.4}
+
+/* bấm chọn đổi chỗ (thay kéo thả) */
+html.fifa .win{backdrop-filter:none}
+.mgr .slot,.mgr .bslot,.lul tr[data-kind]{cursor:pointer}
+html.fifa .mgr .slot.sel .sn,html.fifa .mgr .bslot.sel .sn{background:var(--acc);color:#0b1405!important}
+html.fifa .mgr .slot.sel .jz,html.fifa .mgr .bslot.sel .jz{transform:scale(1.18);filter:drop-shadow(0 0 7px #c6ff3d) drop-shadow(0 0 2px #c6ff3d)}
+html.fifa .lul tr.sel td{background:#c6ff3d26!important}
+html.fifa .lul tr.sel td:first-child{box-shadow:inset 3px 0 0 #c6ff3d}
+html.fifa .lu-picking .mgr .slot:not(.sel):hover .jz,html.fifa .lu-picking .mgr .bslot:not(.sel):hover .jz,html.fifa .lu-picking .slot:not(.sel):hover .jz,html.fifa .lu-picking .bslot:not(.sel):hover .jz{filter:drop-shadow(0 0 5px #fff)}
+html.fifa #lineup .msg{color:#cfe0d5;min-height:1.4em}
+html.fifa #lineup .msg b{color:var(--acc)}
