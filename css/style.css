@@ -800,7 +800,7 @@ html.fifa .wpane .nvl button{background:var(--s1);color:#cfe0d5;border-bottom:1p
 html.fifa .wpane .nvl button.sel{background:#c6ff3d1f;color:var(--acc)}
 html.fifa .wpane table td,html.fifa .wpane table th{color:#dfeae3;border-color:#ffffff10}
 html.fifa .wpane dl dt{color:var(--mu)}
-html.fifa .gb{grid-template-columns:minmax(0,330px) minmax(0,1fr)}
+html.fifa .gb{grid-template-columns:minmax(0,380px) minmax(0,1fr)}
 html.fifa .lub{grid-template-columns:minmax(0,360px) 92px minmax(0,1fr)}
 html.fifa .qtop{gap:14px}
 html.fifa .qtab{margin-bottom:0}
@@ -825,3 +825,15 @@ html.fifa .pitch{background:radial-gradient(circle at 50% 50%,transparent 12.5%,
 .lu-ghost svg{width:40px;height:40px}
 .lu-ghost b{font-weight:800;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .lu-ghost span{font-size:.7rem;color:#c6ff3d;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+/* huấn luyện: bỏ khung ảnh, ô kích/cải tiến/lên sao nền tối */
+html.fifa .mav,html.fifa .mav.hasface{background:none!important;border:0!important;box-shadow:none;border-radius:0}
+html.fifa .mav img{filter:drop-shadow(0 8px 14px #000a)}
+html.fifa .kbox{background:linear-gradient(160deg,#13241d,#0b1612)!important;border:1px solid var(--ln)!important;border-radius:10px!important;color:#d3e2d8!important;padding:14px 16px!important;display:grid;gap:8px;line-height:1.5}
+html.fifa .kbox b{color:#fff}
+html.fifa .kbox .r,html.fifa .kbox b.r{color:var(--gold)!important}
+html.fifa .kbox h4{margin:0;color:#fff;font:800 1.4rem var(--fd);letter-spacing:.1em;text-transform:uppercase}
+html.fifa .kbox label{color:#d3e2d8}
+html.fifa .kbox input[type=radio]{accent-color:var(--acc)}
+html.fifa .kbox .mrow.ctr span{color:var(--mu);font:700 .9rem var(--fd);letter-spacing:.08em;text-transform:uppercase}
+html.fifa .kbox .mrow.ctr span span{font-size:1.6rem}
+html.fifa .wpane button:disabled,html.fifa .mgr button:disabled{opacity:.4}
