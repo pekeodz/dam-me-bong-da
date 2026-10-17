@@ -848,3 +848,8 @@ html.fifa .lul tr.sel td:first-child{box-shadow:inset 3px 0 0 #c6ff3d}
 html.fifa .lu-picking .mgr .slot:not(.sel):hover .jz,html.fifa .lu-picking .mgr .bslot:not(.sel):hover .jz,html.fifa .lu-picking .slot:not(.sel):hover .jz,html.fifa .lu-picking .bslot:not(.sel):hover .jz{filter:drop-shadow(0 0 5px #fff)}
 html.fifa #lineup .msg{color:#cfe0d5;min-height:1.4em}
 html.fifa #lineup .msg b{color:var(--acc)}
+
+/* tối ưu hiệu năng */
+.stat{backdrop-filter:none!important;background:#0b1612b8!important}
+.fl{background:radial-gradient(70% 60% at 85% 0%,#1d4a33 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3a 0%,transparent 60%),linear-gradient(160deg,#0c1a14,#060b09)!important}
+.game canvas#cv{image-rendering:auto}

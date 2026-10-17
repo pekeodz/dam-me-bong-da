@@ -461,7 +461,7 @@ function buildScene(){
 }
 
 /* ================== CAMERA PHỐI CẢNH ================== */
-const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
+const cv=document.getElementById("cv"),ctx=cv.getContext("2d",{alpha:false});
 const W=cv.width,H=cv.height;
 let camX=30;
 function proj(x,y,h=0){const d=60+(68-y);const s=1920/d;return[W/2+(x-camX)*s,-219+25.9*s-h*s,s]}
@@ -472,6 +472,9 @@ const crowdC=document.createElement("canvas");crowdC.width=240;crowdC.height=120
   const cols=["#e8372c","#ffffff","#f2c94c","#2f7ff0","#1f1f1f","#e8372c","#d9d9d9","#ff8a3d"];
   for(let r=0;r<12;r++)for(let c=0;c<40;c++){const x=c*6+(r%2)*3,y=r*10+4;g.fillStyle=cols[(Math.random()*cols.length)|0];g.beginPath();g.arc(x,y,2.6,0,7);g.fill();g.fillStyle="#c99877";g.beginPath();g.arc(x,y-3.2,1.6,0,7);g.fill()}})();
 let crowdPat=null;
+// chữ "Goal!!" trên biển quảng cáo: vẽ sẵn 1 lần thành ảnh, mỗi khung chỉ dán ảnh (fillText mỗi khung rất tốn)
+const GOALTXT=["#fff","#d8261b"].map(col=>{const c=document.createElement("canvas");c.width=160;c.height=56;const g=c.getContext("2d");
+  g.fillStyle=col;g.font="italic 800 40px Impact,'Saira Condensed',sans-serif";g.textAlign="center";g.textBaseline="middle";g.fillText("Goal!!",80,29);return c});
 function drawStadium(){
   ctx.fillStyle="#141619";ctx.fillRect(0,0,W,H);
   crowdPat=crowdPat||ctx.createPattern(crowdC,"repeat");
@@ -482,7 +485,7 @@ function drawStadium(){
   poly([[-40,-3],[100,-3],[100,90],[-40,90]],"#3f9a32");
   for(let x=-40;x<100;x+=5)if(((x/5)|0)%2===0)poly([[x,-3],[x+5,-3],[x+5,90],[x,90]],"#47a838");
   for(let x=-40;x<57;x+=6){poly([[x,-2,0],[x+6,-2,0],[x+6,-2,1],[x,-2,1]],(x/6|0)%2?"#d8261b":"#f2f2f2");
-    const q=proj(x+3,-2,0.5);ctx.fillStyle=(x/6|0)%2?"#fff":"#d8261b";ctx.font=`italic 800 ${q[2]*0.62}px Impact,'Saira Condensed',sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("Goal!!",q[0],q[1])}
+    const q=proj(x+3,-2,0.5),k=q[2]*0.62/40;ctx.drawImage(GOALTXT[(x/6|0)%2?0:1],q[0]-80*k,q[1]-29*k,160*k,56*k)}
   for(let y=-2;y<80;y+=6)poly([[56,y,0],[56,y+6,0],[56,y+6,1],[56,y,1]],(y/6|0)%2?"#d8261b":"#f2f2f2");
   ctx.textBaseline="alphabetic";
   ctx.strokeStyle="rgba(255,255,255,.92)";
@@ -571,8 +574,10 @@ function tinted(key,color){
   try{const d=g.getImageData(0,0,c.width,c.height),px=d.data;
     for(let i=0;i<px.length;i+=4){const r=px[i],gg=px[i+1],b=px[i+2];
       if(px[i+3]>0&&b>70&&b>r+35&&b>gg+15){const l=Math.min(1.25,(b/255)*1.15+0.05);px[i]=Math.min(255,tr*l);px[i+1]=Math.min(255,tg*l);px[i+2]=Math.min(255,tb*l)}}
-    g.putImageData(d,0,0)}catch(e){return S.img}
-  return S.tint[color]=c;
+    g.putImageData(d,0,0)}catch(e){return S.tint[color]=S.img} // lỗi (mở file trực tiếp): nhớ luôn để không thử lại mỗi khung
+  // chép sang canvas mới (chưa từng getImageData) để trình duyệt giữ trên GPU, vẽ mỗi khung hình không phải tải lại ảnh
+  const c2=document.createElement("canvas");c2.width=c.width;c2.height=c.height;c2.getContext("2d").drawImage(c,0,0);
+  return S.tint[color]=c2;
 }
 function pickFrame(a,key,now){
   const A=SPRITE_META[key].anims,an=a.anim,t=Math.max(0,a.at||0);
@@ -723,6 +728,10 @@ function frame(ts){
   }
   if(window.MODE==="lobby")camX=33+9*Math.sin(ts/7000);else camX+=(clamp(ball.x,22,44)-camX)*Math.min(1,dt*2);
   fx.net=Math.max(0,fx.net-dt*0.8);fx.shake=Math.max(0,fx.shake-dt*2);fx.banner=Math.max(0,fx.banner-dt*0.7);
+  // không vẽ lại khi sảnh che kín sân, hoặc khi khung hình y hệt khung trước (đứng yên) → đỡ tốn CPU/GPU
+  const sig=window.MODE==="lobby"?"L":scene||parts.length||fx.net||fx.shake||fx.banner?null:camX.toFixed(3)+","+ball.x+","+ball.y+","+ball.h;
+  if(sig&&sig===frame.sig){requestAnimationFrame(frame);return}frame.sig=sig;
+  if(sig==="L"){requestAnimationFrame(frame);return}
   ctx.save();if(fx.shake>0)ctx.translate((rnd()-.5)*14*fx.shake,(rnd()-.5)*14*fx.shake);
   drawStadium();drawGoal();
   const now=ts/1000;
