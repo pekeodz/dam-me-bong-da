@@ -853,3 +853,6 @@ html.fifa #lineup .msg b{color:var(--acc)}
 .stat{backdrop-filter:none!important;background:#0b1612b8!important}
 .fl{background:radial-gradient(70% 60% at 85% 0%,#1d4a33 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3a 0%,transparent 60%),linear-gradient(160deg,#0c1a14,#060b09)!important}
 .game canvas#cv{image-rendering:auto}
+
+/* bảng cơ hội: bỏ khung quanh từng cầu thủ */
+html.fifa .pop .pc{background:none!important;border:0!important;box-shadow:none!important}
