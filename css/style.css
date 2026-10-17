@@ -610,7 +610,7 @@ html.fifa .game{border:1px solid var(--ln);border-radius:12px}
 html.fifa .topbar{background:linear-gradient(#050a08f0,#050a08b0)!important;border-bottom:1px solid var(--ln)}
 html.fifa .topbar .t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
 /* bảng tỉ số góc trái kiểu FIFA */
-html.fifa .board{left:1.6cqw;top:6.2cqw;transform:none;width:auto;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+html.fifa .board{left:50%;top:6.2cqw;transform:translateX(-50%);width:max-content;max-width:96%;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
 html.fifa .sb{grid-template-columns:auto auto auto auto auto;gap:0;padding:0;background:none;border:0;border-radius:0;box-shadow:0 .4cqw 1.2cqw #0008;overflow:hidden}
 html.fifa .sb>*{height:3.6cqw;display:grid;place-items:center}
 html.fifa .sb .tn{background:var(--glass2);color:#fff;font:800 1.9cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.03em;text-transform:uppercase;padding:0 1.2cqw;text-shadow:none;max-width:24cqw}
@@ -653,3 +653,5 @@ html.fifa .topbar .coin{width:2.4cqw;height:2cqw;background:url(../assets/ui/van
 html.fifa .topbar .coin.xu{background-image:url(../assets/ui/xu.webp)!important}html.fifa .topbar .coin.ph{background-image:url(../assets/ui/phieu.webp)!important}
 html.fifa .topbar .res{background:#0e1a15;border:1px solid var(--ln);border-radius:999px;padding:.2cqw 1cqw .2cqw .4cqw}
 html.fifa .topbar .res b{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:1.2em;color:#fff}
+html.fifa .pop{top:13.6cqw!important;transform:translate(-50%,0) scale(.96)!important}
+html.fifa .pop.on{transform:translate(-50%,0) scale(1)!important}
