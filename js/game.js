@@ -57,10 +57,12 @@ const SKILLS={
  stepover:{n:"Step Over",anim:"stepover",rate:.6,mult:1.15,desc:"Đi bóng qua người: đảo chân đánh lừa, sức đi bóng +15%"},
  roulette:{n:"Xoay Compa",anim:"roulette",rate:.6,mult:1.2,desc:"Đi bóng qua người: xoay người 360°, sức đi bóng +20%"},
  bike:{n:"Ngả Bàn Đèn",anim:"bike",rate:.6,mult:1.2,desc:"Kỹ năng vô-lê khó nhất (độc quyền): ở cơ hội vô-lê tung người ngả bàn đèn, sức sút vào +20%"},
+ dibo:{n:"Đi Bộ Vượt Râu",anim:"dibo",rate:.6,mult:1.25,desc:"Kỹ năng độc quyền Icon Messi: thong thả dắt bóng lách qua hậu vệ, sức đi bóng +25%"},
+ msc:{n:"Ăn mừng Messi",anim:"msc",rate:1,mult:1,desc:"Màn ăn mừng độc quyền Icon Messi sau khi ghi bàn"},
  siu:{n:"Ăn mừng SIUUU",anim:"siu",rate:1,mult:1,desc:"Màn ăn mừng độc quyền sau khi ghi bàn"}};
 const SKILL_OWN={
  "Ronaldo":[["siu",0],["stepover",2],["bike",4]],
- "Messi":[["roulette",2],["stepover",3]],
+ "Messi":[["dibo",0],["msc",0],["roulette",2]],
  "Quang Hải":[["roulette",3]],
  "Công Phượng":[["stepover",2],["roulette",4]],
  "Tiến Linh":[],
@@ -284,7 +286,7 @@ const shotSpot=y=>[40+rnd()*4,clamp(y+(34-y)*.6,14,54)];
 function sceneDribble(c){
   const A=rp(c.atk,RW.aFin,"re"),D=rp(c.def,RW.dNear,"xoac",null,A),y0=laneY(A);setup(c,A,D,y0);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
+  const skl=trySkill(A,["dibo","roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
   if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
   const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[{...ent(A,c.atk,"re"),skill:skl}],R:[ent(D,c.def,"xoac")],
     detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:skl||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
@@ -564,7 +566,7 @@ function drawSprite(g,a,now,x,y,sc){
 const SPR={};
 for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={img,ready:false,tint:{}};img.onload=()=>{SPR[k].ready=true;if(window.mgrRender)mgrRender()};img.src=src}
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
-const FPS={bpha:10,nga:8,lua:10,volley:16,stepover:11,roulette:11,siu:6,run:0,drib:0,pass:14,shot:13,fk:14,long:13,pen:15,slide:11,head:12,bike:12,cele:6,regret:7,catch:14,dive:14,divelow:14,punch:14};
+const FPS={dibo:11,luamessi:11,msc:6,bpha:10,nga:8,lua:10,volley:16,stepover:11,roulette:11,siu:6,run:0,drib:0,pass:14,shot:13,fk:14,long:13,pen:15,slide:11,head:12,bike:12,cele:6,regret:7,catch:14,dive:14,divelow:14,punch:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
 const CONTACT={volley:.66,pass:.62,shot:.72,long:.68,fk:.62};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
@@ -601,8 +603,10 @@ function pickFrame(a,key,now){
   if(an==="jump"){[r.an,r.i]=A.head?once("head"):["idle",0];r.dy=-0.55*Math.sin(clamp(t/0.6,0,1)*Math.PI);return r}
   if(an==="bike"&&A.bike){[r.an,r.i]=once("bike");r.dy=-0.5*Math.sin(clamp(t/0.7,0,1)*Math.PI);return r}
   if(an==="regret"&&A.regret){[r.an,r.i]=once("regret");return r}
-  if((an==="stepover"||an==="roulette"||an==="lua"||an==="bpha")&&A[an]){[r.an,r.i]=once(an);return r}
-  if(an==="celebrate"){const sv=hasSkill(a.p,"siu")&&A.siu?"siu":"cele";if(A[sv]){[r.an,r.i]=once(sv);return r}r.an="idle";r.i=0;r.dy=-0.35*Math.abs(Math.sin(t*7));return r}
+  // động tác riêng: Icon Messi lừa bóng bằng kiểu đảo bóng của mình
+  if(an==="lua"&&a.p.n==="Messi"&&a.p.tier===6&&A.luamessi){[r.an,r.i]=once("luamessi");return r}
+  if((an==="stepover"||an==="roulette"||an==="lua"||an==="bpha"||an==="dibo")&&A[an]){[r.an,r.i]=once(an);return r}
+  if(an==="celebrate"){const sv=hasSkill(a.p,"siu")&&A.siu?"siu":hasSkill(a.p,"msc")&&A.msc?"msc":"cele";if(A[sv]){[r.an,r.i]=once(sv);return r}r.an="idle";r.i=0;r.dy=-0.35*Math.abs(Math.sin(t*7));return r}
   if(a.moving&&!A.run){r.an="idle";r.i=Math.floor((a.phase||0)*1.2)%A.idle.length;r.dy=-0.04*Math.abs(Math.sin((a.phase||0)*1.6));return r}
   if(a.moving){const set=(A.drib&&scene&&scene.holder===a.role)?"drib":"run";const n=A[set].length;r.an=set;r.i=Math.floor((a.phase||0)*n/5.7)%n;return r}
   [r.an,r.i]=loop("idle",5);return r;
@@ -698,7 +702,7 @@ function startStep(){
     if(an==="jump"&&roleOf(k.p)==="TM")k.diveSet="punch"; // tranh chấp bóng bổng: thủ môn đấm bóng
     if(an==="slide"||an==="fall"||an==="dive")puff(k.x,k.y,8,"#cfe3c0")}
   for(const [r,an] of Object.entries(st.anim||{})){const k=byRole(r);if(!k)continue;
-    if(an==="celebrate"&&hasSkill(k.p,"siu"))skillFx(k.p,"siu")}
+    if(an==="celebrate"&&hasSkill(k.p,"siu"))skillFx(k.p,"siu");else if(an==="celebrate"&&hasSkill(k.p,"msc"))skillFx(k.p,"msc")}
   addLog(st.txt,st.goal);
   if(st.popup){showPop(st.popup);M.hold=2.4;M.holdPop=st.popup}
   if(st.goal){M.score[scene.side]++;goalMor(scene.side,scene.scorer);render();setTimeout(()=>{fx.net=1;fx.shake=1;fx.banner=2},st.dur*600/spd())}
