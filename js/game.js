@@ -42,7 +42,7 @@ const OVR={
 // Thực lực = trung bình 19 chỉ số (khớp thẻ gốc: Messi trung bình 438.6 ≈ Thực lực 436.6)
 const overall=p=>ATTR.reduce((s,[k])=>s+p[k],0)/ATTR.length;
 /* Bậc cầu thủ: trần chỉ số khi Độ kích thích 100%. Vàng = 625 theo thẻ Messi (Sút/Rê/Chuyền 624.9). */
-const TIERS=[{n:"Trắng",c:"#d6d9de",cap:250},{n:"Xanh lá",c:"#22c55e",cap:330},{n:"Xanh lam",c:"#3b82f6",cap:410},{n:"Tím",c:"#a855f7",cap:500},{n:"Vàng",c:"#eab308",cap:625},{n:"Đỏ",c:"#ef4444",cap:750}];
+const TIERS=[{n:"Trắng",c:"#d6d9de",cap:250},{n:"Xanh lá",c:"#22c55e",cap:330},{n:"Xanh lam",c:"#3b82f6",cap:410},{n:"Tím",c:"#a855f7",cap:500},{n:"Vàng",c:"#eab308",cap:625},{n:"Đỏ",c:"#ef4444",cap:750},{n:"Icon",c:"#e9c56a",cap:900}]; // Icon: bậc cao nhất, không ra từ tìm kiếm thường
 const tierOf=p=>TIERS[p.tier??2];
 const hashN=s=>[...s].reduce((h,c)=>(h*31+c.charCodeAt(0))>>>0,7);
 function seeded(seed){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}}
@@ -462,7 +462,15 @@ function buildScene(){
 
 /* ================== CAMERA PHỐI CẢNH ================== */
 const cv=document.getElementById("cv"),ctx=cv.getContext("2d",{alpha:false});
-const W=cv.width,H=cv.height;
+const W=cv.width,H=cv.height; // kích thước "logic" để tính toán, luôn 1020×640
+// ĐỘ NÉT CAO: canvas vẽ đúng số điểm ảnh thật trên màn hình (tối đa 2.5 lần), thay vì vẽ 1020×640 rồi phóng to bị mờ
+let RS=1,HIRES=true;try{HIRES=localStorage.getItem("dmbd_hires")!=="0"}catch(e){}
+function fitCanvas(){const r=cv.getBoundingClientRect().width||W,k=HIRES?Math.min(2.5,Math.max(1,r*(window.devicePixelRatio||1)/W)):1;
+  if(Math.abs(k-RS)<0.02&&cv.width===Math.round(W*RS))return;RS=k;cv.width=Math.round(W*k);cv.height=Math.round(H*k);
+  ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality="high";crowdPat=null;frame.sig=null}
+window.addEventListener("resize",()=>fitCanvas());document.addEventListener("fullscreenchange",()=>setTimeout(fitCanvas,50));
+if(window.ResizeObserver)new ResizeObserver(()=>fitCanvas()).observe(cv);
+function setHires(on){HIRES=on;try{localStorage.setItem("dmbd_hires",on?"1":"0")}catch(e){}fitCanvas()}
 let camX=30;
 function proj(x,y,h=0){const d=60+(68-y);const s=1920/d;return[W/2+(x-camX)*s,-219+25.9*s-h*s,s]}
 function poly(pts,fill){ctx.beginPath();pts.forEach((p,i)=>{const q=proj(...p);i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])});ctx.fillStyle=fill;ctx.fill()}
@@ -556,9 +564,9 @@ function drawSprite(g,a,now,x,y,sc){
 const SPR={};
 for(const [k,src] of Object.entries(SPRITE_SRC)){const img=new Image();SPR[k]={img,ready:false,tint:{}};img.onload=()=>{SPR[k].ready=true;if(window.mgrRender)mgrRender()};img.src=src}
 const charKey=p=>p.sprite||(roleOf(p)==="TM"?"gk":"std");
-const FPS={bpha:8,nga:9,lua:10,volley:16,stepover:13,roulette:13,siu:7,run:0,drib:0,pass:16,shot:16,fk:15,long:16,pen:15,slide:14,head:16,bike:13,cele:6,regret:6,catch:14,dive:14};
+const FPS={bpha:10,nga:8,lua:10,volley:16,stepover:11,roulette:11,siu:6,run:0,drib:0,pass:14,shot:13,fk:14,long:13,pen:15,slide:11,head:12,bike:12,cele:6,regret:7,catch:14,dive:14,divelow:14,punch:14};
 const KICK_FALLBACK={volley:["volley","shot","fk"],pass:["pass","fk","shot"],shot:["shot","fk"],long:["long","shot"],fk:["fk","shot"],pen:["fk","shot"]};
-const CONTACT={volley:.56,pass:.55,shot:.6,long:.55,fk:.65};
+const CONTACT={volley:.66,pass:.62,shot:.72,long:.68,fk:.62};
 function hasAnim(key,an){return !!SPRITE_META[key].anims[an]}
 function kickAnim(key,set){for(const a of (KICK_FALLBACK[set]||["shot"]))if(hasAnim(key,a))return a;return null}
 function kickInfo(a){const key=charKey(a.p),an=kickAnim(key,a.kickSet||"shot");if(!an)return{dur:0.4,contact:0};
@@ -686,8 +694,8 @@ function startStep(){
     ball.from=[ball.x,ball.y];ball.to=st.ball.to;ball.peak=st.ball.h??1.2;ball.h0=ball.h||0;ball.h1=st.ball.endH||0}else{ball.from=null}
   scene.holder=st.ball.carry||st.ball.fly||null;
   for(const [r,an] of Object.entries(st.anim||{})){const k=byRole(r);if(!k)continue;k.anim=an;k.at=0;
-    if(an==="dive"){k.diveDir=Math.sign((st.ball.to?st.ball.to[1]:34)-k.y)||1;k.diveSet=(st.ball.endH??0)>1.1?"dive":"catch";k.at=-(ball.delay||0)}
-    if(an==="jump"&&roleOf(k.p)==="TM")k.diveSet="dive";
+    if(an==="dive"){k.diveDir=Math.sign((st.ball.to?st.ball.to[1]:34)-k.y)||1;k.diveSet=(st.ball.endH??0)>1.1?"dive":Math.abs((st.ball.to?st.ball.to[1]:k.y)-k.y)>2.2?"divelow":"catch";k.at=-(ball.delay||0)}
+    if(an==="jump"&&roleOf(k.p)==="TM")k.diveSet="punch"; // tranh chấp bóng bổng: thủ môn đấm bóng
     if(an==="slide"||an==="fall"||an==="dive")puff(k.x,k.y,8,"#cfe3c0")}
   for(const [r,an] of Object.entries(st.anim||{})){const k=byRole(r);if(!k)continue;
     if(an==="celebrate"&&hasSkill(k.p,"siu"))skillFx(k.p,"siu")}
@@ -732,6 +740,7 @@ function frame(ts){
   const sig=window.MODE==="lobby"?"L":scene||parts.length||fx.net||fx.shake||fx.banner?null:camX.toFixed(3)+","+ball.x+","+ball.y+","+ball.h;
   if(sig&&sig===frame.sig){requestAnimationFrame(frame);return}frame.sig=sig;
   if(sig==="L"){requestAnimationFrame(frame);return}
+  ctx.setTransform(RS,0,0,RS,0,0);
   ctx.save();if(fx.shake>0)ctx.translate((rnd()-.5)*14*fx.shake,(rnd()-.5)*14*fx.shake);
   drawStadium();drawGoal();
   const now=ts/1000;
@@ -1117,7 +1126,7 @@ function nameAt(q,k){const P=NAME_PARTS[q]||NAME_PARTS.vn;k=Math.abs(k|0);
   return P.length>1?`${a} ${P[1][n%P[1].length]}`:`${String.fromCharCode(65+n%26)}. ${a}`}
 // [tên, vị trí, bậc (0 Trắng … 5 Đỏ), quốc gia, chân]
 const STARS=[
- ["Messi","TĐ",5,"ar","T"],["Ronaldo","TĐ",5,"pt"],
+ ["Messi","TĐ",6,"ar","T"],["Ronaldo","TĐ",5,"pt"],
  ["Lautaro Martínez","TĐ",4,"ar"],["Julián Álvarez","TĐ",4,"ar"],["Emiliano Martínez","TM",4,"ar"],["Di María","TVC",4,"ar","T"],
  ["Mac Allister","TV",3,"ar"],["Enzo Fernández","TV",3,"ar"],["De Paul","TV",3,"ar"],["Otamendi","HV",2,"ar"],["Tagliafico","HVC",2,"ar","T"],
  ["Bruno Fernandes","TV",4,"pt"],["Bernardo Silva","TVC",4,"pt","T"],["Rúben Dias","HV",4,"pt"],["Rafael Leão","TVC",3,"pt"],["João Félix","TĐ",3,"pt"],["Diogo Costa","TM",3,"pt"],["Nuno Mendes","HVC",3,"pt","T"],["Gonçalo Ramos","TĐ",2,"pt"],
@@ -1128,17 +1137,18 @@ const STARS=[
  ["Mitoma","TVC",3,"jp"],["Kubo","TVC",3,"jp","T"],["Endo","TV",3,"jp"],["Tomiyasu","HV",3,"jp"],["Minamino","TĐ",2,"jp"],["Doan Ritsu","TVC",2,"jp","T"],["Ueda Ayase","TĐ",2,"jp"],
  ["Chanathip","TV",3,"th"],["Supachok","TVC",2,"th"],["Teerasil","TĐ",2,"th"],["Theerathon","HVC",2,"th","T"],["Kawin","TM",2,"th"],["Suphanat","TVC",2,"th"],
  ["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",5,"vn"],["Công Phượng","TVC",2,"vn"],["Tiến Linh","TĐ",2,"vn"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn"],["Văn Lâm","TM",2,"vn"],["Tuấn Anh","TV",2,"vn"],["Văn Quyết","TĐ",2,"vn"],["Duy Mạnh","HV",2,"vn"],["Văn Toàn","TĐ",2,"vn"],["Tiến Dũng","HV",2,"vn"],["Xuân Mạnh","HVC",2,"vn"],["Hùng Dũng","TV",2,"vn"]];
-const MAXSQ=25,HIRE_FEE=[3000,8000,25000,70000,180000,450000],ODDS=[46,30,14,7,2.5,0.5];
-const TCOL=["#4b5563","#15803d","#1d4ed8","#7e22ce","#b45309","#dc2626"]; // màu chữ bậc trên nền sáng
-if(document.documentElement.classList.contains("fifa"))TCOL.splice(0,6,"#d6d9de","#3ddc84","#5aa9ff","#c58bff","#ffcf4a","#ff5a52");
+const MAXSQ=25,HIRE_FEE=[3000,8000,25000,70000,180000,450000,1200000],ODDS=[46,30,14,7,2.5,0.5,0.05];
+const TCOL=["#4b5563","#15803d","#1d4ed8","#7e22ce","#b45309","#dc2626","#a1782a"]; // màu chữ bậc trên nền sáng
+if(document.documentElement.classList.contains("fifa"))TCOL.splice(0,7,"#d6d9de","#3ddc84","#5aa9ff","#c58bff","#ffcf4a","#ff5a52","#f3d98a");
 const TROLY=typeof TROLY_SRC!=="undefined"?TROLY_SRC:"";
 function dayStat(){const c=club(),d=new Date().toDateString();
   if(!c.day||c.day.d!==d){c.day={d,m:0,w:0,s:0};for(const k of Object.keys(c.claimed))if(k.includes("@"))delete c.claimed[k]}return c.day}
 function brokerState(){const c=club();c.broker=c.broker||{q:"all",list:[]};return c.broker}
 function unlockedQ(){const c=club(),s=new Set(["vn"]);CAMPAIGN.forEach((x,i)=>{if(i<=c.campaign)s.add(x.q)});return s}
-function rollTier(boost){const w=ODDS.map((v,i)=>i>=3?v*boost:v),sum=w.reduce((a,b)=>a+b);let r=Math.random()*sum;for(let i=0;i<w.length;i++)if((r-=w[i])<0)return i;return 0}
-function rollPlayer(q,boost,taken){const t=rollTier(boost),pick=a=>a[Math.floor(Math.random()*a.length)];
-  const pool=STARS.filter(s=>s[2]===t&&(q==="all"||s[3]===q)&&!taken.has(s[0]));let name,pos,nat,chan;
+function rollTier(boost,noIcon){const w=ODDS.map((v,i)=>i===6?(noIcon?0:v*boost):i>=3?v*boost:v),sum=w.reduce((a,b)=>a+b);let r=Math.random()*sum;for(let i=0;i<w.length;i++)if((r-=w[i])<0)return i;return 0}
+function rollPlayer(q,boost,taken,noIcon){const t=rollTier(boost,noIcon),pick=a=>a[Math.floor(Math.random()*a.length)];
+  let pool=STARS.filter(s=>s[2]===t&&(q==="all"||s[3]===q)&&!taken.has(s[0]));let name,pos,nat,chan;
+  if(t===6&&!pool.length)return rollPlayer(q,boost,taken,true); // Icon chỉ là cầu thủ có tên thật; không có thì tìm lại (không tính tỉ lệ Icon)
   if(t>=2&&pool.length){[name,pos,,nat,chan="P"]=pick(pool)}
   else{nat=q==="all"?pick(Object.keys(NATIONS)):q;pos=pick(["TM","HV","HV","HVC","TV","TV","TVC","TĐ","TĐ"]);chan=Math.random()<.25?"T":"P";
     let n=0;do name=nameAt(nat,Math.floor(Math.random()*99999))+(++n>40?" "+n:"");while(taken.has(name))}
@@ -1471,12 +1481,12 @@ function openCard(team,i){
   const sk=Array.from({length:8},(_,j)=>{const s=(p.skills||[])[j];if(!s)return`<span class="sk2"></span>`;const k=SKILLS[s.id],on=(p.star||0)>=s.star;
     return`<span class="sk2 ${on?"on":""}" title="${k.n}${on?"":` — cần ★${s.star}`}: ${k.desc}"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="${on?"#f59e0b":"#6b7280"}"/><text x="20" y="25" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${k.n.split(" ").map(w=>w[0]).join("").slice(0,2)}</text></svg>${on?"":"<i>🔒</i>"}</span>`}).join("");
   /* thẻ kiểu FIFA: khiên màu theo bậc + 19 chỉ số chia nhóm (màu số theo mức bậc mà chỉ số đạt tới) */
-  const POS_AB={TM:"TM",HV:"TRV",HVC:"HVC",TV:"TV",TVC:"TVC","TĐ":"TĐ"},CAPS=[250,330,410,500,625];
-  const qv=v=>{let k=0;while(k<5&&v>=CAPS[k])k++;return k},av=a=>a.reduce((s,x)=>s+x,0)/a.length;
+  const POS_AB={TM:"TM",HV:"TRV",HVC:"HVC",TV:"TV",TVC:"TVC","TĐ":"TĐ"},CAPS=[250,330,410,500,625,750];
+  const qv=v=>{let k=0;while(k<6&&v>=CAPS[k])k++;return k},av=a=>a.reduce((s,x)=>s+x,0)/a.length;
   const six=p.pos==="TM"?[["CỨU",p.cuu],["ĐẤM",p.dbong],["KHC",p.kchien],["NHẢY",p.bat],["TĐ",p.toc],["THỂ",p.the]]
     :[["TĐ",av([p.toc,p.bpha])],["SÚT",av([p.sut,p.sxa])],["CHU",av([p.chuyen,p.cdai])],["RÊ",p.re],["THỦ",av([p.xoac,p.doat])],["THỂ",av([p.the,p.ben,p.bat])]];
   const GR=[["Tấn công",["sut","sxa","dau","pden","dphat"]],["Kỹ thuật",["re","chuyen","cdai","pgoc"]],["Thể chất",["toc","bpha","bat","the","ben"]],["Phòng ngự",["xoac","doat"]],["Thủ môn",["cuu","dbong","kchien"]]];
-  const ord=p.pos==="TM"?[4,2,0,1,3]:[0,1,2,3,4],nat=NATIONS[p.q]?NATIONS[p.q].n:"Việt Nam",img=faceSrc(p);
+  const ord=p.pos==="TM"?[4,2,0,1,3]:[0,1,2,3,4],nat=NATIONS[p.q]?NATIONS[p.q].n:"Việt Nam",img=(p.tier===6&&typeof ICON_IMG!=="undefined"&&ICON_IMG[p.n])||faceSrc(p);
   const grp=gi=>{const [gn,ks]=GR[gi],ga=av(ks.map(k=>p[k]));return`<div class="fc-grp"><h4>${gn}<b class="fq${qv(ga)}">${Math.round(ga)}</b></h4>${ks.map(k=>{const v=p[k],m=maxOf(p,k)+(p.imp[k]||0)+(p.starB[k]||0),c=qv(v);
     return`<div class="fc-row" title="${ATTR.find(x=>x[0]===k)[2]}"><span>${LBL[k]}</span><span class="fc-bar"><i class="fc-lim" style="width:${Math.min(100,m/7.5)}%"></i><i class="fc-cur fb${c}" style="width:${Math.min(100,v/7.5)}%"></i></span><span class="fc-v fq${c}">${fmt1(v)}</span></div>`}).join("")}</div>`};
   modal.innerHTML=`<div class="pcard fc" role="dialog" aria-label="Thẻ cầu thủ ${p.n}"><div class="hd"><span class="ctab">Cầu thủ</span><button id="mclose" aria-label="Đóng">✕</button></div>
@@ -1484,7 +1494,7 @@ function openCard(team,i){
      <div class="fc-card ft${p.tier??2}"><div class="fc-ovr"><b>${Math.round(overall(p))}</b><span>${POS_AB[p.pos]}</span><i>${nat}</i><em>${tierOf(p).n}</em></div>
       <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
       <div class="fc-nm">${p.n}</div><div class="fc-rule"></div>
-      <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div></div>
+      <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div>${p.tier===6?'<i class="ic-fx ic-sweep"></i><i class="ic-fx ic-holo"></i><i class="ic-fx ic-glare"></i>'+[[22,14,0],[80,24,.8],[28,46,1.5],[74,56,.4],[52,7,2],[88,40,1.1]].map(([x,y,dl])=>`<i class="ic-sp" style="left:${x}%;top:${y}%;animation-delay:${dl}s"></i>`).join(""):""}</div>
      <div class="fc-stars" aria-label="${p.star||0} sao">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></div>
      <div class="skg">${sk}</div></div>
     <div class="fc-info">
@@ -1493,10 +1503,14 @@ function openCard(team,i){
       <div><small>Độ kích thích · ${p.ktUsed}/10 lần</small><b>${Math.round(p.kt)}%</b><span class="fc-kt"><i style="width:${p.kt}%"></i></span></div>
       <div><small>Tuổi · Cao · Nặng</small><b>${p.age} · ${p.cao} · ${p.nang}</b></div></div>
      <div class="fc-groups">${ord.map(grp).join("")}</div>
-     <div class="fc-leg"><span>Màu theo mức bậc:</span><span><i class="fb0"></i>&lt;250</span><span><i class="fb1"></i>250+</span><span><i class="fb2"></i>330+</span><span><i class="fb3"></i>410+</span><span><i class="fb4"></i>500+</span><span><i class="fb5"></i>625+</span><span><i class="fc-limk"></i>giới hạn luyện hiện tại</span></div>
+     <div class="fc-leg"><span>Màu theo mức bậc:</span><span><i class="fb0"></i>&lt;250</span><span><i class="fb1"></i>250+</span><span><i class="fb2"></i>330+</span><span><i class="fb3"></i>410+</span><span><i class="fb4"></i>500+</span><span><i class="fb5"></i>625+</span><span><i class="fb6"></i>750+</span><span><i class="fc-limk"></i>giới hạn luyện hiện tại</span></div>
      <p class="fc-tp">Điểm huấn luyện: <b>${fmt(Math.round(p.tp))}</b> · Thích nghi ${p.tn}% <button class="lnk" data-go="buytp">Cấp tốc nhận điểm</button></p>
      <div class="fc-acts">${own?`<button class="pri" data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button><button data-go="sell" ${isSub?"":"disabled title=\"Chỉ bán được cầu thủ dự bị\""}>${SELL.p===p?`Xác nhận bán (+${fmt(price)} vàng)`:"Bán cầu thủ"}</button>`:`<span class="note2">Cầu thủ đội bạn</span>`}</div>
     </div></div></div>`;
+  {const ic=modal.querySelector(".fc-card.ft6");if(ic){ic.classList.add("reveal");
+    ic.addEventListener("pointermove",e=>{const r=ic.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;ic.classList.add("live");
+      ic.style.setProperty("--ry",((px-.5)*26)+"deg");ic.style.setProperty("--rx",((.5-py)*22)+"deg");ic.style.setProperty("--mx",px*100+"%");ic.style.setProperty("--my",py*100+"%");ic.style.setProperty("--o",1)});
+    ic.addEventListener("pointerleave",()=>{ic.classList.remove("live");ic.style.setProperty("--rx","0deg");ic.style.setProperty("--ry","0deg");ic.style.setProperty("--o",0)})}}
   modal.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{const g=b.dataset.go;
     if(g==="sell"){if(SELL.p!==p){SELL.p=p;openCard(team,i);return}team.subs.splice(team.subs.indexOf(p),1);give({gold:price});SELL.p=null;modal.hidden=true;toast(`Đã bán ${p.n}: +${fmt(price)} vàng`);news(`${club().mgr.name} đã bán ${p.n}.`);applyLineup(team);saveLocal();render();renderSquad();if(!winEl.hidden){renderLineup()}return}
     if(g==="buytp"){if(T.club.phieu<10){toast("Cần 10 phiếu.");return}T.club.phieu-=10;p.tp+=1000;saveLocal();render();openCard(team,i);toast("+1.000 điểm huấn luyện");return}
@@ -1525,3 +1539,5 @@ T.rival=T.rival||T.away;club();setMode("lobby");
     T=freshT();T.rival=T.away;club().mgr.name=name;newMatch();mgrRender();renderLineup();
     try{if(db)await fbSave(false);else saveLocal()}catch(e){saveLocal()}
     closeWin();setMode("lobby");toast("Đã tạo đội mới. Chúc bạn may mắn ở Môi giới!")}})();
+// Cài đặt: bật/tắt độ nét cao của sân
+{const h=document.getElementById("setHires");if(h){h.checked=HIRES;h.onchange=()=>setHires(h.checked)}}

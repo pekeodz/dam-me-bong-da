@@ -856,3 +856,40 @@ html.fifa #lineup .msg b{color:var(--acc)}
 
 /* bảng cơ hội: bỏ khung quanh từng cầu thủ */
 html.fifa .pop .pc{background:none!important;border:0!important;box-shadow:none!important}
+/* ===== bậc ICON ===== */
+.ft6{--c1:#6b5426;--c2:#e9c56a;--c3:#fff4d2;--ink:#2b2113}
+.fq6{color:#e9c56a!important;text-shadow:0 0 6px #e9c56a66}.fb6{background:linear-gradient(90deg,#c7973d,#fff3c8)!important}
+.fc-leg .fb6{display:inline-block}
+.fl-dot.t6{background:#f3d98a}.m6{--c1:#6b5426;--c2:#e9c56a;--c3:#fff4d2}
+.skfx.t6,.psk.t6{--tc:#c7973d;--tc2:#fff3c8}
+.fc-card.ft6{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;--o:0;aspect-ratio:456/590;clip-path:none;overflow:visible;background:url(../assets/ui/the-icon.webp) center/100% 100% no-repeat;color:#2b2113;
+  transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .35s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 18px 28px #000b) drop-shadow(0 0 18px #e9c56a40);cursor:pointer}
+.fc-card.ft6.live{transition:transform .06s linear}
+.fc-card.ft6.reveal{animation:icRev 1s cubic-bezier(.2,.9,.2,1)}
+@keyframes icRev{0%{transform:perspective(900px) rotateY(180deg) scale(.6);filter:brightness(3) drop-shadow(0 0 50px #ffe7a0)}65%{filter:brightness(1.5) drop-shadow(0 0 30px #ffe7a0)}}
+.fc-card.ft6::before,.fc-card.ft6::after{display:none}
+.ft6 .fc-ovr{left:15%;top:16%}
+.ft6 .fc-ovr b{background:linear-gradient(180deg,#5a4217,#2b2113);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ft6 .fc-ovr i{opacity:.75}
+.ft6 .fc-ovr em{background:linear-gradient(90deg,#b8892e,#e9c56a);color:#2b2113;border:0}
+.ft6 .fc-face{right:6%;top:8%;width:62%;height:54%;place-items:start center}
+.ft6 .fc-face img{object-fit:cover;object-position:50% 0;-webkit-mask:linear-gradient(#000 70%,transparent 99%);mask:linear-gradient(#000 70%,transparent 99%);filter:drop-shadow(0 6px 8px #0005)}
+.ft6 .fc-nm{top:61%;text-shadow:none;color:#2b2113}
+.ft6 .fc-rule{top:69%;left:20%;right:20%;background:linear-gradient(90deg,transparent,#8a6a2a,transparent);opacity:1}
+.ft6 .fc-six{top:71%;left:17%;right:17%;grid-template-columns:repeat(3,1fr);column-gap:6px}
+.ft6 .fc-six div{border:0!important;padding:0!important;justify-content:center;gap:4px}
+.ft6 .fc-six b{font-size:1.15rem;min-width:0}.ft6 .fc-six span{font-size:.8rem;color:#5a4a2e}
+.ic-fx{position:absolute;inset:0;pointer-events:none;z-index:3;-webkit-mask:url(../assets/ui/the-icon.webp) center/100% 100% no-repeat;mask:url(../assets/ui/the-icon.webp) center/100% 100% no-repeat}
+.ic-sweep{background:linear-gradient(115deg,transparent 35%,#fff8 47%,#fff 50%,#fff8 53%,transparent 65%);background-size:300% 100%;mix-blend-mode:overlay;animation:icSw 3.6s ease-in-out infinite}
+@keyframes icSw{0%,35%{background-position:130% 0}75%,100%{background-position:-30% 0}}
+.ic-glare{background:radial-gradient(circle at var(--mx) var(--my),#fff9 0%,#fff3 18%,transparent 45%);mix-blend-mode:soft-light;opacity:var(--o);transition:opacity .3s}
+.ic-holo{background:linear-gradient(120deg,#ffe7a0,#fff 25%,#d9b25a 50%,#fff3c8 75%,#c7973d);mix-blend-mode:color-dodge;opacity:calc(var(--o)*.14);transition:opacity .3s}
+.ic-sp{position:absolute;z-index:4;width:12px;height:12px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:0;filter:drop-shadow(0 0 4px #ffe9a8);animation:icTw 2.4s ease-in-out infinite;pointer-events:none}
+@keyframes icTw{0%,100%{opacity:0;transform:scale(.2)}50%{opacity:1;transform:scale(1) rotate(90deg)}}
+@media (prefers-reduced-motion:reduce){.ic-sweep,.ic-sp,.fc-card.ft6.reveal{animation:none}}
+.ft6 .fc-ovr{left:13%;top:15%}.ft6 .fc-ovr b{font-size:2.3rem}.ft6 .fc-ovr span{font-size:.95rem;margin-top:4px}.ft6 .fc-ovr em{display:none}
+.ft6 .fc-ovr i{font-size:.58rem;max-width:52px}
+.ft6 .fc-nm{font-size:1.35rem;top:60%}
+.ft6 .fc-six{top:70%;left:15%;right:15%;grid-template-columns:repeat(3,1fr);row-gap:2px}
+.ft6 .fc-six div{flex-direction:column;align-items:center;gap:0;line-height:1}
+.ft6 .fc-six b{font-size:1.05rem}.ft6 .fc-six span{font-size:.62rem;letter-spacing:.08em}

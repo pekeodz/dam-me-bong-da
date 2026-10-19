@@ -84,6 +84,7 @@
           <label class="note" for="setname">Tên quản lý (hiện trong chat và tin hệ thống)</label>
           <input id="setname" maxlength="20" class="tin">
           <div class="ctrl" style="margin-top:8px"><button id="bNewGame" type="button">Chơi lại từ đầu</button><span class="note">Xóa đội hiện tại, bắt đầu với đội cầu thủ vô danh.</span></div>
+          <label class="ctrl" style="margin-top:8px;gap:8px;align-items:center"><input type="checkbox" id="setHires"> <span>Độ nét cao cho sân (tắt nếu máy yếu, bị giật)</span></label>
           <h2 style="margin-top:14px">Lưu dữ liệu (Firebase Firestore)</h2>
           <p class="note">Bản đưa lên hosting tự kết nối bằng file js/firebase-config.js. Ở đây có thể dán firebaseConfig (JSON) rồi bấm Kết nối. Mỗi người chơi đăng nhập ẩn danh và có dữ liệu riêng; hết trận tự lưu. Chưa kết nối thì game lưu tạm trong trình duyệt.</p>
           <textarea id="fbcfg" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}'></textarea>
