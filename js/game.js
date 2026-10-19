@@ -57,7 +57,7 @@ const SKILLS={
  stepover:{n:"Step Over",anim:"stepover",rate:.6,mult:1.15,desc:"Đi bóng qua người: đảo chân đánh lừa, sức đi bóng +15%"},
  roulette:{n:"Xoay Compa",anim:"roulette",rate:.6,mult:1.2,desc:"Đi bóng qua người: xoay người 360°, sức đi bóng +20%"},
  bike:{n:"Ngả Bàn Đèn",anim:"bike",rate:.6,mult:1.2,desc:"Kỹ năng vô-lê khó nhất (độc quyền): ở cơ hội vô-lê tung người ngả bàn đèn, sức sút vào +20%"},
- dibo:{n:"Đi Bộ Vượt Râu",anim:"dibo",rate:.6,mult:1.25,desc:"Kỹ năng độc quyền Icon Messi: thong thả dắt bóng lách qua hậu vệ, sức đi bóng +25%"},
+ dibo:{n:"Đi Bộ Vượt Râu",anim:"dibo",rate:.6,mult:1,desc:"Kỹ năng độc quyền Icon Messi: khi cầm bóng cùng đồng đội đối mặt hàng thủ, Messi giả vờ đi bộ hút hậu vệ rồi chọc khe, đồng đội tự động vượt qua người"},
  msc:{n:"Ăn mừng Messi",anim:"msc",rate:1,mult:1,desc:"Màn ăn mừng độc quyền Icon Messi sau khi ghi bàn"},
  siu:{n:"Ăn mừng SIUUU",anim:"siu",rate:1,mult:1,desc:"Màn ăn mừng độc quyền sau khi ghi bàn"}};
 const SKILL_OWN={
@@ -286,7 +286,7 @@ const shotSpot=y=>[40+rnd()*4,clamp(y+(34-y)*.6,14,54)];
 function sceneDribble(c){
   const A=rp(c.atk,RW.aFin,"re"),D=rp(c.def,RW.dNear,"xoac",null,A),y0=laneY(A);setup(c,A,D,y0);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const skl=trySkill(A,["dibo","roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
+  const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
   if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
   const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[{...ent(A,c.atk,"re"),skill:skl}],R:[ent(D,c.def,"xoac")],
     detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:skl||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
@@ -295,9 +295,23 @@ function sceneDribble(c){
   return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Sút Gần"});
 }
 // 2) Cơ hội sút gần 2 đánh 1: A lừa (Rê dắt) + B (Chuyền) vs hậu vệ cắt bóng (Đoạt) → A chuyền cho B dứt điểm
+// Kỹ năng Đi Bộ Vượt Râu (Icon Messi): A (Messi) cầm bóng cùng đồng đội B đối mặt hậu vệ D → giả vờ đi bộ, chọc khe, B tự động lừa qua
+function diboCombo(c,A,B,D,y0){if(!hasSkill(A,"dibo")||rnd()>=SKILLS.dibo.rate)return null;
+  roll("Kỹ năng: Đi Bộ Vượt Râu",SKILLS.dibo.rate,true,`${A.n} ★${A.star||0} — đồng đội tự động lừa qua`);
+  const at=r=>{for(let i=c.S.length-1;i>=0;i--)if(c.S[i].t&&c.S[i].t[r])return c.S[i].t[r];return[c.ids[r].x,c.ids[r].y]};
+  const [ax]=at("A"),[bx,by]=at("B"),[dx,dy]=at("D");
+  c.S.push({dur:0.6,t:{},ball:{carry:"A"},popup:{title:"Kỹ Năng: Đi Bộ Vượt Râu",sub:"Lừa qua",L:[{...ent(A,c.atk,"chuyen"),skill:"dibo"},ent(B,c.atk,"re")],R:[ent(D,c.def,"xoac")],p:1,ok:true},
+    label:{A:`Chuyền bóng: ${A.chuyen}`,B:`Rê dắt: ${B.re}`},txt:`${A.n} cầm bóng, ${B.n} băng lên, ${D.n} lùi về đón lõng`});
+  c.S.push({dur:1.2,t:{A:[ax+1.2,y0],D:[dx-1.2,(y0+dy)/2]},ball:{carry:"A"},anim:{A:"dibo"},label:{A:"Đi Bộ Vượt Râu!"},txt:`${A.n} thong thả đi bộ như không, ${D.n} bị hút theo!`});
+  const rv=[Math.max(bx+2,dx),by];
+  c.S.push({dur:0.8,t:{B:rv},ball:{fly:"B",to:rv},kicker:"A",kickSet:"pass",txt:`${A.n} bất ngờ chọc khe cho ${B.n}`});
+  const sp=shotSpot(by);
+  c.S.push({dur:1,t:{B:sp},ball:{carry:"B"},anim:{B:"lua"},txt:`${B.n} dễ dàng vượt qua ${D.n}, vượt qua rồi!`});
+  return finishShot(c,{role:"B",from:sp,stat:"sut",title:"Cơ Hội Sút Gần"})}
 function scenePass(c){
   const A=rp(c.atk,RW.aMid,"re"),B=rp(c.atk,RW.aFin,"sut",A),D=rp(c.def,RW.dNear,"doat",null,A),y0=laneY(A);setup(c,A,D,y0,B);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15],B:[33,c.ids.B.y]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
+  {const r=diboCombo(c,A,B,D,y0);if(r)return r}
   const ok=lqStep(c,{title:"Cơ Hội Sút Gần",att:eff(A,"re")+0.5*eff(B,"chuyen"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re"),ent(B,c.atk,"chuyen")],R:[ent(D,c.def,"doat")],
     detail:`Rê dắt ${A.re} + 50%·Chuyền ${B.chuyen} vs Đoạt ${D.doat}`,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:"lua"},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} đối mặt ${D.n}, ${B.n} băng lên phối hợp`});
   if(!ok)return lostBall(c,D,"A",`${D.n} đọc tình huống và cắt bóng!`);
@@ -398,6 +412,7 @@ function sceneLong2(c){
   const A=rp(c.atk,RW.aMid,"chuyen"),B=rp(c.atk,RW.aFin,"sxa",A),D=rp(c.def,RW.dFar,"xoac",null,B),y0=laneY(A);
   add(c,"A",A,c.atk,16,y0);add(c,"B",B,c.atk,22,clamp(y0+(y0<34?12:-12),8,60));add(c,"D",D,c.def,30,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[21,y0],B:[26,c.ids.B.y],D:[29.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
+  {const r=diboCombo(c,A,B,D,y0);if(r)return r}
   const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(B,"re")+0.5*eff(A,"chuyen"),def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(B,c.atk,"re"),ent(A,c.atk,"chuyen")],R:[ent(D,c.def,"xoac")],holder:"A",
     detail:`Rê dắt ${B.re} + 50%·Chuyền ${A.chuyen} vs Xoạc ${D.xoac}`,t:{B:[28,c.ids.B.y],D:[29,c.ids.B.y+0.8]},anim:{B:"lua"},label:{B:`Rê dắt: ${B.re}`,D:`Xoạc: ${D.xoac}`},txt:`${B.n} thoát khỏi sự đeo bám của ${D.n}`});
   if(!ok){c.S.push({dur:0.8,t:{D:[27,(y0+c.ids.B.y)/2]},ball:{fly:"D",to:[27,(y0+c.ids.B.y)/2]},kicker:"A",anim:{D:"slide"},txt:`${D.n} xoạc chân ra cắt đường chuyền`});
