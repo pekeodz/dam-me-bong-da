@@ -1033,7 +1033,8 @@ function starUp(p){
 // ảnh chân dung cầu thủ (assets/players/*.webp); không có ảnh thì vẽ sprite như cũ
 const IMG_ALIAS={"Kane":"Harry Kane","Bellingham":"Jude Bellingham","Saka":"Bukayo Saka","Foden":"Phil Foden","Rice":"Declan Rice","Trippier":"Kieran Trippier","Mitoma":"Kaoru Mitoma","Kubo":"Takefusa Kubo","Tomiyasu":"Takehiro Tomiyasu","Doan Ritsu":"Ritsu Doan","Ueda Ayase":"Ayase Ueda","Chanathip":"Chanathip Songkrasin","Teerasil":"Teerasil Dangda","Kawin":"Kawin Thamsatchanan","Suphanat":"Suphanat Mueanta"};
 // ảnh chân dung: theo tên (kể cả tên cũ), Icon chưa có ảnh đầu thì dùng ảnh thẻ Icon, không có ảnh thì dùng ảnh "unknown"
-const faceSrc=p=>{if(typeof PLAYER_IMG==="undefined"||!p)return null;const n=p.n;return PLAYER_IMG[n]||PLAYER_IMG[IMG_ALIAS[n]]||(typeof UNKNOWN_IMG!=="undefined"?UNKNOWN_IMG:null)};
+const faceSrc=p=>{if(typeof PLAYER_IMG==="undefined"||!p)return null;const n=p.n;if(p.tier===6&&typeof ICON_IMG!=="undefined"&&ICON_IMG[n])return ICON_IMG[n]; // Icon: dùng ảnh thẻ Icon ở mọi nơi
+  return PLAYER_IMG[n]||PLAYER_IMG[IMG_ALIAS[n]]||(typeof UNKNOWN_IMG!=="undefined"?UNKNOWN_IMG:null)};
 const faceTag=(p,cls="fc")=>{const s=faceSrc(p);return s?`<img class="${cls}" src="${s}" alt="">`:""};
 function avatar(p,team,w=96,h=120){const s=faceSrc(p);if(s){const im=new Image();im.src=s;im.className="favatar";im.alt=p.n;const z=Math.min(128,Math.min(w,h)>=110?128:Math.min(w,h));im.width=z;im.height=z;im.style.width=z+"px";im.style.height=z+"px";return im}const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
 function mgrOpen(team,i,tab){MG.team=team===T.home?"home":team===T.away?"away":team;MG.i=i;MG.tab=tab||MG.tab;MG.msg="";MG.preview=null;MG.impSel=null;mgrRender();document.getElementById("mgr").scrollIntoView({behavior:"smooth",block:"start"})}
