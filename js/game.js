@@ -59,6 +59,36 @@ const SKILLS={
  bike:{n:"Ngả Bàn Đèn",anim:"bike",rate:.6,mult:1.2,desc:"Kỹ năng vô-lê khó nhất (độc quyền): ở cơ hội vô-lê tung người ngả bàn đèn, sức sút vào +20%"},
  dibo:{n:"Đi Bộ Vượt Râu",anim:"dibo",rate:.6,mult:1,desc:"Kỹ năng độc quyền Icon Messi: khi cầm bóng cùng đồng đội đối mặt hàng thủ, Messi giả vờ đi bộ hút hậu vệ rồi chọc khe, đồng đội tự động vượt qua người"},
  msc:{n:"Ăn mừng Messi",anim:"msc",rate:1,mult:1,desc:"Màn ăn mừng độc quyền Icon Messi sau khi ghi bàn"},
+
+ // ===== kỹ năng mới (dùng icon kỹ năng). on: tình huống áp dụng · mult: hệ số sức · rate: tỉ lệ kích hoạt
+ matocdo:{n:"Ma Tốc Độ",rate:.5,mult:1.15,desc:"Solo / đua tốc độ: Bứt phá, Tốc độ +15%"},
+ sieubuttoc:{n:"Siêu Bứt Tốc",rate:.5,mult:1.25,desc:"Solo / đua tốc độ: Bứt phá, Tốc độ +25%"},
+ chaycho:{n:"Bậc Thầy Chạy Chỗ",rate:.5,mult:1.15,desc:"Là người nhận bóng trong pha phối hợp 2 đánh 1: sức lừa qua của cả pha +15%"},
+ satthu:{n:"Sát Thủ Băng Cắt",rate:1,mult:1,desc:"Dễ được đồng đội chọn làm người nhận bóng ở các pha bứt tốc Solo 1 đấu 1 (gấp 3 lần)"},
+ sutxa:{n:"Sút Xa",rate:.5,mult:1.15,desc:"Cơ hội sút xa: Sút xa +15%"},
+ sutxoay:{n:"Sút Xoáy",rate:.45,mult:1.1,desc:"Sút xa, đá phạt: +10% và thủ môn chỉ dùng được Cứu bóng (không đấm được)"},
+ sutphat:{n:"Sút Phạt Mạnh",rate:.6,mult:1.2,desc:"Đá phạt trực tiếp: +20%"},
+ daumanh:{n:"Đánh Đầu Mạnh",rate:.5,mult:1.15,desc:"Cơ hội đội đầu: Đánh đầu +15%"},
+ vole:{n:"Chuyên Gia Vô-lê",rate:.55,mult:1.2,desc:"Cơ hội vô-lê: Sút vào +20%"},
+ trickA:{n:"Trickster A",rate:.5,mult:1.1,desc:"Lừa qua người: Rê dắt +10%"},
+ trickS:{n:"Trickster S",rate:.5,mult:1.2,desc:"Lừa qua người: Rê dắt +20%"},
+ aothuat:{n:"Ảo Thuật Gia",anim:"roulette",rate:.45,mult:1.2,desc:"Lừa qua người: Rê dắt +20%, kèm động tác xoay compa"},
+ noluc:{n:"Nỗ Lực Đến Cùng",rate:.3,mult:1,desc:"Khi vừa bị cướp bóng: 30% giành lại bóng ngay và tự dứt điểm"},
+ anva:{n:"Ăn Vạ",rate:.25,mult:1,desc:"Khi bị xoạc ngã: 25% được hưởng quả đá phạt"},
+ thanhchuyen:{n:"Thánh Chuyền Bóng",rate:.5,mult:1.2,desc:"Là người chuyền trong pha phối hợp: phần Chuyền +20%"},
+ chuyendai:{n:"Chuyền Dài",rate:.5,mult:1.15,desc:"Chuyền dài, tạt cánh: Ch.dài +15%"},
+ tikiA:{n:"Tiki Taka A",rate:.5,mult:1.08,desc:"Pha phối hợp chuyền ngắn: sức cả pha +8%"},
+ tikiS:{n:"Tiki Taka S",rate:.5,mult:1.15,desc:"Pha phối hợp chuyền ngắn: sức cả pha +15%"},
+ nhactruong:{n:"Nhạc Trưởng S",rate:1,mult:1.05,desc:"Có mặt trên sân: cả đội +5% lừa qua"},
+ lanhdao:{n:"Lãnh Đạo",rate:1,mult:1,desc:"Có mặt trên sân: tinh thần cả đội tụt một nửa khi bị thủng lưới"},
+ tacbong:{n:"Cao Thủ Tắc Bóng",rate:.5,mult:1.15,desc:"Phòng ngự bằng Xoạc: +15%"},
+ deobam:{n:"Chuyên Gia Đeo Bám",rate:.5,mult:1.15,desc:"Phòng ngự bằng Đoạt bóng: +15%"},
+ cungthep:{n:"Cứng Như Thép",rate:.5,mult:1.1,desc:"Tì đè bằng Thể lực: +10%"},
+ bruiserA:{n:"Bruiser A",rate:.5,mult:1.15,desc:"Tì đè bằng Thể lực: +15%"},
+ bruiserS:{n:"Bruiser S",rate:.5,mult:1.25,desc:"Tì đè bằng Thể lực: +25%"},
+ gkphanung:{n:"Phản Ứng Nhanh",rate:.5,mult:1.15,desc:"Thủ môn cứu sút gần: Cứu bóng +15%"},
+ gkbatbai:{n:"Bắt Bài Sút Xa",rate:.55,mult:1.2,desc:"Thủ môn cứu sút xa: +20%"},
+ gkkhongchien:{n:"Áp Đảo Không Chiến",rate:.5,mult:1.2,desc:"Thủ môn tranh bóng bổng: Kh.Chiến +20%"},
  siu:{n:"Ăn mừng SIUUU",anim:"siu",rate:1,mult:1,desc:"Màn ăn mừng độc quyền sau khi ghi bàn"}};
 const SKILL_OWN={
  "Ronaldo":[["siu",0],["stepover",2],["bike",4]],
@@ -67,6 +97,8 @@ const SKILL_OWN={
  "Công Phượng":[["stepover",2],["roulette",4]],
  "Tiến Linh":[],
  "Văn Quyết":[]};
+const SKILL_BY={"Beckham#6":[["sutphat",0],["chuyendai",2],["sutxoay",4]],"Buffon#6":[["gkphanung",0],["lanhdao",2],["gkkhongchien",4]],"Gullit#6":[["bruiserS",0],["daumanh",2],["lanhdao",4]],"Lamine Yamal#6":[["trickS",0],["satthu",2],["aothuat",4]],"Mbappé#6":[["sieubuttoc",0],["satthu",2],["trickA",4]],"Messi#6":[["dibo",0],["msc",0],["roulette",2]],"Modrić#6":[["thanhchuyen",0],["tikiS",2],["nhactruong",4]],"Neymar Jr#6":[["trickS",0],["aothuat",2],["anva",4]],"Pepe#6":[["tacbong",0],["bruiserA",2],["lanhdao",4]],"Petr Čech#6":[["gkphanung",0],["gkkhongchien",2],["gkbatbai",4]],"Roberto Carlos#6":[["sutphat",0],["matocdo",2],["sutxa",4]],"Ronaldinho#6":[["aothuat",0],["trickS",2],["sutphat",4]],"Ronaldo#6":[["siu",0],["stepover",0],["matocdo",2],["trickS",4]],"Rooney#6":[["sutxa",0],["noluc",2],["vole",4]],"van Persie#6":[["vole",0],["sutxa",2],["satthu",4]],"van der Sar#6":[["gkkhongchien",0],["gkphanung",2],["chuyendai",4]],"Lamine Yamal#5":[["trickA",0],["satthu",2]],"Mbappé#5":[["matocdo",0],["satthu",2]],"Erling Haaland#5":[["bruiserS",0],["satthu",2]],"Vini Jr.#5":[["sieubuttoc",0],["trickA",2]],"Jude Bellingham#5":[["chaycho",0],["noluc",2]],"Harry Kane#5":[["sutxa",0],["thanhchuyen",2]],"Chanathip Songkrasin#5":[["trickA",0],["tikiA",2]],"Bukayo Saka#4":[["matocdo",0],["trickA",2]],"Phil Foden#4":[["tikiA",0],["sutxa",2]],"De Bruyne#4":[["thanhchuyen",0],["sutxa",2]],"Bruno Fernandes#4":[["sutxa",0],["thanhchuyen",2]],"Vitinha#4":[["tikiA",0]],"Emiliano Martínez#4":[["gkphanung",0]],"Casemiro#3":[["deobam",0],["cungthep",2]],"Enzo Fernández#3":[["chuyendai",0]],"Kyle Walker#3":[["matocdo",0]],"Kieran Trippier#3":[["sutphat",0]],"James Maddison#3":[["sutphat",0]],"Nick Pope#3":[["gkphanung",0]],"Michael Carrick#3":[["chuyendai",0]],"Kaoru Mitoma#3":[["trickA",0]],"Takefusa Kubo#3":[["trickA",0]],"Takehiro Tomiyasu#3":[["deobam",0]],"Hidetoshi Nakata#3":[["thanhchuyen",0]],"Keisuke Honda#3":[["sutphat",0]],"Đỗ Hoàng Hên#3":[["chaycho",0]],"Quế Ngọc Hải#3":[["lanhdao",0]],"Nguyễn Văn Toản#3":[["gkphanung",0]],"Declan Rice#2":[["deobam",0]],"John Terry#2":[["lanhdao",0]],"Raheem Sterling#2":[["matocdo",0]],"Joe Gomez#2":[["tacbong",0]],"Chris Smalling#2":[["daumanh",0]],"Danny Welbeck#2":[["noluc",0]],"Dean Henderson#2":[["gkbatbai",0]],"Daniel Sturridge#2":[["trickA",0]],"Daichi Kamada#2":[["chaycho",0]],"Ritsu Doan#2":[["sutxa",0]],"Junya Ito#2":[["matocdo",0]],"Ayase Ueda#2":[["daumanh",0]],"Makoto Hasebe#2":[["lanhdao",0]],"Kiatisuk Senamuang#2":[["satthu",0]],"Phạm Thành Lương#2":[["chuyendai",0]],"Nguyễn Anh Đức#2":[["daumanh",0]],"Mark Noble#1":[["sutphat",0]],"Takuma Asano#1":[["matocdo",0]],"Teerasil Dangda#1":[["daumanh",0]],"Nguyễn Hai Long#1":[["sutxa",0]],"Khuất Văn Khang#1":[["tikiA",0]],"Nhâm Mạnh Dũng#1":[["cungthep",0]]};
+const skillsFor=(n,t)=>(SKILL_BY[n+"#"+t]||SKILL_OWN[n]||[]).map(([id,star])=>({id,star}));
 const hasSkill=(p,id)=>(p.skills||[]).some(s=>s.id===id&&(p.star||0)>=s.star);
 // chọn kỹ năng đi bóng mạnh nhất đang mở và tung xác suất kích hoạt
 function trySkill(p,ids){const own=ids.filter(id=>hasSkill(p,id)).sort((a,b)=>SKILLS[b].mult-SKILLS[a].mult);for(const id of own)if(rnd()<SKILLS[id].rate)return id;return null}
@@ -78,7 +110,7 @@ function mk(n,pos,tier,chan,kicks){const r=seeded(hashN(n)),cap=TIERS[tier].cap,
   for(const [k] of ATTR){const ratio=Math.max(0.33,Math.min(1,(ROLE[pos][k]??BASE[k])/505))*(0.9+0.1*r());p.pot[k]=r1(Math.min(cap-0.1,cap*ratio))}
   for(const [k] of ATTR)p.base[k]=r1(p.pot[k]*p.kt/100*(0.8+0.15*r()));
   p.plan=Object.entries(OVR[pos]).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0]);
-  p.skills=(SKILL_OWN[n]||[]).map(([id,star])=>({id,star}));
+  p.skills=skillsFor(n,tier);
   clampBase(p);refresh(p);return p}
 const maxOf=(p,k)=>r1(p.pot[k]*p.kt/100);
 function clampBase(p){for(const [k] of ATTR)p.base[k]=Math.min(p.base[k],maxOf(p,k))}
@@ -184,6 +216,19 @@ function setCmt(t){document.getElementById("cmt").textContent=t}
 function addLog(t,g){M.log.push(t);const d=document.createElement("div");d.textContent=`${M.min}' ${t}`;if(g)d.className="g";document.getElementById("log").prepend(d);setCmt(t)}
 let rolls=[];function roll(label,p,ok,detail){rolls.push({label,p,ok,detail});document.getElementById("roll").innerHTML=rolls.map(r=>`<div class="row"><span>${r.label}<br><span class="note">${r.detail}</span></span><span class="mono ${r.ok?"ok":"ko"}">${Math.round(r.p*100)}% ${r.ok?"✓":"✗"}</span><div class="bar"><i style="width:${r.p*100}%"></i></div></div>`).join("")}
 
+
+/* ===== HỆ THỐNG KỸ NĂNG: skB(p,[ids]) tung tỉ lệ kích hoạt kỹ năng mạnh nhất cầu thủ có trong danh sách → {id,m} (m = hệ số sức) */
+function skB(p,ids){if(!p)return{id:null,m:1};const own=ids.filter(id=>SKILLS[id]&&hasSkill(p,id)).sort((a,b)=>SKILLS[b].mult-SKILLS[a].mult);
+  for(const id of own)if(rnd()<SKILLS[id].rate){roll(`Kỹ năng: ${SKILLS[id].n}`,SKILLS[id].rate,true,`${p.n} — ${SKILLS[id].desc}`);return{id,m:SKILLS[id].mult}}return{id:null,m:1}}
+const onPitch=(t,id)=>t.players.some(p=>hasSkill(p,id));
+const auraLQ=t=>onPitch(t,"nhactruong")?SKILLS.nhactruong.mult:1;
+const SK_DRIB=["aothuat","trickS","trickA"],SK_PASS=["thanhchuyen","tikiS","tikiA"],SK_PACE=["sieubuttoc","matocdo"],SK_PHYS=["bruiserS","bruiserA","cungthep"];
+// gắn kỹ năng vào ô cầu thủ của bảng cơ hội (khung kỹ năng hiện dưới bảng); chỉ 1 kỹ năng/bảng
+function skE(e,s){return s&&s.id?{...e,skill:s.id}:e}
+// chọn cầu thủ có ưu tiên kỹ năng (vd Sát thủ băng cắt: dễ được chọn nhận bóng solo)
+function rpSk(team,w,k,not,vs,id,mul){const keep=rnd;let pick=rp(team,w,k,not,vs);const own=team.players.filter(p=>p!==not&&roleOf(p)!=="TM"&&hasSkill(p,id));
+  if(own.length&&!hasSkill(pick,id)){const n=team.players.filter(p=>p!==not&&roleOf(p)!=="TM").length,pr=own.length*mul/(own.length*mul+n-own.length);
+    if(rnd()<pr*0.5)pick=own[(rnd()*own.length)|0]}return pick}
 /* ================== TÌNH HUỐNG ================== */
 const ent=(p,team,k,lab)=>({p,team,lab:lab||LBL[k],v:p[k]});
 function makeCtx(atk,def,side){return{atk,def,side,S:[],actors:[],ids:{},G:def.players.find(p=>roleOf(p)==="TM")}}
@@ -207,11 +252,14 @@ function finishShot(c,o){
   if(o.p!==undefined){p=o.p;goal=o.goal;pop=o.pop} // đánh đầu: đã tính sẵn ở sceneCross
   else{const dist=Math.hypot(52.5-from[0],34-from[1]),weak=!o.volley&&rnd()<0.3;
     if(o.volley&&hasSkill(Sh,"bike")&&rnd()<SKILLS.bike.rate){o.skill=true;o.title="Kỹ Năng: Ngả Bàn Đèn";roll("Kỹ năng: Ngả Bàn Đèn",SKILLS.bike.rate,true,`${Sh.n} ★${Sh.star} — sức sút vào ×${SKILLS.bike.mult}`)}
-    const gs=stat==="cdai"?"kchien":"cuu",att=eff(Sh,stat)*(weak?0.9:1)*(o.pressure||1)*(o.skill?SKILLS.bike.mult:1),def=stat==="sxa"?0.7*eff(G,"cuu")+0.3*eff(G,"dbong"):eff(G,gs);
+    const ss=o.skill?{id:null,m:1}:skB(Sh,stat==="sxa"?["sutxa","sutxoay"]:stat==="dphat"?["sutphat","sutxoay"]:o.volley?["vole"]:[]);
+    const gsk=skB(G,stat==="sxa"||stat==="dphat"?["gkbatbai"]:stat==="sut"?["gkphanung"]:stat==="cdai"?["gkkhongchien"]:[]);
+    const gs=stat==="cdai"?"kchien":"cuu",att=eff(Sh,stat)*(weak?0.9:1)*(o.pressure||1)*(o.skill?SKILLS.bike.mult:1)*ss.m,
+      def=(stat==="sxa"&&ss.id!=="sutxoay"?0.7*eff(G,"cuu")+0.3*eff(G,"dbong"):eff(G,gs))*gsk.m;o._ss=ss.id;o._gs=gsk.id;
     const base=CH_BASE[stat]*(stat==="sxa"?clamp(1.5-dist/40,0.8,1.05):stat==="sut"?clamp(1.25-dist/40,0.85,1.05):1);
     p=chanceP(att,def,base);goal=rnd()<p;
     roll("Sút vào",p,goal,`${LBL[stat]} ${Sh[stat]}${weak?" (chân không thuận ×0.9)":""} vs ${stat==="sxa"?`0.7·Cứu bóng ${G.cuu} + 0.3·Đấm bóng ${G.dbong}`:`${LBL[gs]} ${G[gs]}`}`);
-    pop={title:o.title||title,sub:"Sút vào",L:[{...ent(Sh,c.atk,stat),skill:o.skill?"bike":null}],R:[ent(G,c.def,gs)],p,ok:goal}}
+    pop={title:o.title||title,sub:"Sút vào",L:[{...ent(Sh,c.atk,stat),skill:o.skill?"bike":o._ss}],R:[skE(ent(G,c.def,gs),{id:o._gs})],p,ok:goal}}
   const on=goal||rnd()<0.55,gk=eff(G,"cuu");
   const lab=o.header?`Đánh đầu: ${Sh.dau}`:`${LBL[stat]}: ${Sh[stat]}`;
   if(!o.header)c.S.push({dur:0.4,t:{G:[51-(gk-60)/40,34+(from[1]-34)*0.25]},ball:o.volley?{fly:null,to:[from[0]+0.3,from[1]],h:1.6,endH:1.4}:{carry:o.noCarry?undefined:role},popup:pop,label:{[role]:o.volley?(o.skill?"Ngả bàn đèn!":"Vô-lê!"):lab},txt:o.volley?(o.skill?`Bóng bổng tới, ${Sh.n} tung người ngả bàn đèn!`:`Bóng bổng tới, ${Sh.n} tung chân vô-lê!`):`${Sh.n} lấy đà dứt điểm!`});
@@ -229,7 +277,7 @@ function outcome(c,o){
     c.S.push({dur:2.2,t:{[o.role]:[o.from[0]-7,clamp(o.from[1]+(o.from[1]<34?-6:6),6,62)]},ball:{},anim:{[o.role]:"celebrate"},txt:`${Sh.n} chạy về phía khán đài ăn mừng`});c.scorer=Sh}
   else if(o.on){const deflect=[48,ty<34?ty-12:ty+12];
     c.S.push({dur:0.6,t:{G:[51.6,ty]},ball:{fly:null,to:[51.6,ty],h:o.peak,endH},anim:{G:"dive",...hA},txt:o.header?`${Sh.n} đánh đầu hiểm hóc, ${G.n} bay người cứu thua!`:o.kind==="long"?`${G.n} bay người đấm bóng ra ngoài!`:rnd()<.5?`${Sh.n} giơ chân sút bóng, thủ môn ${G.n} dùng sức cứu bóng ra khỏi đường biên dọc`:`${G.n} bay người cản phá xuất thần!`,...extra});
-    const pHold=clamp(eff(G,"dbong")/110,0.1,0.75),hold=rnd()<pHold;roll("Đấm bóng giải nguy",pHold,hold,`Đấm bóng ${G.dbong}`);
+    const pHold=clamp(eff(G,"dbong")/110*(hasSkill(G,"gkdam")?1.3:1),0.1,0.8),hold=rnd()<pHold;roll("Đấm bóng giải nguy",pHold,hold,`Đấm bóng ${G.dbong}`);
     if(hold){c.S.push({dur:0.8,t:{},ball:{fly:null,to:[36+rnd()*6,ty<34?10+rnd()*8:50+rnd()*8],h:4},txt:`${G.n} đấm bóng ra xa, giải nguy thành công!`});}
     else{const corner=rnd()<0.55;
     c.S.push({dur:0.6,t:{},ball:{fly:null,to:corner?[53.5,ty<34?14:54]:deflect,h:1.2},txt:corner?`Bóng đi hết đường biên ngang, phạt góc cho ${c.atk.name}`:"Bóng bật ra, hậu vệ kịp phá"});
@@ -251,14 +299,22 @@ function outcome(c,o){
    Cơ hội đội đầu (tạt / phạt góc)    : Ch.dài + Đ.Đầu vs Nhảy + Kh.Chiến                  — sceneCross
    Cơ hội sút phạt: Đá phạt vs Cứu bóng · Phạt đền: Phạt đền vs Cứu bóng                                 */
 // Bước "Lừa qua": hiện bảng, tung xác suất, diễn hoạt. Trả về true nếu qua được.
-function lqStep(c,o){const p=chanceP(o.att,o.def,o.base??CH_BASE.lq,o.g??LQ_G),ok=rnd()<p;
+function lqStep(c,o){o.att*=auraLQ(c.atk);const p=chanceP(o.att,o.def,o.base??CH_BASE.lq,o.g??LQ_G),ok=rnd()<p;
   roll(o.rollLab||"Lừa qua",p,ok,o.detail);
   // bảng hiện trước (cầu thủ đứng đối mặt), động tác lừa/kỹ năng diễn SAU khi bảng đóng để người chơi nhìn thấy
   c.S.push({dur:0.6,t:o.t||{},ball:o.ball||{carry:o.holder||"A"},popup:{title:o.title,sub:"Lừa qua",L:o.L,R:o.R,p,ok},label:o.label,txt:o.txt});
   if(ok&&o.anim){const who=Object.keys(o.anim)[0],nm=o.anim[who],sk=SKILLS[nm];
     c.S.push({dur:sk?1.1:0.9,t:{},ball:{carry:who},anim:o.anim,label:sk?{[who]:sk.n+"!"}:undefined,txt:sk?`${c.ids[who].p.n} tung kỹ năng ${sk.n}!`:`${c.ids[who].p.n} đảo người lừa bóng`})}
   return ok}
-function lostBall(c,D,who,txt){c.S.push({dur:0.9,t:{D:[c.ids[who].x+0.6,c.ids[who].y]},ball:{carry:"D"},anim:{D:"slide",[who]:"fall"},txt:txt||`${D.n} xoạc bóng chuẩn xác`});
+function lostBall(c,D,who,txt){const A=c.ids[who].p;
+  if(hasSkill(A,"anva")&&rnd()<SKILLS.anva.rate){roll("Kỹ năng: Ăn Vạ",SKILLS.anva.rate,true,`${A.n} ngã vật ra sân`);
+    c.S.push({dur:1.2,t:{D:[c.ids[who].x+0.6,c.ids[who].y]},ball:{carry:who},anim:{D:"slide",[who]:"fall"},skfx:{role:who,id:"anva"},txt:`${D.n} vào bóng, ${A.n} ngã vật ra sân. Trọng tài thổi phạt!`});
+    M.queue={type:"fk",side:c.side,pos:[33.5,c.ids[who].y]};return "foul"}
+  if(hasSkill(A,"noluc")&&rnd()<SKILLS.noluc.rate){roll("Kỹ năng: Nỗ Lực Đến Cùng",SKILLS.noluc.rate,true,`${A.n} giành lại bóng`);
+    const sp=shotSpot(c.ids[who].y);c.S.push({dur:0.9,t:{D:[c.ids[who].x+0.6,c.ids[who].y]},ball:{carry:"D"},anim:{D:"slide"},txt:txt||`${D.n} xoạc bóng chuẩn xác`});
+    c.S.push({dur:1.2,t:{[who]:sp},ball:{carry:who},skfx:{role:who,id:"noluc"},txt:`${A.n} không bỏ cuộc, lăn xả giành lại bóng!`});
+    return finishShot(c,{role:who,from:sp,stat:"sut",title:"Cơ Hội Sút Gần"})}
+  c.S.push({dur:0.9,t:{D:[c.ids[who].x+0.6,c.ids[who].y]},ball:{carry:"D"},anim:{D:"slide",[who]:"fall"},txt:txt||`${D.n} xoạc bóng chuẩn xác`});
   c.S.push({dur:1,t:{},ball:{fly:null,to:OUT[(rnd()*3)|0],h:2},txt:`${D.n} phá bóng ra xa`});return "lost"}
 // phạm lỗi khi bị vượt qua: Xoạc thấp thì dễ phạm lỗi → đá phạt / phạt đền
 function tryFoul(c,A,D,y0,a){const pF=clamp((0.06+0.22*(1-duel(eff(D,"xoac"),a,12)))*(DEF_TAC[halfTac(c.def).def].foul||1),0.04,0.26);
@@ -286,10 +342,11 @@ const shotSpot=y=>[40+rnd()*4,clamp(y+(34-y)*.6,14,54)];
 function sceneDribble(c){
   const A=rp(c.atk,RW.aFin,"re"),D=rp(c.def,RW.dNear,"xoac",null,A),y0=laneY(A);setup(c,A,D,y0);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const skl=trySkill(A,["roulette","stepover"]),a=eff(A,"re")*(skl?SKILLS[skl].mult:1);
-  if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
-  const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[{...ent(A,c.atk,"re"),skill:skl}],R:[ent(D,c.def,"xoac")],
-    detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:skl||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
+  let skl=trySkill(A,["roulette","stepover"]);if(skl)roll(`Kỹ năng: ${SKILLS[skl].n}`,SKILLS[skl].rate,true,`${A.n} ★${A.star} — sức lừa ×${SKILLS[skl].mult}`);
+  else{const s=skB(A,SK_DRIB);skl=s.id}
+  const a=eff(A,"re")*(skl?SKILLS[skl].mult:1),dsk=skB(D,["tacbong"]);
+  const ok=lqStep(c,{title:skl?`Kỹ Năng: ${SKILLS[skl].n}`:"Cơ Hội Sút Gần",att:a,def:eff(D,"xoac")*defBoost(c.def,"xoac")*dsk.m,L:[{...ent(A,c.atk,"re"),skill:skl}],R:[skE(ent(D,c.def,"xoac"),dsk)],
+    detail:`Rê dắt ${A.re}${skl?` ×${SKILLS[skl].mult}`:""} vs Xoạc ${D.xoac}`,dur:skl?1.1:0.9,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:(skl&&(SKILLS[skl].anim||(["roulette","stepover"].includes(skl)&&skl)))||"lua"},label:{A:skl?SKILLS[skl].n+"!":`Rê dắt: ${A.re}`,D:`Xoạc: ${D.xoac}`},txt:skl?`${A.n} tung kỹ năng ${SKILLS[skl].n}!`:`${A.n} đối mặt ${D.n}`});
   if(!ok)return lostBall(c,D,"A");if(tryFoul(c,A,D,y0,a))return "foul";
   const sp=shotSpot(y0);c.S.push({dur:1.3,t:{A:sp,D:[sp[0]-3,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} đảo người qua ${D.n} đầy tinh tế!`});
   return finishShot(c,{role:"A",from:sp,stat:"sut",title:"Cơ Hội Sút Gần"});
@@ -312,7 +369,8 @@ function scenePass(c){
   const A=rp(c.atk,RW.aMid,"re"),B=rp(c.atk,RW.aFin,"sut",A),D=rp(c.def,RW.dNear,"doat",null,A),y0=laneY(A);setup(c,A,D,y0,B);
   c.S.push({dur:1.4,t:{A:[30,y0],D:[35,c.ids.D.y],G:[50.5,34+(y0-34)*.15],B:[33,c.ids.B.y]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   {const r=diboCombo(c,A,B,D,y0);if(r)return r}
-  const ok=lqStep(c,{title:"Cơ Hội Sút Gần",att:eff(A,"re")+0.5*eff(B,"chuyen"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re"),ent(B,c.atk,"chuyen")],R:[ent(D,c.def,"doat")],
+  const sa=skB(A,SK_DRIB),sb=skB(B,["chaycho",...SK_PASS]),sd=skB(D,["deobam"]);
+  const ok=lqStep(c,{title:"Cơ Hội Sút Gần",att:(eff(A,"re")*sa.m+0.5*eff(B,"chuyen")*(sb.id==="thanhchuyen"?sb.m:1))*(["tikiS","tikiA","chaycho"].includes(sb.id)?sb.m:1),def:eff(D,"doat")*defBoost(c.def,"doat")*sd.m,L:[skE(ent(A,c.atk,"re"),sa),skE(ent(B,c.atk,"chuyen"),sa.id?null:sb)],R:[skE(ent(D,c.def,"doat"),sd)],
     detail:`Rê dắt ${A.re} + 50%·Chuyền ${B.chuyen} vs Đoạt ${D.doat}`,t:{A:[33.5,y0],D:[34.5,y0]},anim:{A:"lua"},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} đối mặt ${D.n}, ${B.n} băng lên phối hợp`});
   if(!ok)return lostBall(c,D,"A",`${D.n} đọc tình huống và cắt bóng!`);
   const recv=shotSpot(c.ids.B.y);c.S.push({dur:0.9,t:{A:[36,y0],B:recv,D:[34,y0+1]},ball:{fly:"B",to:recv},kicker:"A",txt:`${A.n} chuyền bóng lên phía trên cho ${B.n}`});
@@ -324,7 +382,8 @@ function sceneCombo(c){
   add(c,"A",A,c.atk,20,y0);add(c,"B",B,c.atk,26,clamp(y0+(y0<34?14:-14),6,62));add(c,"D",D,c.def,34,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[27,y0],B:[31,c.ids.B.y],D:[34.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} cầm bóng, ${B.n} băng lên chờ đường chuyền`});
   const recv=[32,c.ids.B.y],y=recv[1];c.S.push({dur:0.8,t:{B:recv},ball:{fly:"B",to:recv},kicker:"A",txt:`[Sút vô-lê] ${B.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const ok=lqStep(c,{title:"Cơ Hội Dứt Điểm",base:CH_BASE.dd,g:CH_G,att:eff(B,"the")+0.1*eff(A,"chuyen"),def:eff(D,"the")*defBoost(c.def,"the"),L:[ent(A,c.atk,"chuyen"),ent(B,c.atk,"the")],R:[ent(D,c.def,"the")],holder:"B",
+  const sa=skB(A,SK_PASS),sb=skB(B,SK_PHYS),sd=skB(D,SK_PHYS);
+  const ok=lqStep(c,{title:"Cơ Hội Dứt Điểm",base:CH_BASE.dd,g:CH_G,att:(eff(B,"the")*sb.m+0.1*eff(A,"chuyen")*(sa.id==="thanhchuyen"?sa.m:1))*(sa.id&&sa.id!=="thanhchuyen"?sa.m:1),def:eff(D,"the")*defBoost(c.def,"the")*sd.m,L:[skE(ent(A,c.atk,"chuyen"),sb.id?null:sa),skE(ent(B,c.atk,"the"),sb)],R:[skE(ent(D,c.def,"the"),sd)],holder:"B",
     detail:`Thể lực ${B.the} + 10%·Chuyền ${A.chuyen} vs Thể lực ${D.the}`,t:{B:[34,y],D:[34.6,y+(rnd()<.5?1:-1)]},label:{B:`Thể lực: ${B.the}`,D:`Thể lực: ${D.the}`},txt:`${B.n} tì đè ${D.n}`});
   if(!ok)return lostBall(c,D,"B",`${D.n} tì vai lấy được bóng`);
   const sp=shotSpot(y);c.S.push({dur:1.1,t:{B:sp,D:[sp[0]-4,sp[1]+3],A:[36,y0]},ball:{carry:"B"},txt:`${B.n} vượt qua ${D.n}, tung cú vô-lê!`});
@@ -334,7 +393,8 @@ function sceneCombo(c){
 function sceneVolley(c){
   const A=rp(c.atk,RW.aFin,"the"),D=rp(c.def,RW.dNear,"the",null,A),y0=laneY(A);setup(c,A,D,y0);
   c.S.push({dur:1.3,t:{A:[31,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{fly:null,to:[31,y0],h:2},label:{A:`Thể lực: ${A.the}`},txt:`[Sút vô-lê] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const ok=lqStep(c,{title:"Cơ Hội Vô-lê",att:eff(A,"the"),def:eff(D,"the")*defBoost(c.def,"the"),L:[ent(A,c.atk,"the")],R:[ent(D,c.def,"the")],
+  const sa=skB(A,SK_PHYS),sd=skB(D,SK_PHYS);
+  const ok=lqStep(c,{title:"Cơ Hội Vô-lê",att:eff(A,"the")*sa.m,def:eff(D,"the")*defBoost(c.def,"the")*sd.m,L:[skE(ent(A,c.atk,"the"),sa)],R:[skE(ent(D,c.def,"the"),sd)],
     detail:`Thể lực ${A.the} vs Thể lực ${D.the}`,t:{A:[33.5,y0],D:[34.2,y0+1]},label:{A:`Thể lực: ${A.the}`,D:`Thể lực: ${D.the}`},txt:`${A.n} tì đè ${D.n} chờ bóng rơi`});
   if(!ok)return lostBall(c,D,"A",`${D.n} tì vai lấy được bóng`);
   const sp=shotSpot(y0);c.S.push({dur:1,t:{A:sp,D:[sp[0]-3,sp[1]+3]},ball:{carry:"A"},txt:`${A.n} thoát khỏi ${D.n}, tung cú vô-lê!`});
@@ -345,7 +405,8 @@ function sceneLob(c){
   const A=rp(c.atk,RW.aFin,"toc"),D=rp(c.def,RW.dNear,"dau",null,A),y0=laneY(A);
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,34,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[30,y0],D:[34,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},anim:{A:"bpha"},label:{A:`Tốc độ: ${A.toc}`},txt:`${A.n} dẫn bóng đột phá vòng vây`});
-  const ok=lqStep(c,{title:"Cơ Hội Đá Bổng",att:eff(A,"toc"),def:eff(D,"dau")*defBoost(c.def,"dau"),L:[ent(A,c.atk,"toc")],R:[ent(D,c.def,"dau")],
+  const sa=skB(A,SK_PACE);
+  const ok=lqStep(c,{title:"Cơ Hội Đá Bổng",att:eff(A,"toc")*sa.m,def:eff(D,"dau")*defBoost(c.def,"dau"),L:[skE(ent(A,c.atk,"toc"),sa)],R:[ent(D,c.def,"dau")],
     detail:`Tốc độ ${A.toc} vs Đ.Đầu ${D.dau}`,t:{A:[32.5,y0],D:[34,y0]},label:{A:`Tốc độ: ${A.toc}`,D:`Đ.Đầu: ${D.dau}`},txt:`${A.n} tăng tốc lao về phía ${D.n}`});
   if(!ok)return lostBall(c,D,"A",`${D.n} xoạc chân ra cắt đường bóng`);
   const sp=[39+rnd()*3,clamp(y0+(34-y0)*.5,14,54)];c.S.push({dur:1.1,t:{A:sp,D:[sp[0]-4,sp[1]+3],G:[49,34+(sp[1]-34)*.3]},ball:{carry:"A"},txt:`${A.n} vượt qua ${D.n}, thủ môn ${c.G.n} lao ra!`});
@@ -353,11 +414,12 @@ function sceneLob(c){
 }
 // 6) Cơ hội Solo: bứt phá vòng vây (Bứt phá vs Tốc độ) rồi đối mặt thủ môn
 function sceneSolo(c){
-  const A=rp(c.atk,RW.aFin,"bpha"),D=rp(c.def,RW.dFar,"toc",null,A),y0=laneY(A);
+  const A=rpSk(c.atk,RW.aFin,"bpha",null,null,"satthu",3),D=rp(c.def,RW.dFar,"toc",null,A),y0=laneY(A);
   add(c,"A",A,c.atk,22,y0);add(c,"D",D,c.def,33,clamp(y0+(rnd()<.5?6:-6),10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[29,y0],D:[33,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Bứt phá: ${A.bpha}`},txt:`[Solo] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   c.S.push({dur:1.1,t:{A:[33,y0],D:[34.5,y0+(c.ids.D.y<y0?-1.5:1.5)]},ball:{carry:"A"},anim:{A:"bpha"},label:{A:`Bứt phá: ${A.bpha}`},txt:`${A.n} dẫn bóng bứt phá vòng vây`});
-  const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(A,"bpha"),def:eff(D,"toc")*defBoost(c.def,"toc"),L:[ent(A,c.atk,"bpha")],R:[ent(D,c.def,"toc")],
+  const sa=skB(A,SK_PACE),sd=skB(D,SK_PACE),st=!sa.id&&hasSkill(A,"satthu")?{id:"satthu"}:sa;
+  const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(A,"bpha")*sa.m,def:eff(D,"toc")*defBoost(c.def,"toc")*sd.m,L:[skE(ent(A,c.atk,"bpha"),st)],R:[skE(ent(D,c.def,"toc"),sd)],
     detail:`Bứt phá ${A.bpha} vs Tốc độ ${D.toc}`,t:{A:[34,y0],D:[34.5,y0+(c.ids.D.y<y0?-1.5:1.5)]},label:{A:`Bứt phá: ${A.bpha}`,D:`Tốc độ: ${D.toc}`},txt:`${D.n} lao tới đuổi theo ${A.n}`});
   if(!ok)return lostBall(c,D,"A",`${D.n} đuổi kịp và lấy bóng trong chân ${A.n}`);
   const sp=[42+rnd()*3,clamp(y0+(34-y0)*.6,14,54)];c.S.push({dur:1.2,t:{A:sp,D:[sp[0]-5,sp[1]+(rnd()<.5?3:-3)]},ball:{carry:"A"},txt:`${A.n} dẫn bóng đột phá sâu vào khung thành, vượt qua rồi!`});
@@ -375,12 +437,12 @@ function sceneCross(c,corner){
   const hp=[46+rnd()*2.5,31+rnd()*6],k=corner?"pgoc":"cdai";
   if(corner)c.S.push({dur:1.2,t:{H:[44,hp[1]+1],D:[44.5,hp[1]+1.8]},ball:{},label:{C:`Phạt góc: ${C.pgoc}`},txt:`${C.n} chuẩn bị đá phạt góc`});
   else c.S.push({dur:1.5,t:{C:[44,wing],H:[42,hp[1]],D:[43,hp[1]+1.2],G:[51,34+(wing-34)*.1]},ball:{carry:"C"},label:{C:`Ch.dài: ${C.cdai}`},txt:`${C.n} đi bóng dọc biên rồi chuẩn bị tạt`});
-  const bike=false;
-  const att=(eff(C,k)+eff(H,"dau"))*(bike?SKILLS.bike.mult:1),def=eff(D,"bat")*defBoost(c.def,"bat")+eff(c.G,"kchien");
+  const bike=false,sc=skB(C,corner?[]:["chuyendai"]),sh=skB(H,["daumanh"]),sg=skB(c.G,["gkkhongchien"]);
+  const att=(eff(C,k)*sc.m+eff(H,"dau")*sh.m)*(bike?SKILLS.bike.mult:1),def=eff(D,"bat")*defBoost(c.def,"bat")+eff(c.G,"kchien")*sg.m;
   const p=chanceP(att,def,CH_BASE.dau),goal=rnd()<p;
   if(bike)roll("Kỹ năng: Ngả Bàn Đèn",SKILLS.bike.rate,true,`${H.n} ★${H.star} — sức đánh đầu ×${SKILLS.bike.mult}`);
   roll("Sút vào",p,goal,`${LBL[k]} ${C[k]} + Đ.Đầu ${H.dau} vs Sức bật ${D.bat} + Kh.Chiến ${c.G.kchien}`);
-  const pop={sub:"Sút vào",title:bike?"Kỹ Năng: Ngả Bàn Đèn":corner?"Cơ Hội Đội Đầu · Phạt Góc":"Cơ Hội Đội Đầu",L:[ent(C,c.atk,k),ent(H,c.atk,"dau")],R:[ent(D,c.def,"bat","Nhảy"),ent(c.G,c.def,"kchien")],p,ok:goal};
+  const pop={sub:"Sút vào",title:bike?"Kỹ Năng: Ngả Bàn Đèn":corner?"Cơ Hội Đội Đầu · Phạt Góc":"Cơ Hội Đội Đầu",L:[skE(ent(C,c.atk,k),sc),skE(ent(H,c.atk,"dau"),sc.id?null:sh)],R:[ent(D,c.def,"bat","Nhảy"),skE(ent(c.G,c.def,"kchien"),sg)],p,ok:goal};
   // bóng tạt vào: người đội đầu, hậu vệ (Nhảy) và thủ môn (Kh.Chiến) cùng lao vào điểm rơi — bảng hiện cả 4 người
   const gOut=[hp[0]+2.2,hp[1]];
   c.S.push({dur:1,t:{H:[hp[0]-0.6,hp[1]],D:[hp[0]-0.2,hp[1]+0.9],G:gOut},ball:{fly:null,to:[hp[0]+0.4,hp[1]],h:4,endH:2.4},kicker:"C",txt:`${C.n} treo bóng vào vòng cấm, ${c.G.n} rời khung thành`});
@@ -396,11 +458,12 @@ function sceneCross(c,corner){
 // 8) 2 đấu 2: Cơ hội Solo → Vô-lê. A chuyền dài cho B bứt tốc: Tốc độ B + ½·Ch.dài A vs Bứt phá hậu vệ,
 //    qua được thì "bật tường tam giác" rồi Cơ hội vô-lê: Sút B vs Cứu bóng.
 function sceneSoloVolley(c){
-  const A=rp(c.atk,{HVC:2.5,TV:2.5,TVC:2,HV:1.2,"TĐ":.8},"cdai"),B=rp(c.atk,RW.aFin,"toc",A),D=rp(c.def,RW.dFar,"bpha",null,B),y0=laneY(A);
+  const A=rp(c.atk,{HVC:2.5,TV:2.5,TVC:2,HV:1.2,"TĐ":.8},"cdai"),B=rpSk(c.atk,RW.aFin,"toc",A,null,"satthu",3),D=rp(c.def,RW.dFar,"bpha",null,B),y0=laneY(A);
   add(c,"A",A,c.atk,14,y0);add(c,"B",B,c.atk,18,clamp(y0+(y0<34?-14:14),8,60));add(c,"D",D,c.def,36,clamp(c.ids.B.y+(rnd()-.5)*6,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[20,y0],B:[24,c.ids.B.y],D:[34,c.ids.D.y],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Ch.dài: ${A.cdai}`,B:`Tốc độ: ${B.toc}`,D:`Bứt phá: ${D.bpha}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   const recv=[33,c.ids.B.y];c.S.push({dur:0.9,t:{B:recv,D:[35,c.ids.B.y+1.5]},ball:{fly:null,to:recv,h:3},kicker:"A",anim:{B:"bpha"},txt:`${A.n} chuyển bóng lên phía trên cho ${B.n}`});
-  const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(B,"toc")+0.5*eff(A,"cdai"),def:eff(D,"bpha")*defBoost(c.def,"bpha"),L:[ent(A,c.atk,"cdai"),ent(B,c.atk,"toc")],R:[ent(D,c.def,"bpha")],holder:"B",
+  const sa=skB(A,["chuyendai"]),sb=skB(B,SK_PACE),sd=skB(D,SK_PACE),sbt=!sb.id&&hasSkill(B,"satthu")?{id:"satthu"}:sb;
+  const ok=lqStep(c,{title:"Cơ Hội Solo",att:eff(B,"toc")*sb.m+0.5*eff(A,"cdai")*sa.m,def:eff(D,"bpha")*defBoost(c.def,"bpha")*sd.m,L:[skE(ent(A,c.atk,"cdai"),sa),skE(ent(B,c.atk,"toc"),sa.id?null:sbt)],R:[skE(ent(D,c.def,"bpha"),sd)],holder:"B",
     detail:`Tốc độ ${B.toc} + 50%·Ch.dài ${A.cdai} vs Bứt phá ${D.bpha}`,t:{B:[36,recv[1]],D:[36.5,recv[1]+1]},label:{B:`Tốc độ: ${B.toc}`,D:`Bứt phá: ${D.bpha}`},txt:`${B.n} và ${D.n} đua tốc độ`});
   if(!ok)return lostBall(c,D,"B",`${D.n} bứt tốc chặn trước ${B.n}`);
   const sp=shotSpot(recv[1]);c.S.push({dur:0.8,t:{B:[39,recv[1]],A:[38,y0]},ball:{fly:"A",to:[38,y0]},kicker:"B",txt:`${A.n} và ${B.n} thực hiện bật tường tam giác tuyệt đẹp`});
@@ -413,7 +476,8 @@ function sceneLong2(c){
   add(c,"A",A,c.atk,16,y0);add(c,"B",B,c.atk,22,clamp(y0+(y0<34?12:-12),8,60));add(c,"D",D,c.def,30,clamp(c.ids.B.y+(rnd()-.5)*4,8,60));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[21,y0],B:[26,c.ids.B.y],D:[29.5,c.ids.B.y+1],G:[50.5,34+(c.ids.B.y-34)*.15]},ball:{carry:"A"},label:{A:`Chuyền bóng: ${A.chuyen}`},txt:`${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
   {const r=diboCombo(c,A,B,D,y0);if(r)return r}
-  const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(B,"re")+0.5*eff(A,"chuyen"),def:eff(D,"xoac")*defBoost(c.def,"xoac"),L:[ent(B,c.atk,"re"),ent(A,c.atk,"chuyen")],R:[ent(D,c.def,"xoac")],holder:"A",
+  const sb=skB(B,SK_DRIB),sa=skB(A,SK_PASS),sd=skB(D,["tacbong"]);
+  const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:(eff(B,"re")*sb.m+0.5*eff(A,"chuyen")*(sa.id==="thanhchuyen"?sa.m:1))*(sa.id&&sa.id!=="thanhchuyen"?sa.m:1),def:eff(D,"xoac")*defBoost(c.def,"xoac")*sd.m,L:[skE(ent(B,c.atk,"re"),sb),skE(ent(A,c.atk,"chuyen"),sb.id?null:sa)],R:[skE(ent(D,c.def,"xoac"),sd)],holder:"A",
     detail:`Rê dắt ${B.re} + 50%·Chuyền ${A.chuyen} vs Xoạc ${D.xoac}`,t:{B:[28,c.ids.B.y],D:[29,c.ids.B.y+0.8]},anim:{B:"lua"},label:{B:`Rê dắt: ${B.re}`,D:`Xoạc: ${D.xoac}`},txt:`${B.n} thoát khỏi sự đeo bám của ${D.n}`});
   if(!ok){c.S.push({dur:0.8,t:{D:[27,(y0+c.ids.B.y)/2]},ball:{fly:"D",to:[27,(y0+c.ids.B.y)/2]},kicker:"A",anim:{D:"slide"},txt:`${D.n} xoạc chân ra cắt đường chuyền`});
     c.S.push({dur:1,t:{},ball:{fly:null,to:OUT[(rnd()*3)|0],h:2},txt:`${D.n} phá bóng ra xa`});return "lost"}
@@ -426,7 +490,8 @@ function sceneLong(c){
   const A=rp(c.atk,{TV:3,TVC:2,"TĐ":2,HVC:.8,HV:.6},"sxa"),D=rp(c.def,RW.dFar,"doat",null,A),y0=laneY(A);
   add(c,"A",A,c.atk,18,y0);add(c,"D",D,c.def,30,clamp(y0+(rnd()-.5)*6,10,58));add(c,"G",c.G,c.def,51,34);
   c.S.push({dur:1.3,t:{A:[25,y0],D:[29,c.ids.D.y],G:[50.5,34+(y0-34)*.15]},ball:{carry:"A"},label:{A:`Rê dắt: ${A.re}`},txt:`[Sút xa] ${A.n} nhận bóng tuyệt đẹp từ đồng đội rồi dẫn bóng tiến về phía trước`});
-  const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(A,"re"),def:eff(D,"doat")*defBoost(c.def,"doat"),L:[ent(A,c.atk,"re")],R:[ent(D,c.def,"doat")],
+  const sa=skB(A,SK_DRIB),sd=skB(D,["deobam"]);
+  const ok=lqStep(c,{title:"Cơ Hội Sút Xa",att:eff(A,"re")*sa.m,def:eff(D,"doat")*defBoost(c.def,"doat")*sd.m,L:[skE(ent(A,c.atk,"re"),sa)],R:[skE(ent(D,c.def,"doat"),sd)],
     detail:`Rê dắt ${A.re} vs Đoạt ${D.doat}`,t:{A:[27.5,y0],D:[28.5,y0]},anim:{A:"lua"},label:{A:`Rê dắt: ${A.re}`,D:`Đoạt: ${D.doat}`},txt:`${A.n} tìm khoảng trống trước ${D.n}`});
   if(!ok){const corner=rnd()<.35;c.S.push({dur:0.6,t:{D:[28.8,y0]},ball:{fly:null,to:[29,y0],h:0.8},anim:{D:"slide"},kicker:"A",txt:`${D.n} lao người chặn cú sút`});
     c.S.push({dur:0.9,t:{},ball:{fly:null,to:corner?[53.5,y0<34?12:56]:OUT[(rnd()*3)|0],h:2},txt:corner?"Bóng đổi hướng đi hết đường biên ngang. Phạt góc!":"Bóng bật ra, hàng thủ phá đi"});
@@ -687,7 +752,7 @@ function skillFx(p,id,team,pos){const sk=SKILLS[id];if(!sk||!p)return;const g=do
   el.className="skfx";void el.offsetWidth;
   el.innerHTML=`<div class="sk-card">
     <div class="sk-face"><i class="sk-rays"></i>${img?`<img src="${img}" alt="">`:`<canvas width="160" height="160"></canvas>`}<i class="sk-shine"></i><i class="sk-spark a"></i><i class="sk-spark b"></i></div>
-    <div class="sk-plate"><small>Kỹ năng${st&&st.star?` · ★${st.star}`:""}</small><b>${sk.n}</b><span>${p.n}</span></div></div>`;
+    <div class="sk-plate">${skIco(id)?`<span class="sk-ic">${skIco(id)}</span>`:""}<small>Kỹ năng${st&&st.star?` · ★${st.star}`:""}</small><b>${sk.n}</b><span>${p.n}</span></div></div>`;
   const cv=el.querySelector("canvas");if(cv)drawChar(cv.getContext("2d"),{p,team:home?T.home:T.away,face:1,anim:"pose"},0,80,345,290,true);
   el.className=`skfx on ${home?"h":"a"} t${p.tier??2}${pos?" under":""}`;el.style.cssText="";
   const place=()=>{if(!pos||!popEl)return;const gr=g.getBoundingClientRect(),pr=popEl.getBoundingClientRect(),k=gr.width/100,cx=pr.left+pr.width/2,w=popEl.offsetWidth,hh=popEl.offsetHeight;
@@ -719,6 +784,7 @@ function startStep(){
   for(const [r,an] of Object.entries(st.anim||{})){const k=byRole(r);if(!k)continue;
     if(an==="celebrate"&&hasSkill(k.p,"siu"))skillFx(k.p,"siu");else if(an==="celebrate"&&hasSkill(k.p,"msc"))skillFx(k.p,"msc")}
   addLog(st.txt,st.goal);
+  if(st.skfx){const k=byRole(st.skfx.role);if(k){skillFx(k.p,st.skfx.id,k.team);M.skWait=performance.now()+2200;M.hold=Math.max(M.hold||0,0.001)}}
   if(st.popup){showPop(st.popup);M.hold=2.4;M.holdPop=st.popup}
   if(st.goal){M.score[scene.side]++;goalMor(scene.side,scene.scorer);render();setTimeout(()=>{fx.net=1;fx.shake=1;fx.banner=2},st.dur*600/spd())}
 }
@@ -808,7 +874,7 @@ function startScene(n){
   M.busy=true;stepI=0;const bs=scene.ballStart||[scene.actors[0].x+0.7,scene.actors[0].y+0.3];ball.x=bs[0];ball.y=bs[1];ball.h=0;camX=clamp(ball.x,22,44);startStep();render();
 }
 function endScene(){M.busy=false;scene=null;renderSquad();showIdle(document.getElementById("clk").textContent);if(M.auto)setTimeout(playNext,500/spd())}
-function goalMor(side,scorer){M.mor[side]=Math.min(950,M.mor[side]+40);M.mor[1-side]=Math.max(100,M.mor[1-side]-25);scorer._goals=(scorer._goals||0)+1}
+function goalMor(side,scorer){const lt=(1-side)?T.away:T.home;M.mor[side]=Math.min(950,M.mor[side]+40);M.mor[1-side]=Math.max(100,M.mor[1-side]-(lt&&lt.players.some(p=>hasSkill(p,"lanhdao"))?12:25));scorer._goals=(scorer._goals||0)+1}
 function finish(){M.done=true;M.auto=false;M.min=90;M.queue=null;hidePop();
   const won=M.score[0]>M.score[1],draw=M.score[0]===M.score[1];T.club.gold+=Math.round((won?20000:draw?8000:3000)*(1+0.02*(window.mstat?mstat("kd"):0)));T.club.phieu+=won?10:draw?5:2;
   // điểm huấn luyện sau trận: ra sân +200, tham gia tình huống +50, ghi bàn +150/bàn, đội thắng +100
@@ -832,8 +898,9 @@ function render(){if(window.MODE==="lobby"&&window.lobbyRender)setTimeout(lobbyR
   document.getElementById("mht").textContent=`Tinh thần thi đấu: ${mh}`;document.getElementById("mat").textContent=`Tinh thần thi đấu: ${ma}`;
   document.getElementById("gold").textContent=fmt(T.club.gold);document.getElementById("xu").textContent=fmt(T.club.xu);document.getElementById("phieu").textContent=fmt(T.club.phieu);
 }
+const skIco=id=>typeof SKILL_IMG!=="undefined"&&SKILL_IMG[id]?`<img class="skic" src="${SKILL_IMG[id]}" alt="">`:"";
 function skillList(p){if(!(p.skills||[]).length)return"<b>Kỹ năng:</b> chưa sở hữu kỹ năng nào.";
-  return"<b>Kỹ năng:</b> "+p.skills.map(s=>{const k=SKILLS[s.id],on=(p.star||0)>=s.star;return`<span class="sk ${on?"on":""}" title="${k.desc}">${on?"✔":"🔒"} ${k.n} <small>(cần ★${s.star})</small></span>`}).join(" ")}
+  return"<b>Kỹ năng:</b> "+p.skills.map(s=>{const k=SKILLS[s.id],on=(p.star||0)>=s.star;return`<span class="sk ${on?"on":""}" title="${k.desc}">${skIco(s.id)||(on?"✔":"🔒")} ${k.n} <small>(cần ★${s.star})</small></span>`}).join(" ")}
 const COLS=["toc","sut","re","chuyen","xoac","dau","cuu"];
 function natName(p){try{return NATIONS[p.q]?NATIONS[p.q].n:"Việt Nam"}catch(e){return""}}
 function renderSquad(){natFix();
@@ -940,7 +1007,9 @@ function starUp(p){
 
 /* ---------- giao diện ---------- */
 // ảnh chân dung cầu thủ (assets/players/*.webp); không có ảnh thì vẽ sprite như cũ
-const faceSrc=p=>typeof PLAYER_IMG!=="undefined"&&p&&PLAYER_IMG[p.n]||null;
+const IMG_ALIAS={"Kane":"Harry Kane","Bellingham":"Jude Bellingham","Saka":"Bukayo Saka","Foden":"Phil Foden","Rice":"Declan Rice","Trippier":"Kieran Trippier","Mitoma":"Kaoru Mitoma","Kubo":"Takefusa Kubo","Tomiyasu":"Takehiro Tomiyasu","Doan Ritsu":"Ritsu Doan","Ueda Ayase":"Ayase Ueda","Chanathip":"Chanathip Songkrasin","Teerasil":"Teerasil Dangda","Kawin":"Kawin Thamsatchanan","Suphanat":"Suphanat Mueanta"};
+// ảnh chân dung: theo tên (kể cả tên cũ), Icon chưa có ảnh đầu thì dùng ảnh thẻ Icon, không có ảnh thì dùng ảnh "unknown"
+const faceSrc=p=>{if(typeof PLAYER_IMG==="undefined"||!p)return null;const n=p.n;return PLAYER_IMG[n]||PLAYER_IMG[IMG_ALIAS[n]]||(typeof UNKNOWN_IMG!=="undefined"?UNKNOWN_IMG:null)};
 const faceTag=(p,cls="fc")=>{const s=faceSrc(p);return s?`<img class="${cls}" src="${s}" alt="">`:""};
 function avatar(p,team,w=96,h=120){const s=faceSrc(p);if(s){const im=new Image();im.src=s;im.className="favatar";im.alt=p.n;const z=Math.min(128,Math.min(w,h)>=110?128:Math.min(w,h));im.width=z;im.height=z;im.style.width=z+"px";im.style.height=z+"px";return im}const c=document.createElement("canvas");c.width=w;c.height=h;drawChar(c.getContext("2d"),{p,team,face:1,anim:"pose"},0,w/2,h-6,h*0.86,true);return c}
 function mgrOpen(team,i,tab){MG.team=team===T.home?"home":team===T.away?"away":team;MG.i=i;MG.tab=tab||MG.tab;MG.msg="";MG.preview=null;MG.impSel=null;mgrRender();document.getElementById("mgr").scrollIntoView({behavior:"smooth",block:"start"})}
@@ -1140,7 +1209,8 @@ function npcTeam(i){const s=CAMPAIGN[i],F=FORMS["442A"];
    Tìm cầu thủ ở Môi giới là "quay may mắn": mỗi lần ra 4 ứng viên, bậc càng cao càng hiếm.
    Thị trường một quốc gia mở khi đội tới phụ bản của nước đó: chỉ ra cầu thủ nước đó, tỉ lệ Tím/Vàng/Đỏ ×2.
    Thắng phụ bản: lần đầu chắc chắn, đá lại 30% được Môi giới "tiến cử" 1 cầu thủ nước đó (tỉ lệ cao ×3). */
-const NATIONS={vn:{n:"Việt Nam"},th:{n:"Thái Lan"},jp:{n:"Nhật Bản"},kr:{n:"Hàn Quốc"},en:{n:"Anh"},de:{n:"Đức"},es:{n:"Tây Ban Nha"},pt:{n:"Bồ Đào Nha"},ar:{n:"Argentina"}};
+const NATIONS={vn:{n:"Việt Nam"},th:{n:"Thái Lan"},jp:{n:"Nhật Bản"},kr:{n:"Hàn Quốc"},en:{n:"Anh"},de:{n:"Đức"},es:{n:"Tây Ban Nha"},pt:{n:"Bồ Đào Nha"},ar:{n:"Argentina"},br:{n:"Brazil"},fr:{n:"Pháp"},nl:{n:"Hà Lan"},it:{n:"Ý"},hr:{n:"Croatia"},cz:{n:"Séc"},be:{n:"Bỉ"},no:{n:"Na Uy"}};
+const RAND_NAT=["vn","th","jp","kr","en","de","es","pt","ar"]; // quốc gia có bộ tên để sinh cầu thủ vô danh
 const NAME_PARTS={
  vn:[["Văn","Đức","Minh","Quốc","Thành","Hữu","Công","Tuấn","Xuân","Trọng"],["An","Bình","Cường","Dũng","Hải","Khánh","Lâm","Long","Nam","Phong","Sơn","Tâm","Thắng","Toàn","Trung","Vinh","Phát","Bảo"]],
  th:[["Somchai","Anon","Kittisak","Prasit","Nattapong","Wichai","Thanakorn","Pongsak","Sarawut","Ekkachai"]],
@@ -1155,18 +1225,7 @@ function nameAt(q,k){const P=NAME_PARTS[q]||NAME_PARTS.vn;k=Math.abs(k|0);
   const a=P[0][k%P[0].length],n=Math.floor(k/P[0].length);
   return P.length>1?`${a} ${P[1][n%P[1].length]}`:`${String.fromCharCode(65+n%26)}. ${a}`}
 // [tên, vị trí, bậc (0 Trắng … 5 Đỏ), quốc gia, chân]
-const STARS=[
- ["Messi","TĐ",6,"ar","T"],["Ronaldo","TĐ",5,"pt"],
- ["Lautaro Martínez","TĐ",4,"ar"],["Julián Álvarez","TĐ",4,"ar"],["Emiliano Martínez","TM",4,"ar"],["Di María","TVC",4,"ar","T"],
- ["Mac Allister","TV",3,"ar"],["Enzo Fernández","TV",3,"ar"],["De Paul","TV",3,"ar"],["Otamendi","HV",2,"ar"],["Tagliafico","HVC",2,"ar","T"],
- ["Bruno Fernandes","TV",4,"pt"],["Bernardo Silva","TVC",4,"pt","T"],["Rúben Dias","HV",4,"pt"],["Rafael Leão","TVC",3,"pt"],["João Félix","TĐ",3,"pt"],["Diogo Costa","TM",3,"pt"],["Nuno Mendes","HVC",3,"pt","T"],["Gonçalo Ramos","TĐ",2,"pt"],
- ["Lamine Yamal","TVC",4,"es","T"],["Pedri","TV",4,"es"],["Rodri","TV",4,"es"],["Nico Williams","TVC",3,"es"],["Dani Olmo","TV",3,"es"],["Unai Simón","TM",3,"es"],["Cucurella","HVC",2,"es","T"],["Morata","TĐ",2,"es"],
- ["Musiala","TV",4,"de"],["Wirtz","TV",4,"de"],["Neuer","TM",4,"de"],["Kimmich","TV",3,"de"],["Rüdiger","HV",3,"de"],["Havertz","TĐ",3,"de","T"],["Sané","TVC",3,"de","T"],["Gnabry","TVC",2,"de"],
- ["Kane","TĐ",4,"en"],["Bellingham","TV",4,"en"],["Saka","TVC",4,"en","T"],["Foden","TVC",4,"en","T"],["Rice","TV",3,"en"],["Stones","HV",3,"en"],["Pickford","TM",3,"en","T"],["Trippier","HVC",2,"en"],
- ["Son Heung-min","TĐ",4,"kr"],["Kim Min-jae","HV",3,"kr"],["Lee Kang-in","TV",3,"kr","T"],["Hwang Hee-chan","TĐ",2,"kr"],["Jo Hyeon-woo","TM",2,"kr"],["Hwang In-beom","TV",2,"kr"],
- ["Mitoma","TVC",3,"jp"],["Kubo","TVC",3,"jp","T"],["Endo","TV",3,"jp"],["Tomiyasu","HV",3,"jp"],["Minamino","TĐ",2,"jp"],["Doan Ritsu","TVC",2,"jp","T"],["Ueda Ayase","TĐ",2,"jp"],
- ["Chanathip","TV",3,"th"],["Supachok","TVC",2,"th"],["Teerasil","TĐ",2,"th"],["Theerathon","HVC",2,"th","T"],["Kawin","TM",2,"th"],["Suphanat","TVC",2,"th"],
- ["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",5,"vn"],["Công Phượng","TVC",2,"vn"],["Tiến Linh","TĐ",2,"vn"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn"],["Văn Lâm","TM",2,"vn"],["Tuấn Anh","TV",2,"vn"],["Văn Quyết","TĐ",2,"vn"],["Duy Mạnh","HV",2,"vn"],["Văn Toàn","TĐ",2,"vn"],["Tiến Dũng","HV",2,"vn"],["Xuân Mạnh","HVC",2,"vn"],["Hùng Dũng","TV",2,"vn"]];
+const STARS=[["Ronaldo","TĐ",5,"pt","P"],["Beckham","TVC",6,"en","P"],["Buffon","TM",6,"it","P"],["Gullit","TV",6,"nl","P"],["Lamine Yamal","TVC",6,"es","T"],["Mbappé","TĐ",6,"fr","P"],["Messi","TĐ",6,"ar","T"],["Modrić","TV",6,"hr","P"],["Neymar Jr","TVC",6,"br","P"],["Pepe","HV",6,"pt","P"],["Petr Čech","TM",6,"cz","T"],["Roberto Carlos","HVC",6,"br","T"],["Ronaldinho","TV",6,"br","P"],["Ronaldo","TVC",6,"pt","P"],["Rooney","TĐ",6,"en","P"],["van Persie","TĐ",6,"nl","T"],["van der Sar","TM",6,"nl","P"],["Lamine Yamal","TVC",5,"es","T"],["Mbappé","TĐ",5,"fr","P"],["Erling Haaland","TĐ",5,"no","T"],["Vini Jr.","TVC",5,"br","P"],["Jude Bellingham","TV",5,"en","P"],["Harry Kane","TĐ",5,"en","P"],["Chanathip Songkrasin","TV",5,"th","P"],["Bukayo Saka","TVC",4,"en","T"],["Phil Foden","TVC",4,"en","T"],["De Bruyne","TV",4,"be","P"],["Bruno Fernandes","TV",4,"pt","P"],["Vitinha","TV",4,"pt","P"],["Emiliano Martínez","TM",4,"ar","P"],["Casemiro","TV",3,"br","P"],["Enzo Fernández","TV",3,"ar","P"],["Kyle Walker","HVC",3,"en","P"],["Kieran Trippier","HVC",3,"en","P"],["James Maddison","TV",3,"en","P"],["Nick Pope","TM",3,"en","P"],["Michael Carrick","TV",3,"en","P"],["Kaoru Mitoma","TVC",3,"jp","P"],["Takefusa Kubo","TVC",3,"jp","T"],["Takehiro Tomiyasu","HV",3,"jp","P"],["Hidetoshi Nakata","TV",3,"jp","P"],["Keisuke Honda","TV",3,"jp","T"],["Đỗ Hoàng Hên","TVC",3,"vn","P"],["Quế Ngọc Hải","HV",3,"vn","P"],["Nguyễn Văn Toản","TM",3,"vn","P"],["Declan Rice","TV",2,"en","P"],["John Terry","HV",2,"en","P"],["Raheem Sterling","TVC",2,"en","P"],["Joe Gomez","HV",2,"en","P"],["Chris Smalling","HV",2,"en","P"],["Danny Welbeck","TĐ",2,"en","P"],["Dean Henderson","TM",2,"en","P"],["Daniel Sturridge","TĐ",2,"en","T"],["Daichi Kamada","TV",2,"jp","P"],["Ritsu Doan","TVC",2,"jp","T"],["Junya Ito","TVC",2,"jp","P"],["Ayase Ueda","TĐ",2,"jp","P"],["Makoto Hasebe","TV",2,"jp","P"],["Kiatisuk Senamuang","TĐ",2,"th","P"],["Phạm Thành Lương","TVC",2,"vn","T"],["Nguyễn Anh Đức","TĐ",2,"vn","P"],["Patrick Bamford","TĐ",1,"en","T"],["Mark Noble","TV",1,"en","P"],["Glenn Murray","TĐ",1,"en","T"],["Takuma Asano","TĐ",1,"jp","P"],["Kodai Sano","TV",1,"jp","P"],["Takashi Usami","TVC",1,"jp","P"],["Gōtoku Sakai","HVC",1,"jp","P"],["Teerasil Dangda","TĐ",1,"th","P"],["Suphanat Mueanta","TVC",1,"th","P"],["Kawin Thamsatchanan","TM",1,"th","P"],["Nguyễn Hai Long","TV",1,"vn","P"],["Khuất Văn Khang","TV",1,"vn","T"],["Nguyễn Thanh Bình","HV",1,"vn","P"],["Nhâm Mạnh Dũng","TĐ",1,"vn","P"],["Bùi Tấn Trường","TM",1,"vn","P"],["Phạm Đức Huy","TV",1,"vn","T"],["Bùi Hoàng Việt Anh","HV",1,"vn","P"],["Dương Hồng Sơn","TM",1,"vn","P"],["Adam Smith","HVC",0,"en","P"],["Andrew Davies","HV",0,"en","P"],["Brad Walker","TV",0,"en","P"],["Bradley Barry","HVC",0,"en","P"],["Chris Whelpdale","TV",0,"en","P"],["Craig Roddan","TV",0,"en","P"],["Harry Middleton","TV",0,"en","P"],["J. Binnom-Williams","HVC",0,"en","T"],["Joe Skarz","HVC",0,"en","T"],["Laurence Maguire","HV",0,"en","T"],["Luke Summerfield","TV",0,"en","P"],["Michael Nelson","HV",0,"en","P"],["Reece Flanagan","TV",0,"en","P"],["Ryan Seager","TĐ",0,"en","P"],["Simon Francis","HVC",0,"en","P"],["Atsuki Wada","TV",0,"jp","T"],["Daisuke Suzuki","HV",0,"jp","P"],["Jin Izumisawa","TVC",0,"jp","P"],["Justin Tokishi Kinjo","TV",0,"jp","P"],["Kaishū Sano","TV",0,"jp","P"],["Kosuke Kinoshita","TĐ",0,"jp","P"],["Sergio Escudero","HVC",0,"jp","T"],["Takahiro Sekine","TVC",0,"jp","P"],["Theo Ryuki","TV",0,"jp","P"],["Tsuyoshi Watanabe","HV",0,"jp","P"],["Y. Toyoda","TĐ",0,"jp","P"],["Yosuke Ideguchi","TV",0,"jp","P"],["Jonathan Khemdee","HV",0,"th","P"],["Jude Soonsup-Bell","TĐ",0,"th","P"],["Kapol Thongplub","TV",0,"th","P"],["Nicholas Mickelson","HVC",0,"th","P"],["Pramote Pathan","TV",0,"th","P"],["T. Suengchitthawon","TV",0,"th","P"],["Teng","HV",0,"th","P"],["Dụng Quang Nho","TVC",0,"vn","P"],["Nguyễn Quốc Việt","TĐ",0,"vn","P"],["Phan Văn Tài Em","TV",0,"vn","P"],["Trần Trung Kiên","TM",0,"vn","P"],["Lautaro Martínez","TĐ",4,"ar","P"],["Julián Álvarez","TĐ",4,"ar","P"],["Di María","TVC",4,"ar","T"],["Mac Allister","TV",3,"ar","P"],["De Paul","TV",3,"ar","P"],["Otamendi","HV",2,"ar","P"],["Tagliafico","HVC",2,"ar","T"],["Bernardo Silva","TVC",4,"pt","T"],["Rúben Dias","HV",4,"pt","P"],["Rafael Leão","TVC",3,"pt","P"],["João Félix","TĐ",3,"pt","P"],["Diogo Costa","TM",3,"pt","P"],["Nuno Mendes","HVC",3,"pt","T"],["Gonçalo Ramos","TĐ",2,"pt","P"],["Pedri","TV",4,"es","P"],["Rodri","TV",4,"es","P"],["Nico Williams","TVC",3,"es","P"],["Dani Olmo","TV",3,"es","P"],["Unai Simón","TM",3,"es","P"],["Cucurella","HVC",2,"es","T"],["Morata","TĐ",2,"es","P"],["Musiala","TV",4,"de","P"],["Wirtz","TV",4,"de","P"],["Neuer","TM",4,"de","P"],["Kimmich","TV",3,"de","P"],["Rüdiger","HV",3,"de","P"],["Havertz","TĐ",3,"de","T"],["Sané","TVC",3,"de","T"],["Gnabry","TVC",2,"de","P"],["Stones","HV",3,"en","P"],["Pickford","TM",3,"en","T"],["Son Heung-min","TĐ",4,"kr","P"],["Kim Min-jae","HV",3,"kr","P"],["Lee Kang-in","TV",3,"kr","T"],["Hwang Hee-chan","TĐ",2,"kr","P"],["Jo Hyeon-woo","TM",2,"kr","P"],["Hwang In-beom","TV",2,"kr","P"],["Endo","TV",3,"jp","P"],["Minamino","TĐ",2,"jp","P"],["Supachok","TVC",2,"th","P"],["Theerathon","HVC",2,"th","T"],["Quang Hải","TVC",3,"vn","T"],["Xuân Son","TĐ",5,"vn","P"],["Công Phượng","TVC",2,"vn","P"],["Tiến Linh","TĐ",2,"vn","P"],["Văn Hậu","HVC",2,"vn","T"],["Hoàng Đức","TV",2,"vn","P"],["Văn Lâm","TM",2,"vn","P"],["Tuấn Anh","TV",2,"vn","P"],["Văn Quyết","TĐ",2,"vn","P"],["Duy Mạnh","HV",2,"vn","P"],["Văn Toàn","TĐ",2,"vn","P"],["Tiến Dũng","HV",2,"vn","P"],["Xuân Mạnh","HVC",2,"vn","P"],["Hùng Dũng","TV",2,"vn","P"]];
 const MAXSQ=25,HIRE_FEE=[3000,8000,25000,70000,180000,450000,1200000],ODDS=[46,30,14,7,2.5,0.5,0.05];
 const TCOL=["#4b5563","#15803d","#1d4ed8","#7e22ce","#b45309","#dc2626","#a1782a"]; // màu chữ bậc trên nền sáng
 if(document.documentElement.classList.contains("fifa"))TCOL.splice(0,7,"#d6d9de","#3ddc84","#5aa9ff","#c58bff","#ffcf4a","#ff5a52","#f3d98a");
@@ -1175,13 +1234,14 @@ function dayStat(){const c=club(),d=new Date().toDateString();
   if(!c.day||c.day.d!==d){c.day={d,m:0,w:0,s:0};for(const k of Object.keys(c.claimed))if(k.includes("@"))delete c.claimed[k]}return c.day}
 function brokerState(){const c=club();c.broker=c.broker||{q:"all",list:[]};return c.broker}
 function unlockedQ(){const c=club(),s=new Set(["vn"]);CAMPAIGN.forEach((x,i)=>{if(i<=c.campaign)s.add(x.q)});return s}
-function natFix(){let S;try{S=STARS}catch(e){return}for(const p of squad(T.home).concat(squad(T.away))){const s=S.find(x=>x[0]===p.n);if(s&&p.q!==s[3])p.q=s[3]}} // cầu thủ có tên thật luôn đúng quốc tịch (vd Ronaldo → Bồ Đào Nha)
+function natFix(){let S;try{S=STARS}catch(e){return}for(const p of squad(T.home).concat(squad(T.away))){const s=S.find(x=>x[0]===p.n&&x[2]===p.tier)||S.find(x=>x[0]===p.n);if(s&&p.q!==s[3])p.q=s[3];
+  const want=skillsFor(p.n,p.tier);if(want.length&&(!(p.skills||[]).length||want.some(w=>!p.skills.some(x=>x.id===w.id))))p.skills=want}} // cầu thủ có tên thật luôn đúng quốc tịch (vd Ronaldo → Bồ Đào Nha)
 function rollTier(boost,noIcon){const w=ODDS.map((v,i)=>i===6?(noIcon?0:v*boost):i>=3?v*boost:v),sum=w.reduce((a,b)=>a+b);let r=Math.random()*sum;for(let i=0;i<w.length;i++)if((r-=w[i])<0)return i;return 0}
 function rollPlayer(q,boost,taken,noIcon){const t=rollTier(boost,noIcon),pick=a=>a[Math.floor(Math.random()*a.length)];
   let pool=STARS.filter(s=>s[2]===t&&(q==="all"||s[3]===q)&&!taken.has(s[0]));let name,pos,nat,chan;
   if(t===6&&!pool.length)return rollPlayer(q,boost,taken,true); // Icon chỉ là cầu thủ có tên thật; không có thì tìm lại (không tính tỉ lệ Icon)
-  if(t>=2&&pool.length){[name,pos,,nat,chan="P"]=pick(pool)}
-  else{nat=q==="all"?pick(Object.keys(NATIONS)):q;pos=pick(["TM","HV","HV","HVC","TV","TV","TVC","TĐ","TĐ"]);chan=Math.random()<.25?"T":"P";
+  if(pool.length&&(t>=2||rnd()<0.35)){[name,pos,,nat,chan="P"]=pick(pool)} // cầu thủ có tên thật (bậc thấp cũng có, ít hơn)
+  else{nat=q==="all"?pick(RAND_NAT):(RAND_NAT.includes(q)?q:"vn");pos=pick(["TM","HV","HV","HVC","TV","TV","TVC","TĐ","TĐ"]);chan=Math.random()<.25?"T":"P";
     let n=0;do name=nameAt(nat,Math.floor(Math.random()*99999))+(++n>40?" "+n:"");while(taken.has(name))}
   taken.add(name);const p=mk(name,pos,t,chan);p.q=nat;p.fee=HIRE_FEE[t];return p}
 function takenNames(){const s=new Set(squad(T.home).map(p=>p.n));brokerState().list.forEach(p=>s.add(p.n));return s}
@@ -1524,7 +1584,7 @@ function openCard(team,i){
   const at=k=>`<div class="at" title="${ATTR.find(a=>a[0]===k)[2]}"><span>${LBL[k]}</span><span class="b"><i style="width:${clamp(p[k]/7,2,100)}%"></i></span><span class="v ${top.includes(k)?"hi":""}">${fmt1(p[k])}</span></div>`;
   const isSub=(team.subs||[]).includes(p),own=team===T.home,price=Math.round(overall(p)*80/100)*100;
   const sk=Array.from({length:8},(_,j)=>{const s=(p.skills||[])[j];if(!s)return`<span class="sk2"></span>`;const k=SKILLS[s.id],on=(p.star||0)>=s.star;
-    return`<span class="sk2 ${on?"on":""}" title="${k.n}${on?"":` — cần ★${s.star}`}: ${k.desc}"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="${on?"#f59e0b":"#6b7280"}"/><text x="20" y="25" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${k.n.split(" ").map(w=>w[0]).join("").slice(0,2)}</text></svg>${on?"":"<i>🔒</i>"}</span>`}).join("");
+    return`<span class="sk2 ${on?"on":""}" title="${k.n}${on?"":` — cần ★${s.star}`}: ${k.desc}">${skIco(s.id)||`<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15" fill="${on?"#f59e0b":"#6b7280"}"/><text x="20" y="25" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">${k.n.split(" ").map(w=>w[0]).join("").slice(0,2)}</text></svg>`}${on?"":"<i>🔒</i>"}</span>`}).join("");
   /* thẻ kiểu FIFA: khiên màu theo bậc + 19 chỉ số chia nhóm (màu số theo mức bậc mà chỉ số đạt tới) */
   const POS_AB={TM:"TM",HV:"TRV",HVC:"HVC",TV:"TV",TVC:"TVC","TĐ":"TĐ"},CAPS=[250,330,410,500,625,750];
   const qv=v=>{let k=0;while(k<6&&v>=CAPS[k])k++;return k},av=a=>a.reduce((s,x)=>s+x,0)/a.length;

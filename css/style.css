@@ -955,3 +955,12 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .sq-nm small,.sq-sub,html.fifa #sq td{font-family:"Be Vietnam Pro",system-ui,sans-serif}
 .sq-v,.sq-pos,.sq-ovr{font-family:"Barlow Condensed","Arial Narrow",sans-serif!important}
 .shc{grid-template-rows:auto auto 1fr}.shc .shi{grid-row:1/3}.shp{align-self:end}
+/* icon kỹ năng */
+.skic{width:100%;height:100%;object-fit:contain;display:block}
+.sk2 .skic{width:36px;height:36px}
+.sk2:not(.on) .skic{filter:grayscale(1) brightness(.6)}
+.sk .skic{display:inline-block;width:20px;height:20px;vertical-align:-5px;margin-right:2px}
+.sk-plate{position:relative;padding-left:5.2cqw!important}
+.skfx.a .sk-plate{padding-left:1.6cqw!important;padding-right:5.2cqw!important}
+.sk-ic{position:absolute;left:1.1cqw;top:50%;transform:translateY(-50%);width:3.6cqw;height:3.6cqw;animation:skPunch .5s cubic-bezier(.2,1.6,.4,1) .2s both;filter:drop-shadow(0 0 .6cqw #c6ff3d88)}
+.skfx.a .sk-ic{left:auto;right:1.1cqw}
