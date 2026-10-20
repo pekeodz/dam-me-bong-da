@@ -979,3 +979,6 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-nm{top:59.5%!important;text-transform:uppercase!important;font-weight:800!important;font-size:1.45rem!important;letter-spacing:.03em!important;color:#3a2a14!important;text-shadow:0 1px 0 #ffffffb0!important}
 .ft6 .fc-six span{color:#5a4a2e!important}.ft6 .fc-six b{color:#2b2113!important}
 .sk-plate{padding-left:1.4cqw!important}.skfx.a .sk-plate{padding-right:1.4cqw!important}
+/* thẻ cầu thủ: bỏ nhãn bậc, ảnh mờ dần ở mép dưới để không đè tên */
+.fc-ovr em{display:none!important}
+.fc-card:not(.ft6) .fc-face img{-webkit-mask:linear-gradient(180deg,#000 72%,transparent 100%);mask:linear-gradient(180deg,#000 72%,transparent 100%)}
