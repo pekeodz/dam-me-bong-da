@@ -976,5 +976,5 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 /* thẻ Icon kiểu FC: ảnh mờ dần xuống nền đá trước phần tên, tên chữ nâu đậm thường */
 .ft6 .fc-face{top:7%!important;height:51%!important;width:66%!important;right:4%!important}
 .ft6 .fc-face img{object-fit:contain!important;object-position:50% 0!important;-webkit-mask:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.4) 70%,transparent 88%)!important;mask:linear-gradient(180deg,#000 0%,#000 50%,rgba(0,0,0,.4) 70%,transparent 88%)!important}
-.ft6 .fc-nm{top:59.5%!important;text-transform:none!important;font-weight:700!important;font-size:1.55rem!important;letter-spacing:.01em!important;color:#3a2a14!important;text-shadow:0 1px 0 #ffffffb0!important}
+.ft6 .fc-nm{top:59.5%!important;text-transform:uppercase!important;font-weight:800!important;font-size:1.45rem!important;letter-spacing:.03em!important;color:#3a2a14!important;text-shadow:0 1px 0 #ffffffb0!important}
 .ft6 .fc-six span{color:#5a4a2e!important}.ft6 .fc-six b{color:#2b2113!important}
