@@ -964,3 +964,12 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .skfx.a .sk-plate{padding-left:1.6cqw!important;padding-right:5.2cqw!important}
 .sk-ic{position:absolute;left:1.1cqw;top:50%;transform:translateY(-50%);width:3.6cqw;height:3.6cqw;animation:skPunch .5s cubic-bezier(.2,1.6,.4,1) .2s both;filter:drop-shadow(0 0 .6cqw #c6ff3d88)}
 .skfx.a .sk-ic{left:auto;right:1.1cqw}
+.sqbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:12px}
+.sqtabs{display:flex;gap:6px}
+.sqtabs button{all:unset;cursor:pointer;padding:6px 16px;border-radius:999px;font:700 .9rem "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8fa797;border:1px solid #25402f}
+.sqtabs button.on{background:#c6ff3d;color:#0b1405;border-color:#c6ff3d}
+.sqtabs button:focus-visible{outline:2px solid #c6ff3d;outline-offset:2px}
+.sqf{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:0}
+.sqf input,.sqf select{background:#0e1a15;color:#eef5f0;border:1px solid #2f5140;border-radius:8px;padding:6px 10px;font:500 .85rem "Be Vietnam Pro",sans-serif}
+.sqf input{flex:1;min-width:160px}
+.sq-own{display:inline-block;padding:2px 8px;border-radius:999px;background:#c6ff3d22;color:#c6ff3d;font:700 .7rem "Be Vietnam Pro",sans-serif}
