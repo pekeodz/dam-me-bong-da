@@ -211,7 +211,10 @@ let M;
 function initMor(){T.home.players.forEach(p=>p._side=0);T.away.players.forEach(p=>p._side=1);
   M.mor=[500,500];const H=atkDef(T.home),A=atkDef(T.away);
   const mr=(a,d,a2,d2)=>clamp(Math.round(500*Math.pow(a/d,MOR_E)*Math.pow(d2/a2,MOR_E/2)),150,900);M.mor=[Math.min(950,Math.round(mr(H.a,A.d,A.a,H.d)*(1+0.005*(window.mstat?mstat("qu"):0)))),mr(A.a,H.d,H.a,A.d)];M.ad=[H,A]}
-function newMatch(){if(typeof showIdle==="function")setTimeout(()=>showIdle("00:00"),0);squad(T.home).concat(squad(T.away)).forEach(p=>{p.sta=100;refresh(p)});applyLineup(T.home);applyLineup(T.away);M={min:0,score:[0,0],log:[],shots:[0,0],done:false,busy:false,auto:false,hold:0,queue:null,inv:new Set()};initMor();scene=null;hidePop();render();renderSquad();document.getElementById("log").innerHTML="";document.getElementById("roll").innerHTML='<span class="note">Mỗi pha sẽ hiện xác suất và kết quả.</span>';setCmt("Bấm “Đá trận” để bắt đầu.")}
+
+// Tải sẵn + giải mã ảnh chân dung của 2 đội trước trận (khung kỹ năng, bảng cơ hội hiện ra ngay, không bị khựng lần đầu)
+const PRE=new Map();function preloadFaces(){const go=()=>{for(const t of [T.home,T.away])for(const p of squad(t)){const s=faceSrc(p);if(!s||PRE.has(s))continue;const im=new Image();im.decoding="async";im.src=s;PRE.set(s,im);if(im.decode)im.decode().catch(()=>{})}};(window.requestIdleCallback||setTimeout)(go)}
+function newMatch(){preloadFaces();if(typeof showIdle==="function")setTimeout(()=>showIdle("00:00"),0);squad(T.home).concat(squad(T.away)).forEach(p=>{p.sta=100;refresh(p)});applyLineup(T.home);applyLineup(T.away);M={min:0,score:[0,0],log:[],shots:[0,0],done:false,busy:false,auto:false,hold:0,queue:null,inv:new Set()};initMor();scene=null;hidePop();render();renderSquad();document.getElementById("log").innerHTML="";document.getElementById("roll").innerHTML='<span class="note">Mỗi pha sẽ hiện xác suất và kết quả.</span>';setCmt("Bấm “Đá trận” để bắt đầu.")}
 function setCmt(t){document.getElementById("cmt").textContent=t}
 function addLog(t,g){M.log.push(t);const d=document.createElement("div");d.textContent=`${M.min}' ${t}`;if(g)d.className="g";document.getElementById("log").prepend(d);setCmt(t)}
 let rolls=[];function roll(label,p,ok,detail){rolls.push({label,p,ok,detail});document.getElementById("roll").innerHTML=rolls.map(r=>`<div class="row"><span>${r.label}<br><span class="note">${r.detail}</span></span><span class="mono ${r.ok?"ok":"ko"}">${Math.round(r.p*100)}% ${r.ok?"✓":"✗"}</span><div class="bar"><i style="width:${r.p*100}%"></i></div></div>`).join("")}
@@ -752,7 +755,7 @@ function skillFx(p,id,team,pos){const sk=SKILLS[id];if(!sk||!p)return;const g=do
   el.className="skfx";void el.offsetWidth;
   el.innerHTML=`<div class="sk-card">
     <div class="sk-face"><i class="sk-rays"></i>${img?`<img src="${img}" alt="">`:`<canvas width="160" height="160"></canvas>`}<i class="sk-shine"></i><i class="sk-spark a"></i><i class="sk-spark b"></i></div>
-    <div class="sk-plate">${skIco(id)?`<span class="sk-ic">${skIco(id)}</span>`:""}<small>Kỹ năng${st&&st.star?` · ★${st.star}`:""}</small><b>${sk.n}</b><span>${p.n}</span></div></div>`;
+    <div class="sk-plate"><small>Kỹ năng${st&&st.star?` · ★${st.star}`:""}</small><b>${sk.n}</b><span>${p.n}</span></div></div>`;
   const cv=el.querySelector("canvas");if(cv)drawChar(cv.getContext("2d"),{p,team:home?T.home:T.away,face:1,anim:"pose"},0,80,345,290,true);
   el.className=`skfx on ${home?"h":"a"} t${p.tier??2}${pos?" under":""}`;el.style.cssText="";
   const place=()=>{if(!pos||!popEl)return;const gr=g.getBoundingClientRect(),pr=popEl.getBoundingClientRect(),k=gr.width/100,cx=pr.left+pr.width/2,w=popEl.offsetWidth,hh=popEl.offsetHeight;
