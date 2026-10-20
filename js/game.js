@@ -925,8 +925,7 @@ function renderSquad(){natFix();
 /* ---------- Tra cứu toàn bộ cầu thủ trong hệ thống ---------- */
 const SQV={tab:"mine",q:"",tier:"",nat:"",pos:""};let DBT=null;
 function dbTeam(){if(DBT)return DBT;const seen=new Set(),ps=[];
-  for(const [n,pos,t,q,ch] of STARS){const k=n+"#"+t;if(seen.has(k))continue;seen.add(k);const p=mk(n,pos,t,ch||"P",0);p.q=q;p.kt=100;p.ktUsed=10;
-    for(const [a] of ATTR)p.base[a]=maxOf(p,a);refresh(p);p.sta=100;ps.push(p)}
+  for(const [n,pos,t,q,ch] of STARS){const k=n+"#"+t;if(seen.has(k))continue;seen.add(k);const p=mk(n,pos,t,ch||"P",0);p.q=q;p.sta=100;ps.push(p)} // giống hệt lúc vừa tuyển về: kích thích 0/10
   ps.sort((a,b)=>b.tier-a.tier||overall(b)-overall(a));return DBT={name:"Hệ thống",color:"#888",players:ps,subs:[]}}
 function sqChrome(){const card=document.querySelector('[data-w="ds"]');let bar=card.querySelector(".sqbar");
   if(!bar){bar=document.createElement("div");bar.className="sqbar";card.prepend(bar);
@@ -938,7 +937,7 @@ function sqChrome(){const card=document.querySelector('[data-w="ds"]');let bar=c
     <select data-f="tier" aria-label="Bậc"><option value="">Mọi bậc</option>${opt(TIERS.map((t,i)=>[i,t.n]).reverse(),SQV.tier)}</select>
     <select data-f="nat" aria-label="Quốc gia"><option value="">Mọi quốc gia</option>${opt(Object.entries(NATIONS).map(([k,v])=>[k,v.n]),SQV.nat)}</select>
     <select data-f="pos" aria-label="Vị trí"><option value="">Mọi vị trí</option>${opt(Object.entries(POSN),SQV.pos)}</select></div>`:""}`;
-  card.querySelector(".note").textContent=db?"Chỉ số hiển thị là mức tối đa khi cầu thủ được kích thích 100% và luyện đầy. Bấm tên để xem thẻ. Cầu thủ ra ở thị trường Môi giới của nước mình hoặc Toàn cầu.":"Bấm tên cầu thủ để xem thẻ đủ 19 chỉ số. Thanh xanh là thể lực còn lại trong trận."}
+  card.querySelector(".note").textContent=db?"Chỉ số hiển thị là lúc cầu thủ vừa tuyển về (kích thích 0/10). Bấm tên để xem thẻ và mức tối đa có thể luyện. Cầu thủ ra ở thị trường Môi giới của nước mình hoặc Toàn cầu.":"Bấm tên cầu thủ để xem thẻ đủ 19 chỉ số. Thanh xanh là thể lực còn lại trong trận."}
 function renderDB(row,head){const t=dbTeam(),mine=new Set(squad(T.home).map(p=>p.n+"#"+p.tier)),q=SQV.q.trim().toLowerCase();
   const nm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/gi,"d").toLowerCase();
   const list=t.players.map((p,i)=>[p,i]).filter(([p])=>(!q||nm(p.n).includes(nm(q)))&&(SQV.tier===""||p.tier===+SQV.tier)&&(!SQV.nat||p.q===SQV.nat)&&(!SQV.pos||p.pos===SQV.pos));
@@ -1271,7 +1270,7 @@ function rollPlayer(q,boost,taken,noIcon){const t=rollTier(boost,noIcon),pick=a=
   if(pool.length&&(t>=2||rnd()<0.35)){[name,pos,,nat,chan="P"]=pick(pool)} // cầu thủ có tên thật (bậc thấp cũng có, ít hơn)
   else{nat=q==="all"?pick(RAND_NAT):(RAND_NAT.includes(q)?q:"vn");pos=pick(["TM","HV","HV","HVC","TV","TV","TVC","TĐ","TĐ"]);chan=Math.random()<.25?"T":"P";
     let n=0;do name=nameAt(nat,Math.floor(Math.random()*99999))+(++n>40?" "+n:"");while(taken.has(name))}
-  taken.add(name);const p=mk(name,pos,t,chan);p.q=nat;p.fee=HIRE_FEE[t];return p}
+  taken.add(name);const p=mk(name,pos,t,chan,0);p.q=nat;p.fee=HIRE_FEE[t];return p} // cầu thủ tuyển về: chưa kích thích lần nào (0/10, 30%)
 function takenNames(){const s=new Set(squad(T.home).map(p=>p.n));brokerState().list.forEach(p=>s.add(p.n));return s}
 function brokerSearch(pay){const b=brokerState(),c=club(),cost=b.q==="all"?200:500;
   if(pay){if((c.gold||0)<cost){toast(`Không đủ ${fmt(cost)} vàng để tìm.`);return false}c.gold-=cost;dayStat().s++}
@@ -1638,7 +1637,7 @@ function openCard(team,i){
      <div class="fc-groups">${ord.map(grp).join("")}</div>
      <div class="fc-leg"><span>Màu theo mức bậc:</span><span><i class="fb0"></i>&lt;250</span><span><i class="fb1"></i>250+</span><span><i class="fb2"></i>330+</span><span><i class="fb3"></i>410+</span><span><i class="fb4"></i>500+</span><span><i class="fb5"></i>625+</span><span><i class="fb6"></i>750+</span><span><i class="fc-limk"></i>giới hạn luyện hiện tại</span></div>
      ${team===DBT?`<p class="fc-tp">Thích nghi ${p.tn}% · Ra ở Môi giới: ${RAND_NAT.includes(p.q)?`thị trường ${natName(p)} hoặc Toàn cầu`:"thị trường Toàn cầu"}</p>`:`<p class="fc-tp">Điểm huấn luyện: <b>${fmt(Math.round(p.tp))}</b> · Thích nghi ${p.tn}% <button class="lnk" data-go="buytp">Cấp tốc nhận điểm</button></p>`}
-     <div class="fc-acts">${own?`<button class="pri" data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button><button data-go="sell" ${isSub?"":"disabled title=\"Chỉ bán được cầu thủ dự bị\""}>${SELL.p===p?`Xác nhận bán (+${fmt(price)} vàng)`:"Bán cầu thủ"}</button>`:`<span class="note2">${team===DBT?(squad(T.home).some(x=>x.n===p.n&&x.tier===p.tier)?"Đã có trong đội của bạn":"Chỉ số tối đa · cầu thủ trong hệ thống"):"Cầu thủ đội bạn"}</span>`}</div>
+     <div class="fc-acts">${own?`<button class="pri" data-go="plan">Huấn luyện</button><button data-go="kich">Kích thích</button><button data-go="imp">Cải tiến</button><button data-go="star">Lên sao</button><button data-go="sell" ${isSub?"":"disabled title=\"Chỉ bán được cầu thủ dự bị\""}>${SELL.p===p?`Xác nhận bán (+${fmt(price)} vàng)`:"Bán cầu thủ"}</button>`:`<span class="note2">${team===DBT?(squad(T.home).some(x=>x.n===p.n&&x.tier===p.tier)?"Đã có trong đội của bạn":"Cầu thủ trong hệ thống · chỉ số lúc vừa tuyển"):"Cầu thủ đội bạn"}</span>`}</div>
     </div></div></div>`;
   {const ic=modal.querySelector(".fc-card.ft6");if(ic){ic.classList.add("reveal");
     ic.addEventListener("pointermove",e=>{const r=ic.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;ic.classList.add("live");
