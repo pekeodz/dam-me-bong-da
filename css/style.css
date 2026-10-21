@@ -993,3 +993,15 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-ovr i,.ft6 .fc-six span{color:#9a7c3c!important;-webkit-text-fill-color:#9a7c3c!important;opacity:1!important}
 .ft6 .fc-ovr,.ft6 .fc-six{filter:drop-shadow(0 1px 0 #fffc)}
 .ft6 .fc-rule{background:linear-gradient(90deg,transparent,#b8913f,transparent)!important}
+/* thẻ Icon: cầu thủ ở giữa (kiểu Pelé), bỏ tên quốc gia */
+.fc-ovr i{display:none!important}
+.ft6 .fc-face{left:15%!important;right:auto!important;width:70%!important;top:10%!important;height:53%!important;place-items:start center!important;z-index:4!important}
+.ft6 .fc-face img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:50% 0!important;
+  -webkit-mask:linear-gradient(180deg,#000 0%,#000 66%,rgba(0,0,0,.45) 84%,transparent 99%)!important;mask:linear-gradient(180deg,#000 0%,#000 66%,rgba(0,0,0,.45) 84%,transparent 99%)!important}
+.ft6 .fc-ovr{left:9%!important;top:14%!important;z-index:5!important}
+.ft6 .fc-ovr b{font-size:2.05rem!important}.ft6 .fc-ovr span{font-size:.88rem!important;margin-top:2px!important}
+.ft6 .fc-nm{top:60%!important;z-index:5!important}
+.ft6 .fc-rule{display:none!important}
+.ft6 .fc-six{top:68%!important;left:9%!important;right:9%!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;column-gap:2px!important;z-index:5!important}
+.ft6 .fc-six div{flex-direction:column-reverse!important;align-items:center!important;gap:0!important;line-height:1.05!important}
+.ft6 .fc-six b{font-size:.92rem!important;letter-spacing:-.02em!important}.ft6 .fc-six span{font-size:.6rem!important;letter-spacing:.04em!important}
