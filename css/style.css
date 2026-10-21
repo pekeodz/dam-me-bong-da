@@ -1036,3 +1036,12 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-flag{display:block;width:26px;height:17px;margin-top:6px;text-decoration:none;box-shadow:0 0 0 1px #0002,0 1px 2px #0003;border-radius:2px;overflow:hidden}
 .ft6 .fc-flag svg{display:block;width:100%;height:100%}
 .ft6 .fc-st{display:grid;place-items:center;position:absolute;right:6%;top:67%;z-index:6;min-width:22px;height:22px;padding:0 4px;text-decoration:none;font-weight:800;font-size:.95rem;color:#2c3440;background:linear-gradient(180deg,#e3e8ec,#c3ccd3);border:1px solid #9aa6b0;border-radius:3px;box-shadow:0 1px 2px #0003}
+
+/* đốm lấp lánh vàng trên thẻ Icon */
+.ft6 .ic-sp{display:block!important;width:18px;height:18px;background:radial-gradient(circle,#fff 0%,#f6d77a 28%,#b8862a 75%);filter:drop-shadow(0 0 2px #c9952e) drop-shadow(0 0 7px #e0b44ccc)!important;z-index:6!important;animation:icTw 2.6s ease-in-out infinite}
+.ft6 .ic-sp:nth-of-type(4){left:13%!important;top:9%!important}
+.ft6 .ic-sp:nth-of-type(5){left:86%!important;top:11%!important;width:14px;height:14px;animation-duration:2.1s}
+.ft6 .ic-sp:nth-of-type(6){left:24%!important;top:50%!important;width:12px;height:12px}
+.ft6 .ic-sp:nth-of-type(7){left:90%!important;top:58%!important;width:20px;height:20px;animation-duration:3.2s}
+.ft6 .ic-sp:nth-of-type(8){left:8%!important;top:74%!important;width:14px;height:14px;animation-duration:2.3s}
+.ft6 .ic-sp:nth-of-type(9){left:76%!important;top:88%!important;animation-duration:2.9s}
