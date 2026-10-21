@@ -982,3 +982,7 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 /* thẻ cầu thủ: bỏ nhãn bậc, ảnh mờ dần ở mép dưới để không đè tên */
 .fc-ovr em{display:none!important}
 .fc-card:not(.ft6) .fc-face img{-webkit-mask:linear-gradient(180deg,#000 72%,transparent 100%);mask:linear-gradient(180deg,#000 72%,transparent 100%)}
+/* thẻ Icon: ảnh cầu thủ nằm TRÊN các lớp ánh kim (không bị phủ mờ), mờ dần muộn hơn */
+.ft6 .fc-face{z-index:4!important}
+.ft6 .fc-ovr,.ft6 .fc-nm,.ft6 .fc-six,.ft6 .fc-rule{z-index:5!important}
+.ft6 .fc-face img{filter:drop-shadow(0 6px 10px #0006) contrast(1.06) saturate(1.08)!important;-webkit-mask:linear-gradient(180deg,#000 0%,#000 64%,rgba(0,0,0,.5) 82%,transparent 97%)!important;mask:linear-gradient(180deg,#000 0%,#000 64%,rgba(0,0,0,.5) 82%,transparent 97%)!important}
