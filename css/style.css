@@ -988,3 +988,8 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-face img{filter:drop-shadow(0 6px 10px #0006) contrast(1.06) saturate(1.08)!important;-webkit-mask:linear-gradient(180deg,#000 0%,#000 64%,rgba(0,0,0,.5) 82%,transparent 97%)!important;mask:linear-gradient(180deg,#000 0%,#000 64%,rgba(0,0,0,.5) 82%,transparent 97%)!important}
 /* tên cầu thủ trên thẻ Icon: chữ vàng đồng như thẻ Icon FC */
 .ft6 .fc-nm{color:#8a6b2c!important;background:linear-gradient(180deg,#a8843a 0%,#8a6b2c 55%,#6b521f 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none!important;filter:drop-shadow(0 1px 0 #fffc)}
+/* thẻ Icon: toàn bộ chữ trên thẻ cùng tông vàng đồng */
+.ft6 .fc-ovr b,.ft6 .fc-ovr span,.ft6 .fc-six b{color:#8a6b2c!important;background:linear-gradient(180deg,#a8843a 0%,#8a6b2c 55%,#6b521f 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important}
+.ft6 .fc-ovr i,.ft6 .fc-six span{color:#9a7c3c!important;-webkit-text-fill-color:#9a7c3c!important;opacity:1!important}
+.ft6 .fc-ovr,.ft6 .fc-six{filter:drop-shadow(0 1px 0 #fffc)}
+.ft6 .fc-rule{background:linear-gradient(90deg,transparent,#b8913f,transparent)!important}
