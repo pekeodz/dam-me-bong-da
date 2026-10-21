@@ -1074,3 +1074,6 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .ic-sweep{background-size:260% 100%!important;animation:icShine2 4.5s ease-in-out infinite!important;opacity:1!important}
 @keyframes icShine2{0%,45%{background-position:105% 0}100%{background-position:-5% 0}}
 @media (prefers-reduced-motion:reduce){.ft6 .ic-sweep{animation:icShine2 4.5s ease-in-out infinite!important;opacity:1!important}}
+
+/* ô cấp sao nằm giữa cột trái (thẳng hàng với chỉ số, vị trí, cờ) */
+.ft6 .fc-st{left:17.5%!important;transform:translateX(-50%)!important;display:grid!important;place-items:center!important;line-height:1!important}
