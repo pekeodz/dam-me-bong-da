@@ -1237,6 +1237,24 @@ function npcTeam(i){const s=CAMPAIGN[i],F=FORMS["442A"];
    Thị trường một quốc gia mở khi đội tới phụ bản của nước đó: chỉ ra cầu thủ nước đó, tỉ lệ Tím/Vàng/Đỏ ×2.
    Thắng phụ bản: lần đầu chắc chắn, đá lại 30% được Môi giới "tiến cử" 1 cầu thủ nước đó (tỉ lệ cao ×3). */
 const NATIONS={vn:{n:"Việt Nam"},th:{n:"Thái Lan"},jp:{n:"Nhật Bản"},kr:{n:"Hàn Quốc"},en:{n:"Anh"},de:{n:"Đức"},es:{n:"Tây Ban Nha"},pt:{n:"Bồ Đào Nha"},ar:{n:"Argentina"},br:{n:"Brazil"},fr:{n:"Pháp"},nl:{n:"Hà Lan"},it:{n:"Ý"},hr:{n:"Croatia"},cz:{n:"Séc"},be:{n:"Bỉ"},no:{n:"Na Uy"}};
+const FLAG_SVG={vn:'<rect width="30" height="20" fill="#da251d"/><polygon points="15,4 16.8,9.4 22.4,9.4 17.8,12.6 19.6,18 15,14.7 10.4,18 12.2,12.6 7.6,9.4 13.2,9.4" fill="#ff0"/>',
+th:'<rect width="30" height="20" fill="#a51931"/><rect y="3.33" width="30" height="13.33" fill="#f4f5f8"/><rect y="6.67" width="30" height="6.67" fill="#2d2a4a"/>',
+jp:'<rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/>',
+kr:'<rect width="30" height="20" fill="#fff"/><path d="M10 10a5 5 0 0 1 10 0z" fill="#cd2e3a"/><path d="M10 10a5 5 0 0 0 10 0z" fill="#0047a0"/><g fill="#000"><rect x="3" y="3" width="4" height="1.2" transform="rotate(34 5 4)"/><rect x="23" y="3" width="4" height="1.2" transform="rotate(-34 25 4)"/><rect x="3" y="15.8" width="4" height="1.2" transform="rotate(-34 5 16)"/><rect x="23" y="15.8" width="4" height="1.2" transform="rotate(34 25 16)"/></g>',
+en:'<rect width="30" height="20" fill="#fff"/><rect x="12.5" width="5" height="20" fill="#ce1124"/><rect y="7.5" width="30" height="5" fill="#ce1124"/>',
+de:'<rect width="30" height="20" fill="#000"/><rect y="6.67" width="30" height="6.67" fill="#dd0000"/><rect y="13.33" width="30" height="6.67" fill="#ffce00"/>',
+es:'<rect width="30" height="20" fill="#aa151b"/><rect y="5" width="30" height="10" fill="#f1bf00"/>',
+pt:'<rect width="30" height="20" fill="#ff0000"/><rect width="12" height="20" fill="#006600"/><circle cx="12" cy="10" r="3.6" fill="#ffcc00"/><circle cx="12" cy="10" r="2.2" fill="#ff0000"/>',
+ar:'<rect width="30" height="20" fill="#74acdf"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="2" fill="#f6b40e"/>',
+br:'<rect width="30" height="20" fill="#009c3b"/><polygon points="15,2.5 27,10 15,17.5 3,10" fill="#ffdf00"/><circle cx="15" cy="10" r="4" fill="#002776"/>',
+fr:'<rect width="30" height="20" fill="#fff"/><rect width="10" height="20" fill="#002395"/><rect x="20" width="10" height="20" fill="#ed2939"/>',
+nl:'<rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#ae1c28"/><rect y="13.33" width="30" height="6.67" fill="#21468b"/>',
+it:'<rect width="30" height="20" fill="#fff"/><rect width="10" height="20" fill="#009246"/><rect x="20" width="10" height="20" fill="#ce2b37"/>',
+hr:'<rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#ff0000"/><rect y="13.33" width="30" height="6.67" fill="#171796"/><rect x="12" y="5" width="6" height="7" fill="#fff" stroke="#ff0000" stroke-width=".6"/><g fill="#ff0000"><rect x="12" y="5" width="2" height="2"/><rect x="16" y="5" width="2" height="2"/><rect x="14" y="7" width="2" height="2"/><rect x="12" y="9" width="2" height="2"/><rect x="16" y="9" width="2" height="2"/></g>',
+cz:'<rect width="30" height="20" fill="#fff"/><rect y="10" width="30" height="10" fill="#d7141a"/><polygon points="0,0 15,10 0,20" fill="#11457e"/>',
+be:'<rect width="30" height="20" fill="#ef3340"/><rect width="10" height="20" fill="#000"/><rect x="10" width="10" height="20" fill="#fdda24"/>',
+no:'<rect width="30" height="20" fill="#ba0c2f"/><rect x="8" width="6" height="20" fill="#fff"/><rect y="7" width="30" height="6" fill="#fff"/><rect x="9.5" width="3" height="20" fill="#00205b"/><rect y="8.5" width="30" height="3" fill="#00205b"/>'};
+const flagSvg=q=>`<svg viewBox="0 0 30 20" preserveAspectRatio="none">${FLAG_SVG[q]||FLAG_SVG.vn}</svg>`;
 const RAND_NAT=["vn","th","jp","kr","en","de","es","pt","ar"]; // quốc gia có bộ tên để sinh cầu thủ vô danh
 const NAME_PARTS={
  vn:[["Văn","Đức","Minh","Quốc","Thành","Hữu","Công","Tuấn","Xuân","Trọng"],["An","Bình","Cường","Dũng","Hải","Khánh","Lâm","Long","Nam","Phong","Sơn","Tâm","Thắng","Toàn","Trung","Vinh","Phát","Bảo"]],
@@ -1623,7 +1641,7 @@ function openCard(team,i){
     return`<div class="fc-row" title="${ATTR.find(x=>x[0]===k)[2]}"><span>${LBL[k]}</span><span class="fc-bar"><i class="fc-lim" style="width:${Math.min(100,m/7.5)}%"></i><i class="fc-cur fb${c}" style="width:${Math.min(100,v/7.5)}%"></i></span><span class="fc-v fq${c}">${fmt1(v)}</span></div>`}).join("")}</div>`};
   modal.innerHTML=`<div class="pcard fc" role="dialog" aria-label="Thẻ cầu thủ ${p.n}"><div class="hd"><span class="ctab">Cầu thủ</span><button id="mclose" aria-label="Đóng">✕</button></div>
    <div class="fc-main"><div class="fc-col">
-     <div class="fc-card ft${p.tier??2}"><div class="fc-ovr"><b>${Math.round(overall(p))}</b><span>${POS_AB[p.pos]}</span><i>${nat}</i><em>${tierOf(p).n}</em></div>
+     <div class="fc-card ft${p.tier??2}"><div class="fc-ovr"><b>${Math.round(overall(p))}</b><span>${POS_AB[p.pos]}</span><i>${nat}</i><em>${tierOf(p).n}</em><u class="fc-flag" title="${nat}">${flagSvg(p.q)}</u></div><s class="fc-st" title="Cấp sao">${p.star||0}</s>
       <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
       <div class="fc-nm">${p.n}</div><div class="fc-rule"></div>
       <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div>${p.tier===6?'<i class="ic-fx ic-sweep"></i><i class="ic-fx ic-holo"></i><i class="ic-fx ic-glare"></i>'+[[22,14,0],[80,24,.8],[28,46,1.5],[74,56,.4],[52,7,2],[88,40,1.1]].map(([x,y,dl])=>`<i class="ic-sp" style="left:${x}%;top:${y}%;animation-delay:${dl}s"></i>`).join(""):""}</div>
