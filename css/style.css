@@ -1005,3 +1005,28 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-six{top:68%!important;left:9%!important;right:9%!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;column-gap:2px!important;z-index:5!important}
 .ft6 .fc-six div{flex-direction:column-reverse!important;align-items:center!important;gap:0!important;line-height:1.05!important}
 .ft6 .fc-six b{font-size:.92rem!important;letter-spacing:-.02em!important}.ft6 .fc-six span{font-size:.6rem!important;letter-spacing:.04em!important}
+
+/* chữ trên thẻ Icon luôn đọc được: ảnh mờ dần sớm hơn + viền sáng quanh chữ vàng */
+.ft6 .fc-face img{-webkit-mask:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.4) 72%,transparent 86%)!important;mask:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.4) 72%,transparent 86%)!important}
+.ft6 .fc-nm,.ft6 .fc-six{filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px rgba(255,252,240,.9))!important}
+
+/* thẻ Icon kiểu đơn giản: khung kem viền vàng, chữ tối dễ đọc */
+.fc-card.ft6{aspect-ratio:210/336!important;background:url(../assets/ui/the-icon2.webp) center/100% 100% no-repeat!important}
+.ic-fx{-webkit-mask:url(../assets/ui/the-icon2.webp) center/100% 100% no-repeat!important;mask:url(../assets/ui/the-icon2.webp) center/100% 100% no-repeat!important}
+.ft6 .ic-holo,.ft6 .ic-sp{display:none!important}
+.fc-card.ft6::after{display:block!important;content:"ICON";position:absolute;left:0;right:0;top:8.6%;text-align:center;font-size:.62rem;font-weight:800;line-height:1;font-family:inherit;letter-spacing:.25em;color:#7d6e45;z-index:5;background:none;inset:auto 0 auto 0;top:8.6%}
+.ft6 .fc-ovr b,.ft6 .fc-ovr span,.ft6 .fc-six b,.ft6 .fc-nm{background:none!important;-webkit-text-fill-color:currentColor!important;color:#38331f!important;filter:none!important;text-shadow:none!important}
+.ft6 .fc-ovr,.ft6 .fc-six,.ft6 .fc-nm{filter:none!important}
+.ft6 .fc-ovr{left:7%!important;top:16%!important;width:21%!important;align-items:center!important;text-align:center!important}
+.ft6 .fc-ovr b{font-size:2rem!important;line-height:1!important}
+.ft6 .fc-ovr span{font-size:.95rem!important;font-weight:800!important;margin-top:3px!important}
+.ft6 .fc-face{left:33%!important;right:5%!important;width:auto!important;top:13%!important;height:56%!important;place-items:end center!important}
+.ft6 .fc-face img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:50% 10%!important;filter:contrast(1.04)!important;-webkit-mask:linear-gradient(180deg,#000 75%,transparent 100%)!important;mask:linear-gradient(180deg,#000 75%,transparent 100%)!important}
+.ft6 .fc-nm{top:72%!important;left:6%!important;right:6%!important;font-size:1.25rem!important;letter-spacing:.02em!important}
+.ft6 .fc-nm::before{content:"";display:inline-block;width:.85em;height:.85em;margin-right:.35em;vertical-align:-.08em;border:1.5px solid #9a8a5c;border-radius:3px;background:radial-gradient(circle,#c9b376 30%,transparent 34%)}
+.ft6 .fc-six{top:80%!important;left:10%!important;right:10%!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;column-gap:2px!important}
+.ft6 .fc-six div{flex-direction:column-reverse!important;align-items:center!important;gap:0!important;line-height:1.1!important}
+.ft6 .fc-six b{font-size:.9rem!important}.ft6 .fc-six span{font-size:.56rem!important;color:#8a7c56!important;-webkit-text-fill-color:#8a7c56!important}
+.ft6 .fc-six{display:none!important}
+.ft6 .fc-face{height:64%!important}
+.ft6 .fc-nm{top:80%!important;font-size:1.35rem!important}
