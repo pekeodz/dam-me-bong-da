@@ -1045,3 +1045,9 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .ic-sp:nth-of-type(7){left:90%!important;top:58%!important;width:20px;height:20px;animation-duration:3.2s}
 .ft6 .ic-sp:nth-of-type(8){left:8%!important;top:74%!important;width:14px;height:14px;animation-duration:2.3s}
 .ft6 .ic-sp:nth-of-type(9){left:76%!important;top:88%!important;animation-duration:2.9s}
+
+/* thẻ Icon: bỏ đốm lấp lánh, thỉnh thoảng có 1 vệt sáng lướt chéo qua toàn bộ thẻ */
+.ft6 .ic-sp{display:none!important}
+.ft6 .ic-sweep{z-index:7!important;mix-blend-mode:normal!important;background-image:linear-gradient(115deg,transparent 40%,rgba(255,248,220,0) 44%,rgba(255,246,214,.55) 48%,rgba(255,255,255,.9) 50%,rgba(255,246,214,.55) 52%,rgba(255,248,220,0) 56%,transparent 60%)!important;background-size:320% 100%!important;background-repeat:no-repeat!important;animation:icShine 5s ease-in-out infinite!important}
+@keyframes icShine{0%,62%{background-position:120% 0}100%{background-position:-20% 0}}
+@media (prefers-reduced-motion:reduce){.ft6 .ic-sweep{animation:none!important;opacity:0}}
