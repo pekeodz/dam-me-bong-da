@@ -1086,3 +1086,60 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .fc-st.sg3{color:#3a2a08!important;background:linear-gradient(180deg,#f8dc7c,#dcae3c)!important}
 .ft6 .fc-st.smax{box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #0000002e,0 0 8px #f3c94fcc,0 0 16px #f3c94f88!important}
 @keyframes stGlow{50%{box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #0000002e,0 0 12px #f3c94f,0 0 22px #f3c94faa}}
+
+/* thẻ các bậc Trắng → Đỏ: cùng kiểu với thẻ Icon (ảnh, tên, thực lực, vị trí, cờ, cấp sao) */
+.fc-card.fs{aspect-ratio:210/336;clip-path:none;overflow:visible;color:#2b2a26;background:var(--fr) center/100% 100% no-repeat}
+.fc-card.fs::before,.fc-card.fs::after{display:none}
+.ft0.fs{--fr:url(../assets/ui/the-0.webp);--tx:#2f353c}.ft1.fs{--fr:url(../assets/ui/the-1.webp);--tx:#123d24}.ft2.fs{--fr:url(../assets/ui/the-2.webp);--tx:#11295a}
+.ft3.fs{--fr:url(../assets/ui/the-3.webp);--tx:#33115e}.ft4.fs{--fr:url(../assets/ui/the-4.webp);--tx:#4f3500}.ft5.fs{--fr:url(../assets/ui/the-5.webp);--tx:#5c0b11}
+.fs .fc-ovr{left:7%;top:16%;width:21%;align-items:center;text-align:center;color:var(--tx)}
+.fs .fc-ovr b{font-size:2rem;line-height:1;color:var(--tx)}
+.fs .fc-ovr span{font-size:.95rem;font-weight:800;margin-top:3px;color:var(--tx)}
+.fs .fc-face{left:31%;right:4%;width:auto;top:12%;height:65%;place-items:end center}
+.fs .fc-face img{width:100%;height:100%;object-fit:cover!important;object-position:50% 15%;filter:none;-webkit-mask:linear-gradient(180deg,#000 75%,transparent 100%)!important;mask:linear-gradient(180deg,#000 75%,transparent 100%)!important}
+.fs .fc-nm{top:80%;left:6%;right:6%;padding:0;font-size:1.35rem;letter-spacing:.02em;color:var(--tx);text-shadow:none}
+.fs .fc-rule,.fs .fc-six{display:none}
+.fs .fc-flag{display:block;width:26px;height:17px;margin-top:6px;text-decoration:none;box-shadow:0 0 0 1px #0002,0 1px 2px #0003;border-radius:2px;overflow:hidden}
+.fs .fc-flag svg{display:block;width:100%;height:100%}
+.fs .fc-st{display:grid;place-items:center;position:absolute;right:6%;top:67%;z-index:6;min-width:22px;height:22px;padding:0 4px;text-decoration:none;font-weight:800;font-size:.95rem;color:#2c3440;background:linear-gradient(180deg,#e3e8ec,#c3ccd3);border:1px solid #9aa6b0;border-radius:3px;box-shadow:0 1px 2px #0003}
+.fs .fc-st{left:9%!important;right:auto!important;top:62%!important;min-width:24px!important;height:24px!important;font-size:1rem!important;border-radius:3px!important}
+.fs .fc-st.sg0{color:#2c3136!important;background:linear-gradient(180deg,#eceff1,#c4cacf)!important;border:1px solid #9aa1a8!important}
+.fs .fc-st.sg1{color:#fff!important;background:linear-gradient(180deg,#d9a273,#9a5f34)!important;border:1px solid #74431f!important;text-shadow:0 1px 1px #0006}
+.fs .fc-st.sg2{color:#2a3038!important;background:linear-gradient(180deg,#ffffff,#b9c2ca 60%,#8e99a3)!important;border:1px solid #6f7a85!important}
+.fs .fc-st.sg3{color:#3a2a08!important;background:linear-gradient(180deg,#fff1b8,#f0c24f 55%,#c18b1f)!important;border:1px solid #8f6512!important}
+.fs .fc-st.smax{box-shadow:0 0 0 1px #fff6,0 0 8px #f3c94fcc,0 0 16px #f3c94f88!important;animation:stGlow 1.8s ease-in-out infinite}
+.fs .fc-st{min-width:32px!important;height:32px!important;font-size:1.3rem!important;border-radius:4px!important;left:8%!important;top:61%!important}
+.fs .fc-st{min-width:46px!important;width:46px!important;height:28px!important;padding:0!important;font-size:1.2rem!important;border-radius:3px!important;left:7%!important;top:61.5%!important}
+.fs .fc-st{left:17.5%!important;transform:translateX(-50%)!important;display:grid!important;place-items:center!important;line-height:1!important}
+.fs .fc-st{border-radius:0!important;width:48px!important;min-width:48px!important;height:26px!important;font-size:1.15rem!important;font-weight:800!important;border:0!important;box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #0000002e,0 1px 2px #0000004d!important}
+.fs .fc-st.sg0{color:#1f2a44!important;background:linear-gradient(180deg,#e9eaf2,#d3d5e1)!important}
+.fs .fc-st.sg1{color:#fff!important;background:linear-gradient(180deg,#c98d5e,#a3683d)!important}
+.fs .fc-st.sg2{color:#1f2a44!important;background:linear-gradient(180deg,#eef1f4,#bcc4cc)!important}
+.fs .fc-st.sg3{color:#3a2a08!important;background:linear-gradient(180deg,#f8dc7c,#dcae3c)!important}
+.fs .fc-st.smax{box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #0000002e,0 0 8px #f3c94fcc,0 0 16px #f3c94f88!important}
+
+/* thẻ các bậc Trắng → Đỏ: khung riêng (khác khung Icon), chữ trắng */
+.fc-card.fs{aspect-ratio:164/222!important;color:#fff}
+.fs .fc-ovr{position:absolute;left:0;top:0;right:0;bottom:0;width:auto;display:block;color:#fff;pointer-events:none;z-index:5}
+.fs .fc-ovr b,.fs .fc-ovr span{position:absolute;left:7%;width:24%;text-align:center;color:#fff;text-shadow:0 2px 3px #0008}
+.fs .fc-ovr b{top:9%;font-size:2.1rem;line-height:1}
+.fs .fc-ovr span{top:calc(9% + 2.3rem);margin:0;font-size:1rem}
+.fs .fc-face{left:22%;right:5%;top:4%;height:52.5%}
+.fs .fc-face img{object-position:50% 12%;-webkit-mask:linear-gradient(180deg,#000 80%,transparent 100%)!important;mask:linear-gradient(180deg,#000 80%,transparent 100%)!important}
+.fs .fc-nm{top:61.3%;left:5%;right:5%;font-size:1.2rem;line-height:1.2;color:#fff;text-shadow:0 2px 3px #0009}
+/* ô dưới: trái = cờ, phải = cấp sao */
+.fs .fc-flag{position:absolute;left:27%;top:74.5%;width:38px!important;height:25px!important;margin:0!important;transform:translateX(-50%)}
+.fs .fc-st{left:73%!important;top:74.5%!important;transform:translateX(-50%)!important}
+
+/* thẻ các bậc Trắng → Đỏ: khung kiểu thẻ vàng FIFA, đổi màu theo bậc (thẻ Icon giữ khung riêng) */
+.fc-card.fs{aspect-ratio:188/286!important;color:var(--tx)}
+.ft0.fs{--tx:#2f353c}.ft1.fs{--tx:#0d3a1f}.ft2.fs{--tx:#0d2654}.ft3.fs{--tx:#2e0f57}.ft4.fs{--tx:#4a3200}.ft5.fs{--tx:#4f080d}
+.fs .fc-ovr{left:8%;top:14%;right:auto;bottom:auto;width:22%;display:grid;justify-items:center}
+.fs .fc-ovr b,.fs .fc-ovr span{position:static;width:auto;color:var(--tx);text-shadow:0 1px 0 #ffffff80}
+.fs .fc-ovr b{font-size:2.1rem;line-height:1}
+.fs .fc-ovr span{font-size:1rem;margin-top:3px}
+.fs .fc-flag{position:static;width:28px!important;height:18px!important;margin-top:7px!important;transform:none}
+.fs .fc-st{left:19%!important;top:43%!important;transform:translateX(-50%)!important}
+.fs .fc-face{left:30%;right:4%;top:9%;height:62%}
+.fs .fc-face img{object-position:50% 15%;-webkit-mask:linear-gradient(180deg,#000 78%,transparent 100%)!important;mask:linear-gradient(180deg,#000 78%,transparent 100%)!important}
+.fs .fc-nm{top:76%;left:6%;right:6%;font-size:1.35rem;line-height:1.2;color:var(--tx);text-shadow:0 1px 0 #ffffff80}
