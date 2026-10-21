@@ -1051,3 +1051,26 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .ft6 .ic-sweep{z-index:7!important;mix-blend-mode:normal!important;background-image:linear-gradient(115deg,transparent 40%,rgba(255,248,220,0) 44%,rgba(255,246,214,.55) 48%,rgba(255,255,255,.9) 50%,rgba(255,246,214,.55) 52%,rgba(255,248,220,0) 56%,transparent 60%)!important;background-size:320% 100%!important;background-repeat:no-repeat!important;animation:icShine 5s ease-in-out infinite!important}
 @keyframes icShine{0%,62%{background-position:120% 0}100%{background-position:-20% 0}}
 @media (prefers-reduced-motion:reduce){.ft6 .ic-sweep{animation:none!important;opacity:0}}
+
+/* ô cấp sao: nằm bên trái dưới cột chỉ số (như FC Online), đổi màu theo cấp */
+.ft6 .fc-st{left:9%!important;right:auto!important;top:62%!important;min-width:24px!important;height:24px!important;font-size:1rem!important;border-radius:3px!important}
+.ft6 .fc-st.sg0{color:#2c3136!important;background:linear-gradient(180deg,#eceff1,#c4cacf)!important;border:1px solid #9aa1a8!important}
+.ft6 .fc-st.sg1{color:#fff!important;background:linear-gradient(180deg,#d9a273,#9a5f34)!important;border:1px solid #74431f!important;text-shadow:0 1px 1px #0006}
+.ft6 .fc-st.sg2{color:#2a3038!important;background:linear-gradient(180deg,#ffffff,#b9c2ca 60%,#8e99a3)!important;border:1px solid #6f7a85!important}
+.ft6 .fc-st.sg3{color:#3a2a08!important;background:linear-gradient(180deg,#fff1b8,#f0c24f 55%,#c18b1f)!important;border:1px solid #8f6512!important}
+.ft6 .fc-st.smax{box-shadow:0 0 0 1px #fff6,0 0 8px #f3c94fcc,0 0 16px #f3c94f88!important;animation:stGlow 1.8s ease-in-out infinite}
+@keyframes stGlow{50%{box-shadow:0 0 0 1px #fff9,0 0 12px #f3c94f,0 0 22px #f3c94faa}}
+
+/* ô cấp sao to hơn */
+.ft6 .fc-st{min-width:32px!important;height:32px!important;font-size:1.3rem!important;border-radius:4px!important;left:8%!important;top:61%!important}
+
+/* ô cấp sao dạng chữ nhật nằm ngang như FC Online */
+.ft6 .fc-st{min-width:46px!important;width:46px!important;height:28px!important;padding:0!important;font-size:1.2rem!important;border-radius:3px!important;left:7%!important;top:61.5%!important}
+
+/* bỏ ô nhỏ trước tên (trên FIFA là lương, game mình không dùng) */
+.ft6 .fc-nm::before{display:none!important;content:none!important}
+
+/* vệt sáng thẻ Icon: chậm hơn, rõ hơn, và vẫn chạy khi Windows tắt hiệu ứng động */
+.ft6 .ic-sweep{background-size:260% 100%!important;animation:icShine2 4.5s ease-in-out infinite!important;opacity:1!important}
+@keyframes icShine2{0%,45%{background-position:105% 0}100%{background-position:-5% 0}}
+@media (prefers-reduced-motion:reduce){.ft6 .ic-sweep{animation:icShine2 4.5s ease-in-out infinite!important;opacity:1!important}}
