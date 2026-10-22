@@ -1391,3 +1391,15 @@ html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#152d22!imp
 .cl-bot button:hover{color:#ffd84a}
 .cl-bot .cl-r{margin-left:auto;border:0;color:#ffd84a;font-weight:700}
 @media (prefers-reduced-motion:reduce){.cl-tick span,.cl-gift.hot{animation:none}}
+
+/* cửa sổ Nhiệm vụ: nền tối đồng bộ, chữ sáng dễ đọc */
+html.fifa .nvb{background:#183027!important;border:1px solid #3a6a50!important;border-radius:10px;overflow:hidden}
+html.fifa .nvl{background:#132a20!important;border-right:1px solid #3a6a50!important;gap:4px;padding:6px}
+html.fifa .wpane .nvl button{border:1px solid #2f5140!important;border-radius:6px;color:#e6f0ea!important;background:#1e3b2e!important}
+html.fifa .wpane .nvl button:hover{border-color:#c6ff3d!important;color:#fff!important}
+html.fifa .wpane .nvl button.sel{background:#2a4a1c!important;border-color:#c6ff3d!important;color:#c6ff3d!important}
+html.fifa .nvd{background:transparent!important;color:#eef5f0}
+html.fifa .nvd dt{color:#a9c2b2!important;border-bottom-color:#2f5140!important}
+html.fifa .nvd dd{color:#eef5f0!important;border-bottom-color:#2f5140!important}
+html.fifa .nvd dd b{color:#c6ff3d!important}
+html.fifa .nvd dd small,html.fifa .nvd .mu{color:#a9c2b2!important}
