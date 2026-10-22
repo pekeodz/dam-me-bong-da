@@ -1160,3 +1160,7 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 /* ảnh cầu thủ to hơn */
 .fs .fc-face{left:27%!important;right:3%!important;top:7%!important;height:61%!important}
 .fs .fc-face img{max-width:195px!important;-webkit-mask:linear-gradient(180deg,#000 80%,transparent 100%)!important;mask:linear-gradient(180deg,#000 80%,transparent 100%)!important}
+
+/* bậc Trắng → Đỏ: ảnh cầu thủ ra giữa thẻ */
+.fs .fc-face{left:16%!important;right:16%!important;top:7%!important;height:61%!important;z-index:3!important}
+.fs .fc-ovr,.fs .fc-st{z-index:6!important}
