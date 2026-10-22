@@ -1227,3 +1227,84 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .cup-rw{margin:0;font-size:.76rem;color:#ffcf4a}
 @media (max-width:760px){.cty{grid-template-columns:1fr}.cty-cl{max-height:none}}
 html.fifa .wbox:has(#thanhpho:not([hidden])),html.fifa .wbox:has(#phuban:not([hidden])){background:#08110d!important}
+
+/* cửa sổ luôn nền đặc, không nhìn xuyên ra sảnh */
+html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#08110d!important}
+/* ===== Phụ bản dạng lưới ===== */
+.cup-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cup-top .wl{margin:0;max-width:70ch}
+.cup-my{font-size:.8rem;color:#8fa797}.cup-my b{font:800 1.3rem "Barlow Condensed","Arial Narrow",sans-serif;color:#c6ff3d;margin-left:4px}
+.cup-l{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.cup{padding:0!important;gap:0!important;overflow:hidden;background:#0e1a15!important;border:1px solid #25402f;border-radius:12px;display:flex;flex-direction:column}
+.cup.open{border-color:color-mix(in srgb,var(--cc) 60%,#25402f)}
+.cup.champ{border-color:#ffcf4a90}
+.cup-h{position:relative;display:flex!important;flex-direction:column;align-items:flex-start!important;gap:2px!important;padding:14px 14px 12px;background:linear-gradient(150deg,color-mix(in srgb,var(--cc) 70%,#0e1a15),color-mix(in srgb,var(--cc) 18%,#0e1a15))}
+.cup-h i{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font:800 1rem "Barlow Condensed","Arial Narrow",sans-serif;font-style:normal;background:#00000040;color:#fff;margin-bottom:6px}
+.cup-h h3{margin:0;font:800 1.35rem/1.05 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#fff;text-shadow:0 2px 6px #0006}
+.cup-h>span{font-size:.74rem;color:#ffffffc0}
+.cup-cs{position:absolute;top:12px;right:12px;font-style:normal;font:800 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.1em;text-transform:uppercase;background:#ffcf4a;color:#2b1d00;padding:3px 8px;border-radius:999px}
+.cup-r{display:flex!important;flex-direction:column;gap:6px!important;padding:12px 12px 4px!important;margin:0;flex:1}
+.cup-r li{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:8px;padding:7px 10px!important;border-radius:8px;background:#08110d;border:1px solid #1f3529}
+.cup-r li small{grid-column:1/-1}
+.cup-r li b{font-size:.85rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cup-r li span{font:700 .85rem "Barlow Condensed","Arial Narrow",sans-serif;color:#8fa797;align-self:center}
+.cup-r li.d{border-color:#3de0a455}.cup-r li.d b{color:#7ee2a1}
+.cup-r li.c{border-color:#c6ff3d}
+.cup-rw{margin:0!important;padding:8px 12px;font-size:.74rem;color:#ffcf4a;display:flex;flex-direction:column;gap:2px}
+.cup-rw small{font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cup-a{padding:0 12px 12px;margin-top:auto}
+.cup-a button{width:100%}
+.cup-a .cty-lk{display:block;text-align:center;max-width:none;padding:8px;border:1px dashed #2f5140;border-radius:8px}
+.cup.lock .cup-h{filter:grayscale(.7) brightness(.7)}
+.cup.lock{opacity:.75!important;filter:none!important}
+
+/* ===== Giải đấu: banner lớn + hàng chọn giải ===== */
+.cx{display:flex;flex-direction:column;gap:14px;color:#eef5f0}
+.cx-main{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:16px;align-items:stretch}
+.cx-ban{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1024/572;max-width:100%;box-shadow:0 0 0 1px color-mix(in srgb,var(--cc) 55%,#25402f),0 14px 40px #0008;background:#0b1410}
+.cx-ban img{display:block;width:100%;height:100%;object-fit:cover}
+.cx-ban::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,#05090799);pointer-events:none}
+.cx-ban.lock img{filter:grayscale(.85) brightness(.45)}
+.cx-lock{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:4px;z-index:2}
+.cx-lock b{font:800 1.6rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.cx-lock span{font-size:.85rem;color:#c9d6cd}
+.cx-cs{position:absolute;top:12px;left:12px;z-index:2;font-style:normal;font:800 .78rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.12em;text-transform:uppercase;background:#ffcf4a;color:#2b1d00;padding:4px 10px;border-radius:999px;box-shadow:0 2px 10px #0006}
+.cx-ban.champ{box-shadow:0 0 0 2px #ffcf4a,0 0 30px #ffcf4a55}
+.cx-steps{position:absolute;left:14px;right:14px;bottom:12px;z-index:2;list-style:none;margin:0;padding:0;display:flex;gap:6px}
+.cx-steps li{flex:1;display:flex;flex-direction:column;gap:5px;font:700 .72rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#c9d6cd;text-shadow:0 1px 3px #000}
+.cx-steps i{height:5px;border-radius:3px;background:#ffffff35}
+.cx-steps li.d i{background:#3de0a4}.cx-steps li.d{color:#7ee2a1}
+.cx-steps li.c i{background:#c6ff3d;box-shadow:0 0 10px #c6ff3d}.cx-steps li.c{color:#c6ff3d}
+.cx-side{display:flex;flex-direction:column;gap:10px;min-width:0;background:#0e1a15;border:1px solid #25402f;border-radius:14px;padding:14px}
+.cx-hd small{font:700 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cx-hd h3{margin:2px 0;font:800 1.7rem/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.cx-hd>span{font-size:.8rem;color:#8fa797}.cx-hd>span b{color:#c6ff3d;font:800 1.05rem "Barlow Condensed","Arial Narrow",sans-serif;margin-left:3px}
+.cx-r{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.cx-r li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;padding:7px 10px;border-radius:8px;background:#08110d;border:1px solid #1f3529}
+.cx-r li small{grid-column:1/-1;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cx-r li b{font-size:.88rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cx-r li span{font:800 .95rem "Barlow Condensed","Arial Narrow",sans-serif;align-self:center}
+.cx-r li span.easy{color:#7ee2a1}.cx-r li span.mid{color:#ffcf4a}.cx-r li span.hard{color:#ff8a80}
+.cx-r li.d{border-color:#3de0a455}.cx-r li.d b{color:#7ee2a1}
+.cx-r li.c{border-color:#c6ff3d;box-shadow:0 0 0 1px #c6ff3d40}.cx-r li.c small{color:#c6ff3d}
+.cx-rws small{display:block;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797;margin-bottom:5px}
+.cx-rws div{display:flex;flex-wrap:wrap;gap:5px}
+.cx-rw{display:inline-flex;align-items:center;gap:4px;font-size:.74rem;color:#eef5f0;background:#08110d;border:1px solid #2f5140;border-radius:999px;padding:3px 9px 3px 4px}
+.cx-rw img{width:18px;height:18px;object-fit:contain}.cx-rw b{color:#ffcf4a}
+.cx-rw:not(:has(img)){padding-left:9px}
+.cx-go{width:100%;margin-top:auto;padding:10px 14px!important}
+.cx-lk{display:block;text-align:center;max-width:none!important;padding:10px;border:1px dashed #2f5140;border-radius:8px;margin-top:auto}
+.cx-note{margin:0;font-size:.72rem;color:#8fa797;text-align:center}
+.cx-th{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.wpane .cx-th button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:#0e1a15;border:1px solid #25402f;transition:transform .15s,border-color .15s}
+.wpane .cx-th button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--cc) 70%,#25402f)}
+.wpane .cx-th button:focus-visible{outline:2px solid #c6ff3d;outline-offset:2px}
+.wpane .cx-th button.on{border-color:#c6ff3d;box-shadow:0 0 0 1px #c6ff3d,0 0 16px #c6ff3d33}
+.cx-th img{display:block;width:100%;aspect-ratio:1024/572;object-fit:cover}
+.cx-th button.lock img{filter:grayscale(.85) brightness(.5)}
+.cx-th span{display:flex;flex-direction:column;padding:6px 9px 8px}
+.cx-th b{font:800 .92rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#eef5f0}
+.cx-th small{font-size:.68rem;color:#8fa797}
+.cx-th button.on small{color:#c6ff3d}
+@media (max-width:820px){.cx-main{grid-template-columns:1fr}.cx-th{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.cx-th{grid-template-columns:repeat(2,minmax(0,1fr))}}
