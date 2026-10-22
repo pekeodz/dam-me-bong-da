@@ -1797,46 +1797,36 @@ let FL_STARS=null;
 function flStars(){if(FL_STARS)return FL_STARS;FL_STARS=["Ronaldo","Xuân Son","Quang Hải"].map(n=>{const s=STARS.find(x=>x[0]===n);const p=mk(n,s[1],s[2],s[4]||"P");return{n,pos:s[1],tier:s[2],ovr:Math.round(overall(p)),img:faceSrc(p)}});return FL_STARS}
 function flCrest(t){const ini=t.name.split(" ").map(w=>w[0]).join("").slice(0,3).toUpperCase();
   return`<svg class="fl-crest" viewBox="0 0 46 52" aria-hidden="true"><path d="M23 1 44 7v18c0 13-9 21-21 26C11 46 2 38 2 25V7z" fill="#d1222a" stroke="#ffd36b" stroke-width="2"/><path d="M23 9 36 13v12c0 8-6 13-13 17-7-4-13-9-13-17V13z" fill="#8f1016"/><text x="23" y="31" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="800" font-size="13" fill="#fff">${ini}</text></svg>`}
+/* ---------- sảnh kiểu sáng (giống game gốc): ảnh sân vận động làm nền, bảng trắng mờ, nút vàng ---------- */
 function lobbyRender(){if(MODE!=="lobby")return;const c=club(),m=c.mgr,el=document.getElementById("lobby");
   const ov=Math.round(avg(T.home.players.map(overall))),today=new Date().toDateString(),gift=c.lastGift!==today;
   const HN=heroNext(),oppT=HN.team,oppOv=Math.round(avg(oppT.players.map(overall)));
   const cl=claimable(),expPct=Math.min(100,Math.round(m.exp/(m.lv*300)*100));
-  const canTrain=squad(T.home).filter(p=>p.tp>=500&&p.plan.some(k=>p.base[k]<maxOf(p,k))).length,tp=Math.round(avg(squad(T.home).map(p=>p.tp)));
-  const F=FORMS[tacOf(T.home).form],chat=[...CHAT.map(x=>({who:x.name,text:x.text})),...c.news.slice(0,12).map(n=>({sys:1,text:n.text}))].slice(0,30);
-  const tasks=TASKS.filter(t=>tkSt(t)!=="got").sort((a,b)=>(tkSt(b)==="ok")-(tkSt(a)==="ok")).slice(0,3);
+  const canTrain=squad(T.home).filter(p=>p.tp>=500&&p.plan.some(k=>p.base[k]<maxOf(p,k))).length;
+  const chat=[...CHAT.map(x=>({who:x.name,text:x.text})),...c.news.slice(0,14).map(n=>({sys:1,text:n.text}))].slice(0,30);
   const news=c.news.slice(0,3).map(n=>n.text).join(" · ")||`Chào mừng ${m.name} đến với Đam Mê Bóng Đá! Hoàn thành nhiệm vụ tân thủ để nhận quà.`;
-  el.innerHTML=`<div class="fl">
-  <header class="fl-top"><button type="button" class="fl-club" data-go="qlnv" title="Quản lý nhân vật">${flCrest(T.home)}<span class="fl-cn"><b>${flEsc(T.home.name)}</b><span><em class="fl-lv">LV ${m.lv}</em>${flEsc(m.name)}<span class="fl-xp" title="Kinh nghiệm quản lý ${expPct}%"><i style="width:${expPct}%"></i></span></span></span></button>
-    <div class="fl-cur"><div class="fl-pill">${CUR("vang")}<span><small>Vàng</small><b>${fmt(c.gold||0)}</b></span></div>
-     <div class="fl-pill">${CUR("xu")}<span><small>Xu</small><b>${fmt(c.xu||0)}</b></span><button type="button" class="fl-add" data-go="nap" aria-label="Nạp xu">+</button></div>
-     <div class="fl-pill">${CUR("phieu")}<span><small>Phiếu</small><b>${fmt(c.phieu||0)}</b></span></div></div>
-    <button type="button" class="fl-ib" data-go="save" title="Lưu">${FL_SVG(FLI.save)}</button><button type="button" class="fl-ib" data-go="full" title="Toàn màn hình (F)">${FL_SVG(FLI.full)}</button><button type="button" class="fl-ib" data-go="caidat" title="Cài đặt">${FL_SVG(FLI.cog)}</button></header>
-  <div class="fl-body">
-   <nav class="fl-nav" aria-label="Menu chính">${FL_NAV.map(([i,n,g],k)=>`<button type="button" data-go="${g}" ${k===0?'aria-current="page"':""}>${FL_SVG(FLI[i])}<span>${n}</span>${g==="nv"&&cl?`<em class="fl-badge">${cl}</em>`:""}</button>`).join("")}</nav>
-   <main class="fl-grid">
-    <section class="fl-tile fl-hero" data-go="pbnext"><div><div class="fl-k">${HN.label}</div>
-      <div class="fl-vs"><div class="fl-team"><b>${flEsc(T.home.name)}</b><span>Đội của bạn · ${tacOf(T.home).form}</span></div><span class="fl-x">VS</span><div class="fl-team"><b>${flEsc(oppT.name)}</b><span>${HN.sub}</span></div></div></div>
-      <div class="fl-ovrs"><div><b>${ov}</b><small>Thực lực</small></div><span class="fl-x">·</span><div><b class="dim">${oppOv}</b><small>Đối thủ</small></div></div>
-      <div class="fl-playrow"><button type="button" class="fl-play" data-go="pbnext">${FL_SVG(FLI.play)} Thi đấu</button>
-       <div class="fl-prog" aria-label="Tiến độ giải đấu">${(HN.prog||[]).map(c=>`<i class="${c}"></i>`).join("")}</div></div></section>
-    <section class="fl-tile fl-teamt" data-go="doi"><div class="fl-k">Đội hình</div><div class="fl-tm"><h3>${tacOf(T.home).form}</h3><b>${ov}</b></div>
-      <div class="fl-pitch">${T.home.players.map((p,i)=>`<span class="fl-dot t${p.tier??2}" style="left:${F[i][1]}%;top:${F[i][2]}%" title="${flEsc(p.n)}"></span>`).join("")}</div></section>
-    <section class="fl-tile fl-mk" data-go="mg"><div class="fl-k">Môi giới · Chiêu mộ</div><h3>Tìm ngôi sao</h3>
-      <div class="fl-fan">${flStars().map((s,i)=>`<div class="fl-mini m${s.tier}" style="left:${8+i*27}%;transform:rotate(${(i-1)*7}deg);z-index:${i===1?3:1}"><b>${s.ovr}</b><span>${s.pos}</span>${s.img?`<img src="${s.img}" alt="">`:""}<em>${s.n}</em></div>`).join("")}</div>
-      <div class="fl-odds"><span>200 vàng / lần</span><span style="color:#ff5a52">Đỏ 0,5%</span><span style="color:#f2c94c">Vàng 2,5%</span><span style="color:#b57bff">Tím 7%</span></div></section>
-    <section class="fl-tile" data-go="nv"><div class="fl-k">Nhiệm vụ${cl?` · ${cl} chờ nhận`:""}</div>${tasks.map(t=>`<div class="fl-task"><span>${t.n}</span><span class="st">${tkSt(t)==="ok"?"Nhận":"Đi làm"}</span><em>${rwTxt(t.rw)}</em></div>`).join("")||"<p>Đã xong hết nhiệm vụ.</p>"}</section>
-    <section class="fl-tile fl-gift ${gift?"hot":""}" data-go="gift"><div class="fl-ico">${FL_SVG(FLI.gift)}</div><div class="fl-k">Quà hằng ngày</div><h3>${gift?"Nhận ngay":"Đã nhận"}</h3><p>${gift?"5.000 vàng · 5 phiếu · 1 vật phẩm":"Quay lại vào ngày mai"}</p></section>
-    <section class="fl-tile fl-sm" data-go="shop"><div class="fl-ico">${CUR("xu")||FL_SVG(FLI.shop)}</div><div><div class="fl-k">Cửa hàng</div><h3>Mua sắm</h3></div></section>
-    <section class="fl-tile fl-sm" data-go="thidau"><div class="fl-ico" style="color:#3de0a4">${FL_SVG(FLI.friend)}</div><div><div class="fl-k">Giao hữu</div><h3>${flEsc((T.rival||T.away).name)}</h3></div></section>
-    <section class="fl-tile fl-sm" data-go="ql"><div class="fl-ico" style="color:#c6ff3d">${FL_SVG(FLI.train)}</div><div><div class="fl-k">Huấn luyện</div><h3>${canTrain} cầu thủ</h3></div></section>
-    <section class="fl-tile fl-sm" data-go="ruong"><div class="fl-ico" style="color:#f2c94c">${FL_SVG(FLI.bag)}</div><div><div class="fl-k">Rương</div><h3>Trang bị</h3></div></section>
-    <section class="fl-tile fl-npcs" aria-label="Nhân viên CLB">${[["moigioi","Môi giới","Tìm cầu thủ","mg"],["hlv","Huấn luyện","Kế hoạch tập","ql"],["chienthuat","Chiến thuật","Đội hình","doi"],["taichinh","Tài chính","Thu chi","tc"],["trolý","Chỉ dẫn","Hướng dẫn","guide"]].map(([k,n,s,g])=>`<button type="button" class="fl-npc" data-go="${g}"><span class="fl-np">${portrait(k)}</span><span><b>${n}</b><span>${s}</span></span></button>`).join("")}</section>
-   </main>
-   <aside class="fl-side"><div class="fl-guide"><span class="fl-gimg">${portrait("trolý")}</span><div><b>Chỉ dẫn</b><p>${guideText()}</p></div></div>
-    <div class="fl-chat"><h4>Chat <i>${db?"● Online":"○ Ngoại tuyến"}</i></h4>${chat.map(x=>x.sys?`<div class="fl-msg sys"><b>[Hệ thống]</b> ${flEsc(x.text)}</div>`:`<div class="fl-msg"><b>${flEsc(x.who||"?")}:</b> ${flEsc(x.text)}</div>`).join("")||"<p class='fl-mu'>Chưa có tin nhắn.</p>"}</div>
-    <form class="fl-cin" id="chatf"><label for="chati" class="sr">Tin nhắn</label><input id="chati" maxlength="200" placeholder="Nhập tin nhắn…" autocomplete="off"><button>Gửi</button></form></aside>
-  </div>
-  <div class="fl-tick"><b>TIN</b><span>${flEsc(news)}</span></div></div>`;
+  const won=Object.keys(cityWon()).length,tot=CITY.reduce((s,C)=>s+C.clubs.length,0);
+  const st=[[`Trận tiếp: gặp ${oppT.name} (${oppOv})`,"pbnext",true],[`Nhiệm vụ chờ nhận (${cl})`,"nv",cl>0],[`Cầu thủ có thể luyện (${canTrain})`,"ql",canTrain>0],[`Thành phố: ${won}/${tot} CLB`,"thanhpho",false],[gift?"Quà hằng ngày: nhận được":"Quà hằng ngày: đã nhận","gift",gift]];
+  const MENU2=[["Thi đấu","thidau"],["Đội hình","doi"],["Cầu thủ","ds"],["Huấn luyện","ql"],["P. Thị trường","mg"],["Nhiệm vụ","nv"],["T.T Mua sắm","shop"],["Rương","ruong"],["Tài chính","tc"]];
+  const NPC2=[["moigioi","Môi giới","mg"],["hlv","Huấn luyện","ql"],["chienthuat","Chiến thuật","doi"],["taichinh","Tài chính","tc"],["trolý","Chỉ dẫn","guide"]];
+  const BOT=[[`N.Vụ${cl?`(${cl})`:""}`,"nv"],["Quản lý","qlnv"],["Đội","doi"],["Thi đấu","thidau"],["Cầu thủ","ds"],["Thành phố","thanhpho"],["Giải đấu","phuban"],["Rương","ruong"],["Shop","shop"]];
+  el.innerHTML=`<div class="cl">
+  <header class="cl-top"><span class="cl-sn">Tin hệ thống</span><div class="cl-tick"><span>${flEsc(news)}</span></div>
+    <nav class="cl-links"><span>Xin chào, <b>${flEsc(m.name)}</b></span><button type="button" data-go="save">Lưu</button><button type="button" data-go="caidat">Cài đặt</button><button type="button" data-go="nap">Nạp xu</button><button type="button" data-go="full">Toàn màn hình</button></nav></header>
+  <section class="cl-prof"><button type="button" class="cl-av" data-go="qlnv" title="Quản lý nhân vật">${flCrest(T.home)}<em>${m.lv}</em></button>
+    <div class="cl-pi"><b>${flEsc(T.home.name)}</b><span>${flEsc(m.name)} · Thực lực ${ov}</span><span class="cl-bar" title="Kinh nghiệm ${expPct}%"><i style="width:${expPct}%"></i><small>${expPct}%</small></span></div>
+    <div class="cl-cur"><span>${CUR("vang")}<b>${fmt(c.gold||0)}</b></span><span>${CUR("xu")}<b>${fmt(c.xu||0)}</b></span><span>${CUR("phieu")}<b>${fmt(c.phieu||0)}</b></span></div></section>
+  <section class="cl-stat" aria-label="Trạng thái">${st.map(([t,g,hot])=>`<button type="button" data-go="${g}" class="${hot?"hot":""}"><i></i>${flEsc(t)}</button>`).join("")}</section>
+  <section class="cl-guide"><span class="cl-gimg">${portrait("trolý")}</span><div class="cl-bub"><b>Chỉ dẫn!</b><p>${guideText()}</p></div></section>
+  <div class="cl-big"><button type="button" data-go="phuban">Giải đấu</button><button type="button" data-go="thanhpho">Thành phố</button></div>
+  <button type="button" class="cl-loc" data-go="pbnext"><i></i>${flEsc(HN.label)}<small>Thi đấu ngay ▸</small></button>
+  <nav class="cl-menu" aria-label="Khu vực">${MENU2.map(([n,g])=>`<button type="button" data-go="${g}">${n}${g==="nv"&&cl?` <em>${cl}</em>`:""}</button>`).join("")}</nav>
+  <div class="cl-npcs">${NPC2.map(([k,n,g])=>`<button type="button" data-go="${g}"><span>${portrait(k)}</span><b>${n}</b></button>`).join("")}</div>
+  <button type="button" class="cl-gift ${gift?"hot":""}" data-go="gift">${FL_SVG(FLI.gift)}<b>${gift?"Quà":"Đã nhận"}</b></button>
+  <aside class="cl-chat"><div class="cl-ct"><b>Chat</b><span>${db?"Online":"Ngoại tuyến"}</span></div>
+    <div class="cl-cm">${chat.map(x=>x.sys?`<p><b class="sys">[Hệ thống]</b> ${flEsc(x.text)}</p>`:`<p><b>${flEsc(x.who||"?")}:</b> ${flEsc(x.text)}</p>`).join("")||"<p class='mu'>Chưa có tin nhắn.</p>"}</div>
+    <form class="cl-cin" id="chatf"><label for="chati" class="sr">Tin nhắn</label><input id="chati" maxlength="200" placeholder="Nhập tin nhắn…" autocomplete="off"><button aria-label="Gửi">Gửi</button></form></aside>
+  <nav class="cl-bot" aria-label="Menu nhanh">${BOT.map(([n,g])=>`<button type="button" data-go="${g}">${n}</button>`).join("")}<button type="button" class="cl-r" data-go="gift">Nhận quà</button></nav></div>`;
   document.getElementById("chatf").onsubmit=e=>{e.preventDefault();const i=document.getElementById("chati");chatSend(i.value);i.value=""};
 }
 function navGo(g){

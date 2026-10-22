@@ -6,7 +6,7 @@ img{max-width:100%}
 [hidden]{display:none!important}
 /* Layout: khung game 16:10 kiểu sân nhìn nghiêng (canvas) với lớp UI DOM phủ lên: thanh tài nguyên, bảng tỉ số, bảng tình huống, thanh bình luận. Bên dưới là điều khiển, xúc xắc, diễn biến, đội hình. Giao diện tối cố định. */
 :root{
-  --bg:#0d1612; --panel:#14211b; --line:#24372d; --fg:#e7efe9; --muted:#8fa69a;
+  --bg:#152a20; --panel:#1d382b; --line:#2f4d3c; --fg:#e7efe9; --muted:#a9c2b2;
   --home:#e8372c; --away:#2f7ff0; --gold:#ffd23f; --good:#56d38a; --bad:#ff6b5b;
   --pop:rgba(48,140,62,.86); --popEdge:rgba(190,255,190,.55);
   --display:"Saira Condensed",Impact,"Arial Narrow",sans-serif;
@@ -132,7 +132,7 @@ canvas#cv{display:block;width:100%;aspect-ratio:1020/640;max-width:100%}
 .rs.ok{color:#fff6a0;text-shadow:0 1px 0 #0a3}
 .rs.ko{color:#7a0d06}
 
-.cmt{position:absolute;left:50%;bottom:1.4cqw;transform:translateX(-50%);width:84%;background:rgba(10,14,12,.72);border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:.8cqw 1.4cqw;font-size:clamp(10px,1.45cqw,22px);color:#f1f1f1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmt{position:absolute;left:50%;bottom:1.4cqw;transform:translateX(-50%);width:84%;background:rgba(22,40,32,.72);border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:.8cqw 1.4cqw;font-size:clamp(10px,1.45cqw,22px);color:#f1f1f1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ---------- PHẦN DƯỚI ---------- */
 .ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -145,7 +145,7 @@ button.pri{background:var(--gold);color:#1a1405;border-color:var(--gold)}
 .card h2{font-family:var(--display);font-size:1.05rem;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--muted)}
 .roll{display:grid;gap:6px;font-size:.85rem}
 .roll .row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-.bar{height:6px;background:#0a120e;border-radius:3px;overflow:hidden;grid-column:1/-1}
+.bar{height:6px;background:#13231b;border-radius:3px;overflow:hidden;grid-column:1/-1}
 .bar i{display:block;height:100%;background:var(--good)}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .ok{color:var(--good)} .ko{color:var(--bad)}
@@ -159,10 +159,10 @@ th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
 th{color:var(--muted);font-weight:600}
 td{font-family:var(--mono);font-variant-numeric:tabular-nums}
 td.nm{font-family:var(--body)}
-.sta{display:inline-block;width:40px;height:5px;background:#0a120e;border-radius:3px;vertical-align:middle}
+.sta{display:inline-block;width:40px;height:5px;background:#13231b;border-radius:3px;vertical-align:middle}
 .sta i{display:block;height:100%;background:var(--good);border-radius:3px}
 .note{color:var(--muted);font-size:.78rem}
-textarea{width:100%;box-sizing:border-box;background:#0a120e;color:var(--fg);border:1px solid var(--line);border-radius:6px;font:12px var(--mono);padding:8px;min-height:70px}
+textarea{width:100%;box-sizing:border-box;background:#13231b;color:var(--fg);border:1px solid var(--line);border-radius:6px;font:12px var(--mono);padding:8px;min-height:70px}
 td.nm button{all:unset;cursor:pointer;color:inherit;font-weight:600;text-decoration:underline dotted;text-underline-offset:3px}
 td.nm button:focus-visible{outline:2px solid var(--gold)}
 /* thẻ cầu thủ */
@@ -361,7 +361,7 @@ tr.sel td{background:#fff3c4!important}
 .nav .cnt{color:#ffd23f}.nav button.r{margin-left:auto;border-left:0}
 .toast{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:5;background:#111c;color:#fff;border:1px solid #ffd23f;border-radius:8px;padding:.9cqw 1.6cqw;font:700 clamp(11px,1.6cqw,25px) var(--body);text-align:center;max-width:70%}
 @container (max-width:640px){
-  .lobby{position:static;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;background:#10201a;font-size:13px}
+  .lobby{position:static;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px;background:#1b3428;font-size:13px}
   .lp{position:static;width:auto!important;height:auto!important}
   .tick,.prof,.guide,.stat,.chat,.npcs,.menu,.big,.clubn,.gifts{grid-column:1/-1}
   .tick{flex-wrap:wrap;height:auto;padding:6px}.tk2{order:3;flex-basis:100%}.links{flex-wrap:wrap}
@@ -399,7 +399,7 @@ tr.sel td{background:#fff3c4!important}
 .wpane button{background:linear-gradient(#4f86c6,#24548f);color:#fff;border:1px solid #1b3f6b;border-radius:4px;padding:5px 12px;font:600 .8rem var(--body)}
 .wpane button.pri{background:linear-gradient(#e2a400,#a86d00);border-color:#7a5000}
 .tk.ok{background:#fff8dc}.tk.got{opacity:.6}
-.tin{display:block;width:min(320px,100%);margin:4px 0 0;background:#0a120e;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit}
+.tin{display:block;width:min(320px,100%);margin:4px 0 0;background:#13231b;color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font:inherit}
 .modal{z-index:9}
 /* quản lý nhân vật */
 #qlnv{padding:0;background:#f1f3f5}
@@ -458,8 +458,8 @@ tr.sel td{background:#fff3c4!important}
 .msg{font-size:.82rem;min-height:1.2em}
 .mok{color:#11823b;font-weight:600}.mko{color:#c0392b;font-weight:600}.nw{color:#2563eb;font-weight:700}
 /* ===== thẻ cầu thủ kiểu FIFA ===== */
-.pcard.fc{width:min(1000px,100%);background:#15201b;color:#eef4ef;border-color:#2a3d33}
-.pcard.fc .hd{background:linear-gradient(#24362d,#182520)}
+.pcard.fc{width:min(1000px,100%);background:#1e382c;color:#eef4ef;border-color:#2a3d33}
+.pcard.fc .hd{background:linear-gradient(#24362d,#22402f)}
 .fc-main{display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;padding:16px 18px 18px}
 @media (max-width:720px){.fc-main{grid-template-columns:1fr;justify-items:center}}
 .fc-col{display:grid;gap:10px;justify-items:center;align-content:start}
@@ -484,10 +484,10 @@ tr.sel td{background:#fff3c4!important}
 .fc-info{display:grid;gap:12px;min-width:0;width:100%;align-content:start}
 .fc-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .fc-head h3{margin:0 6px 0 0;font:800 1.9rem/1 "Barlow Condensed","Arial Narrow",var(--body);text-transform:uppercase;letter-spacing:.02em;color:#eef4ef}
-.fc-chip{font:600 .76rem var(--body);background:#1b2a23;border:1px solid #2a3d33;border-radius:999px;padding:3px 10px;color:#eef4ef;white-space:nowrap}
+.fc-chip{font:600 .76rem var(--body);background:#25443a;border:1px solid #2a3d33;border-radius:999px;padding:3px 10px;color:#eef4ef;white-space:nowrap}
 .fc-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
 @media (max-width:560px){.fc-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.fc-meta div{background:#1b2a23;border:1px solid #2a3d33;border-radius:8px;padding:7px 10px;display:grid;gap:2px}
+.fc-meta div{background:#25443a;border:1px solid #2a3d33;border-radius:8px;padding:7px 10px;display:grid;gap:2px}
 .fc-meta small{color:#93a89a;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em}
 .fc-meta b{font:700 1.2rem "Barlow Condensed","Arial Narrow",var(--body);font-variant-numeric:tabular-nums;color:#eef4ef}
 .fc-kt{height:5px;background:#ffffff14;border-radius:3px;overflow:hidden}.fc-kt i{display:block;height:100%;background:linear-gradient(90deg,#3ddc84,#b6e35a)}
@@ -503,7 +503,7 @@ tr.sel td{background:#fff3c4!important}
 .fc-leg{display:flex;gap:12px;flex-wrap:wrap;color:#93a89a;font-size:.72rem}.fc-leg span{display:inline-flex;align-items:center;gap:5px}.fc-leg i{width:14px;height:6px;border-radius:3px;display:inline-block}
 .fc-tp{margin:0;color:#c9d6cd;font-size:.85rem}.fc-tp .lnk{color:#7cc4ff}
 .fc-acts{display:flex;flex-wrap:wrap;gap:8px}
-.fc-acts button{font:700 .92rem "Barlow Condensed","Arial Narrow",var(--body);letter-spacing:.06em;text-transform:uppercase;padding:7px 15px;border-radius:6px;border:1px solid #2a3d33;background:#1b2a23;color:#eef4ef;cursor:pointer}
+.fc-acts button{font:700 .92rem "Barlow Condensed","Arial Narrow",var(--body);letter-spacing:.06em;text-transform:uppercase;padding:7px 15px;border-radius:6px;border:1px solid #2a3d33;background:#25443a;color:#eef4ef;cursor:pointer}
 .fc-acts button.pri{background:linear-gradient(#e2a400,#a86d00);border-color:#7a5000;color:#1a1100}
 .fc-acts button:disabled{opacity:.45;cursor:not-allowed}.fc-acts button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .fc .skg{background:none;border:0;padding:0;width:auto;grid-template-columns:none}
@@ -513,12 +513,12 @@ tr.sel td{background:#fff3c4!important}
 /* ===== sảnh kiểu FIFA ===== */
 .game.is-lobby .topbar,.game.is-lobby .nav{display:none!important}
 .game.is-lobby .lobby{position:absolute!important;inset:0!important;display:block!important;padding:0!important;background:none!important;z-index:4;font-size:1.19cqw;color:#eef5f0}
-.fl{--acc:#c6ff3d;--acc2:#3de0a4;--gold:#ffcf4a;--red:#ff5a52;--ln:#25402f;--mu:#8fa797;--s1:#0e1a15;--s2:#13241d;--fd:"Barlow Condensed","Arial Narrow",sans-serif;
+.fl{--acc:#c6ff3d;--acc2:#3de0a4;--gold:#ffcf4a;--red:#ff5a52;--ln:#335a43;--mu:#a9c2b2;--s1:#183027;--s2:#1e3b2e;--fd:"Barlow Condensed","Arial Narrow",sans-serif;
   position:absolute;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;font-family:var(--body);
-  background:radial-gradient(70% 60% at 85% 0%,#1d4a33ee 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3aee 0%,transparent 60%),linear-gradient(160deg,#0c1a14f2,#060b09f5)}
+  background:radial-gradient(70% 60% at 85% 0%,#1d4a33ee 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3aee 0%,transparent 60%),linear-gradient(160deg,#173226f2,#0f1d17f5)}
 .fl::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(118deg,transparent 0 9em,#ffffff05 9em 9.15em,transparent 9.15em 19em)}
 :where(.fl) button{font:inherit;color:inherit}
-.fl-top{position:relative;display:flex;align-items:center;gap:.9em;padding:.6em 1.2em;border-bottom:1px solid var(--ln);background:#050a08cc}
+.fl-top{position:relative;display:flex;align-items:center;gap:.9em;padding:.6em 1.2em;border-bottom:1px solid var(--ln);background:#12261ccc}
 .fl-club{all:unset;cursor:pointer;display:flex;align-items:center;gap:.8em;min-width:0}
 .fl-crest{width:3em;height:3.4em;flex:none;filter:drop-shadow(0 .2em .4em #0008)}
 .fl-cn{display:grid;gap:.2em;min-width:0}.fl-cn>b{font:800 1.6em/1 var(--fd);letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
@@ -534,7 +534,7 @@ tr.sel td{background:#fff3c4!important}
 .fl-ib{all:unset;cursor:pointer;width:2.6em;height:2.6em;border-radius:.7em;border:1px solid var(--ln);background:var(--s1);display:grid;place-items:center}
 .fl-ib svg{width:1.35em;height:1.35em}.fl-ib:hover{border-color:var(--acc)}
 .fl-body{position:relative;display:grid;grid-template-columns:12.5em minmax(0,1fr) 17em;min-height:0}
-.fl-nav{display:flex;flex-direction:column;gap:.1em;padding:.8em .7em;border-right:1px solid var(--ln);background:#050a0880;overflow:auto}
+.fl-nav{display:flex;flex-direction:column;gap:.1em;padding:.8em .7em;border-right:1px solid var(--ln);background:#12261c80;overflow:auto}
 .fl-nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:.7em;padding:.5em .8em;border-radius:.55em;font:700 1.05em var(--fd);letter-spacing:.06em;text-transform:uppercase;color:var(--mu);white-space:nowrap}
 .fl-nav svg{width:1.15em;height:1.15em;flex:none}.fl-nav button:hover{color:#fff;background:#ffffff08}
 .fl-nav button[aria-current="page"]{color:#0b1405;background:var(--acc)}
@@ -585,7 +585,7 @@ tr.sel td{background:#fff3c4!important}
 .fl-npc:hover{background:#ffffff0a}
 .fl-np{width:2.9em;height:2.9em;border-radius:.6em;overflow:hidden;background:#22382c;display:block}.fl-np .pt{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 20%}
 .fl-npc b{font:700 .95em var(--fd);letter-spacing:.04em;text-transform:uppercase;display:block;white-space:nowrap}.fl-npc span span{font-size:.68em;color:var(--mu);white-space:nowrap}.fl-npc>span{min-width:0}
-.fl-side{border-left:1px solid var(--ln);background:#050a0880;display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);min-height:0}
+.fl-side{border-left:1px solid var(--ln);background:#12261c80;display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-columns:minmax(0,1fr);min-height:0}
 .fl-guide{display:grid;grid-template-columns:4.8em minmax(0,1fr);gap:.7em;padding:.9em;border-bottom:1px solid var(--ln);align-items:start}
 .fl-gimg{width:4.8em;height:6.4em;border-radius:.55em;overflow:hidden;background:#22382c;display:block}.fl-gimg .pt{width:100%;height:100%;object-fit:cover;object-position:50% 8%;display:block}
 .fl-guide b{font:800 1.05em var(--fd);text-transform:uppercase;letter-spacing:.06em;color:var(--acc)}
@@ -597,17 +597,17 @@ tr.sel td{background:#fff3c4!important}
 .fl-cin{display:flex;gap:.4em;padding:.65em .9em;border-top:1px solid var(--ln)}
 .fl-cin input{flex:1;min-width:0;background:var(--s1);border:1px solid var(--ln);border-radius:.5em;color:#eef5f0;padding:.45em .7em;font:inherit;font-size:.8em}
 .fl-cin button{all:unset;cursor:pointer;background:var(--acc);color:#0b1405;border-radius:.5em;padding:0 .8em;font:800 .95em var(--fd)}
-.fl-tick{position:relative;display:flex;gap:.8em;align-items:center;padding:.45em 1.2em;border-top:1px solid var(--ln);background:#050a08cc;font-size:.8em;overflow:hidden;white-space:nowrap}
+.fl-tick{position:relative;display:flex;gap:.8em;align-items:center;padding:.45em 1.2em;border-top:1px solid var(--ln);background:#12261ccc;font-size:.8em;overflow:hidden;white-space:nowrap}
 .fl-tick b{font:800 1.05em var(--fd);letter-spacing:.1em;background:var(--red);padding:0 .55em;border-radius:.3em;flex:none}
 .fl-tick span{overflow:hidden;text-overflow:ellipsis}
 .fl button:focus-visible,.fl .fl-tile:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.fl-tile{transition:none}.fl-gift.hot{animation:none}}
 
 /* ===== XEM TRƯỚC: giao diện trận đấu kiểu truyền hình FIFA ===== */
-html.fifa{--acc:#c6ff3d;--acc2:#3de0a4;--glass:rgba(6,12,10,.82);--glass2:rgba(14,26,21,.9);--ln:#2a4535}
+html.fifa{--acc:#c6ff3d;--acc2:#3de0a4;--glass:rgba(16,32,25,.86);--glass2:rgba(24,48,39,.9);--ln:#365c46}
 html.fifa body{background:radial-gradient(70% 50% at 80% 0%,#173126,#070d0b 60%)}
 html.fifa .game{border:1px solid var(--ln);border-radius:12px}
-html.fifa .topbar{background:linear-gradient(#050a08f0,#050a08b0)!important;border-bottom:1px solid var(--ln)}
+html.fifa .topbar{background:linear-gradient(#12261cf0,#12261cb0)!important;border-bottom:1px solid var(--ln)}
 html.fifa .topbar .t{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
 /* bảng tỉ số góc trái kiểu FIFA */
 html.fifa .board{left:50%;top:6.2cqw;transform:translateX(-50%);width:max-content;max-width:96%;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
@@ -629,7 +629,7 @@ html.fifa .mor .m span{font:600 .95cqw "Be Vietnam Pro",sans-serif;line-height:1
 html.fifa .cmt{left:1.6cqw;right:auto;transform:none;width:auto;max-width:72%;bottom:1.8cqw;background:var(--glass);border:0;border-left:.5cqw solid var(--acc);border-radius:0 .4cqw .4cqw 0;padding:.9cqw 1.6cqw .9cqw 1.4cqw;font:600 clamp(10px,1.45cqw,22px) "Be Vietnam Pro",sans-serif;box-shadow:0 .4cqw 1.2cqw #0007}
 html.fifa .cmt::before{content:"BÌNH LUẬN";display:block;font:800 .95cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;color:var(--acc);margin-bottom:.2cqw}
 /* bảng cơ hội: kính tối, thẻ cầu thủ, % xanh chanh */
-html.fifa .pop{background:linear-gradient(160deg,rgba(14,28,22,.94),rgba(5,10,8,.94))!important;border:1px solid var(--ln)!important;border-top:.35cqw solid var(--acc)!important;border-radius:.6cqw!important;box-shadow:0 1.2cqw 3cqw #000a!important;color:#eef5f0}
+html.fifa .pop{background:linear-gradient(160deg,rgba(26,52,40,.94),rgba(20,40,31,.94))!important;border:1px solid var(--ln)!important;border-top:.35cqw solid var(--acc)!important;border-radius:.6cqw!important;box-shadow:0 1.2cqw 3cqw #000a!important;color:#eef5f0}
 html.fifa .pop .pc{background:#ffffff08;border:1px solid #ffffff14;border-radius:.5cqw;padding:.6cqw .8cqw;justify-items:center;text-align:center;min-width:10.5cqw}
 html.fifa .pop .pc .nm{font:800 1.45cqw "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:none!important;color:#fff!important}
 html.fifa .pop .pc .ln,html.fifa .pop .pc .lv{color:#cfe0d5!important}
@@ -641,17 +641,17 @@ html.fifa .pop .ctr .pct{font:800 6.4cqw "Barlow Condensed","Arial Narrow",sans-
 html.fifa .pop .ctr .rs{font-family:"Barlow Condensed","Arial Narrow",sans-serif}
 html.fifa .pop .ctr .rs.ok{color:var(--acc)}html.fifa .pop .ctr .rs.ko{color:#ff5a52}
 /* màn giữa các pha */
-html.fifa .idle{background:linear-gradient(180deg,rgba(4,10,8,.55),rgba(4,10,8,.75))}
+html.fifa .idle{background:linear-gradient(180deg,rgba(18,38,28,.55),rgba(18,38,28,.75))}
 html.fifa .idle .iclk{font-family:"Barlow Condensed","Arial Narrow",sans-serif;color:var(--acc)}
 html.fifa .idle .il{font-family:"Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#cfe0d5}
 /* thanh điều khiển + bảng dưới */
-html.fifa #matchCtrl button,html.fifa #matchCtrl select{font:700 1rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#13241d;border:1px solid var(--ln);color:#eef5f0;border-radius:8px;padding:8px 16px}
+html.fifa #matchCtrl button,html.fifa #matchCtrl select{font:700 1rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.06em;text-transform:uppercase;background:#1e3b2e;border:1px solid var(--ln);color:#eef5f0;border-radius:8px;padding:8px 16px}
 html.fifa #matchCtrl button.pri{background:var(--acc);border-color:#8cbf1c;color:#0b1405;box-shadow:0 4px 0 #6c9c12}
-html.fifa .card{background:#0e1a15;border-color:var(--ln)}
+html.fifa .card{background:#183027;border-color:var(--ln)}
 html.fifa .card h2{font-family:"Barlow Condensed","Arial Narrow",sans-serif;color:var(--acc);letter-spacing:.12em}
 html.fifa .topbar .coin{width:2.4cqw;height:2cqw;background:url(../assets/ui/vang.webp) center/contain no-repeat!important;border:0!important;box-shadow:none!important;border-radius:0!important}
 html.fifa .topbar .coin.xu{background-image:url(../assets/ui/xu.webp)!important}html.fifa .topbar .coin.ph{background-image:url(../assets/ui/phieu.webp)!important}
-html.fifa .topbar .res{background:#0e1a15;border:1px solid var(--ln);border-radius:999px;padding:.2cqw 1cqw .2cqw .4cqw}
+html.fifa .topbar .res{background:#183027;border:1px solid var(--ln);border-radius:999px;padding:.2cqw 1cqw .2cqw .4cqw}
 html.fifa .topbar .res b{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:1.2em;color:#fff}
 
 html.fifa .pop{top:13.6cqw!important;transform:translate(-50%,0) scale(.96)!important}
@@ -671,7 +671,7 @@ html.fifa .pop.on{transform:translate(-50%,0) scale(1)!important}
 .sk-face::after{content:"";position:absolute;inset:0;background:#fff;animation:skFlash .35s ease-out both}
 .sk-spark{position:absolute;width:1.4cqw;height:1.4cqw;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);opacity:0;animation:skSpark 1.2s ease-in-out infinite}
 .sk-spark.a{left:16%;top:22%;animation-delay:.6s}.sk-spark.b{right:14%;top:12%;animation-delay:1.1s;width:1cqw;height:1cqw}
-.sk-plate{margin:0 0 .9cqw -.5cqw;padding:.7cqw 1.6cqw .7cqw 1.4cqw;background:linear-gradient(100deg,#050a08f0,#0e1c16e6);border-left:.4cqw solid var(--edge);
+.sk-plate{margin:0 0 .9cqw -.5cqw;padding:.7cqw 1.6cqw .7cqw 1.4cqw;background:linear-gradient(100deg,#12261cf0,#0e1c16e6);border-left:.4cqw solid var(--edge);
   clip-path:polygon(0 0,100% 0,94% 100%,0 100%);animation:skWipe .4s cubic-bezier(.2,.9,.3,1) .15s both;font-family:"Barlow Condensed","Arial Narrow",sans-serif;color:#fff;display:grid;min-width:15cqw}
 .skfx.a .sk-plate{margin:0 -.5cqw .9cqw 0;border-left:0;border-right:.4cqw solid var(--edge);clip-path:polygon(6% 0,100% 0,100% 100%,0 100%);text-align:right;padding:.7cqw 1.4cqw .7cqw 1.6cqw}
 .sk-plate small{font:700 .95cqw "Be Vietnam Pro",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#c6ff3d}
@@ -695,9 +695,9 @@ html.fifa .pop.on{transform:translate(-50%,0) scale(1)!important}
 @media (prefers-reduced-motion:reduce){.skfx *{animation-duration:.01s!important;animation-iteration-count:1!important}}
 /* ===== CỬA SỔ KIỂU FIFA ===== */
 html.fifa .win{background:radial-gradient(80% 70% at 50% 0%,#0b2a1acc,#000c 70%);backdrop-filter:blur(3px)}
-html.fifa .wbox{--acc:#c6ff3d;--acc2:#3de0a4;--gold:#ffcf4a;--ln:#25402f;--mu:#8fa797;--s0:#08110d;--s1:#0e1a15;--s2:#13241d;--fd:"Barlow Condensed","Arial Narrow",sans-serif;
+html.fifa .wbox{--acc:#c6ff3d;--acc2:#3de0a4;--gold:#ffcf4a;--ln:#335a43;--mu:#a9c2b2;--s0:#11211a;--s1:#183027;--s2:#1e3b2e;--fd:"Barlow Condensed","Arial Narrow",sans-serif;
   background:linear-gradient(160deg,#0f1f18,#070d0a)!important;border:1px solid var(--ln);border-top:3px solid var(--acc);border-radius:12px;box-shadow:0 30px 80px #000e,0 0 0 1px #000;color:#eef5f0}
-html.fifa .whead{background:linear-gradient(90deg,#0b1712,#13241d);border-bottom:1px solid var(--ln);padding:10px 16px}
+html.fifa .whead{background:linear-gradient(90deg,#16291f,#1e3b2e);border-bottom:1px solid var(--ln);padding:10px 16px}
 html.fifa #wtitle{font:800 1.35rem var(--fd);letter-spacing:.08em;text-transform:uppercase;color:#fff;display:flex;align-items:center;gap:10px}
 html.fifa #wtitle::before{content:"";width:6px;height:1.1em;background:var(--acc);border-radius:2px}
 html.fifa .whead button{width:34px;height:34px;border-radius:8px;border:1px solid var(--ln);background:var(--s1);font-size:1rem;display:grid;place-items:center}
@@ -707,13 +707,13 @@ html.fifa .wpane,html.fifa .wbox:has(.wpane:not([hidden])){background:transparen
 html.fifa .wl,html.fifa .hint,html.fifa .qeff,html.fifa .note{color:var(--mu)}
 html.fifa .wl b{filter:brightness(1.6)}
 /* nút chung */
-html.fifa .wpane button:not(.cell):not(.eq):not(.lnk),html.fifa .mgr button:not(.slot):not(.bslot):not(.pn),html.fifa .cbtn button{background:var(--s2);color:#eef5f0;border:1px solid #2f5140;border-radius:8px;padding:6px 14px;font:700 .82rem var(--body);transition:border-color .15s,background .15s}
+html.fifa .wpane button:not(.cell):not(.eq):not(.lnk),html.fifa .mgr button:not(.slot):not(.bslot):not(.pn),html.fifa .cbtn button{background:var(--s2);color:#eef5f0;border:1px solid #3d6650;border-radius:8px;padding:6px 14px;font:700 .82rem var(--body);transition:border-color .15s,background .15s}
 html.fifa .wpane button:not(.cell):not(.eq):not(.lnk):hover,html.fifa .mgr button:not(.slot):not(.bslot):not(.pn):hover{background:#1a3127;border-color:var(--acc2)}
 html.fifa .wpane button.pri,html.fifa .mgr button.pri,html.fifa button.pri{background:var(--acc)!important;color:#0b1405!important;border-color:#8cbf1c!important;font:800 .95rem var(--fd);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 3px 0 #6c9c12}
 html.fifa .wpane button.pri:hover,html.fifa .mgr button.pri:hover{filter:brightness(1.08)}
 html.fifa .wpane button.lnk,html.fifa .lnk{all:unset;cursor:pointer;color:#0b1405;background:var(--acc);font:800 .8rem var(--fd);letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:6px;text-decoration:none}
 html.fifa .wpane button.lnk:hover{filter:brightness(1.1)}
-html.fifa .wpane select,html.fifa .gt select,html.fifa .luf select,html.fifa .mgr input[type=number]{background:var(--s1);color:#eef5f0;border:1px solid #2f5140;border-radius:8px;padding:5px 10px}
+html.fifa .wpane select,html.fifa .gt select,html.fifa .luf select,html.fifa .mgr input[type=number]{background:var(--s1);color:#eef5f0;border:1px solid #3d6650;border-radius:8px;padding:5px 10px}
 /* ---- khung GOAL (huấn luyện / đội hình) ---- */
 html.fifa .gw{background:transparent;border:0;color:#eef5f0}
 html.fifa .gh{background:none;padding:2px 2px 10px;font:800 1.05rem var(--fd);letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
@@ -724,7 +724,7 @@ html.fifa .mgr .gt button.on,html.fifa .wpane .btabs button.on,html.fifa .qtab,h
 html.fifa .gb{padding:12px 0 0;gap:14px}
 html.fifa .gl,html.fifa .gr,html.fifa .bkw{background:var(--s1);border:1px solid var(--ln);border-radius:10px}
 html.fifa .gl table,html.fifa .bkt{font-size:.82rem}
-html.fifa .gl th,html.fifa .bkt th{background:#0b1612;color:var(--mu);font:700 .78rem var(--fd);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ln);padding:8px 10px}
+html.fifa .gl th,html.fifa .bkt th{background:#152a20;color:var(--mu);font:700 .78rem var(--fd);letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ln);padding:8px 10px}
 html.fifa .gl td,html.fifa .bkt td{background:transparent;color:#dfeae3;border-bottom:1px solid #ffffff0c;border-top:0;padding:7px 10px}
 html.fifa .bkt tr:nth-child(even) td{background:#ffffff05}
 html.fifa .gl tr:hover td,html.fifa .bkt tbody tr:hover td{background:#ffffff0a}
@@ -732,7 +732,7 @@ html.fifa .gl tr.sel td{background:#c6ff3d1f!important;box-shadow:inset 0 0 0 0 
 html.fifa .gl tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--acc)}
 html.fifa .gl td{font-family:var(--body)}
 html.fifa .gr{padding:16px;gap:12px}
-html.fifa .mav{background:radial-gradient(circle at 50% 35%,#2a5a43,#0b1612 75%);border:1px solid #2f5140;border-radius:10px}
+html.fifa .mav{background:radial-gradient(circle at 50% 35%,#2a5a43,#152a20 75%);border:1px solid #3d6650;border-radius:10px}
 html.fifa .mi{font-size:.84rem;color:#cfe0d5}
 html.fifa .mi>b:first-child{font:800 1.5rem var(--fd);letter-spacing:.04em;text-transform:uppercase}
 .sgrid .sr{position:static;width:auto;height:auto;overflow:visible;clip:auto}
@@ -753,7 +753,7 @@ html.fifa .pitch{border:1px solid #ffffff2a;border-radius:12px;background:radial
 html.fifa .pitch::before,html.fifa .pitch::after{border-color:#ffffff40;border-width:1px}
 html.fifa .mgr .slot{width:82px}
 html.fifa .jz{width:36px;height:36px}
-html.fifa .slot .sn,html.fifa .bslot .sn{font:700 .74rem var(--fd);letter-spacing:.04em;text-transform:uppercase;background:#050a08d9;border-radius:4px 4px 0 0;padding:1px 6px;text-shadow:none;max-width:82px}
+html.fifa .slot .sn,html.fifa .bslot .sn{font:700 .74rem var(--fd);letter-spacing:.04em;text-transform:uppercase;background:#12261cd9;border-radius:4px 4px 0 0;padding:1px 6px;text-shadow:none;max-width:82px}
 html.fifa .slot .sr{background:var(--acc);color:#0b1405;font:800 .62rem var(--fd);letter-spacing:.06em;border-radius:0 0 4px 4px;padding:0 6px}
 html.fifa .slot .sr.bad{background:#ff5a52;color:#fff}
 html.fifa .slot.sel .jz,html.fifa .bslot.sel .jz{filter:drop-shadow(0 0 6px var(--acc)) drop-shadow(0 0 2px var(--acc))}
@@ -771,7 +771,7 @@ html.fifa .qfree b{color:var(--gold);font:800 1.3rem var(--fd)}
 html.fifa .qleft{border-right:1px solid var(--ln);background:radial-gradient(60% 50% at 50% 45%,#1d4a33,transparent 70%)}
 html.fifa .qname{color:#fff;font:800 1.4rem var(--fd);letter-spacing:.06em;text-transform:uppercase}
 html.fifa .sil path,html.fifa .sil circle{fill:#24412f}
-html.fifa .wpane .eq{background:var(--s1);border:1px solid #2f5140;border-radius:10px;box-shadow:inset 0 0 12px #0008}
+html.fifa .wpane .eq{background:var(--s1);border:1px solid #3d6650;border-radius:10px;box-shadow:inset 0 0 12px #0008}
 html.fifa .wpane .eq:hover{border-color:var(--acc)}
 html.fifa .eq span{color:var(--mu);font-size:.58rem}
 html.fifa .qsys{color:var(--acc2)}
@@ -781,7 +781,7 @@ html.fifa .ab{background:#ffffff12;border:0;height:8px}
 html.fifa .ab i{background:linear-gradient(90deg,var(--acc2),var(--acc))}
 html.fifa .ar b{color:#fff;font:800 1.15rem var(--fd)}
 html.fifa .wpane .plus{width:26px;height:26px;padding:0;border-radius:50%;background:var(--acc)!important;color:#0b1405;border:0;font-weight:900}
-html.fifa .wpane button.cell,html.fifa .cell{background:linear-gradient(160deg,#16291f,#0b1612);border:1px solid #23402f;border-radius:8px}
+html.fifa .wpane button.cell,html.fifa .cell{background:linear-gradient(160deg,#16291f,#152a20);border:1px solid #23402f;border-radius:8px}
 html.fifa .wpane button.cell:hover{border-color:var(--acc)}
 html.fifa .cell b{color:#fff;text-shadow:0 1px 2px #000;font:800 .78rem var(--fd);right:5px;bottom:3px}
 html.fifa .grid33{gap:6px}
@@ -821,14 +821,14 @@ html.fifa .pitch{background:radial-gradient(circle at 50% 50%,transparent 12.5%,
 .mgr .slot.lu-over .jz,.mgr .bslot.lu-over .jz{filter:drop-shadow(0 0 6px #c6ff3d) drop-shadow(0 0 2px #c6ff3d);transform:scale(1.15)}
 .mgr .slot.lu-over,.mgr .bslot.lu-over{outline:2px dashed #c6ff3d;outline-offset:3px;border-radius:8px}
 .lul tr.lu-over td{background:#c6ff3d33!important}
-.lu-ghost{position:fixed;z-index:100;pointer-events:none;transform:translate(-50%,-60%) rotate(-4deg);display:grid;justify-items:center;padding:6px 10px 5px;border-radius:10px;background:#050a08e6;border:1px solid #c6ff3d;box-shadow:0 12px 30px #000b,0 0 18px #c6ff3d55;color:#fff;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+.lu-ghost{position:fixed;z-index:100;pointer-events:none;transform:translate(-50%,-60%) rotate(-4deg);display:grid;justify-items:center;padding:6px 10px 5px;border-radius:10px;background:#12261ce6;border:1px solid #c6ff3d;box-shadow:0 12px 30px #000b,0 0 18px #c6ff3d55;color:#fff;font-family:"Barlow Condensed","Arial Narrow",sans-serif}
 .lu-ghost svg{width:40px;height:40px}
 .lu-ghost b{font-weight:800;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .lu-ghost span{font-size:.7rem;color:#c6ff3d;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 /* huấn luyện: bỏ khung ảnh, ô kích/cải tiến/lên sao nền tối */
 html.fifa .mav,html.fifa .mav.hasface{background:none!important;border:0!important;box-shadow:none;border-radius:0}
 html.fifa .mav img{filter:drop-shadow(0 8px 14px #000a)}
-html.fifa .kbox{background:linear-gradient(160deg,#13241d,#0b1612)!important;border:1px solid var(--ln)!important;border-radius:10px!important;color:#d3e2d8!important;padding:14px 16px!important;display:grid;gap:8px;line-height:1.5}
+html.fifa .kbox{background:linear-gradient(160deg,#1e3b2e,#152a20)!important;border:1px solid var(--ln)!important;border-radius:10px!important;color:#d3e2d8!important;padding:14px 16px!important;display:grid;gap:8px;line-height:1.5}
 html.fifa .kbox b{color:#fff}
 html.fifa .kbox .r,html.fifa .kbox b.r{color:var(--gold)!important}
 html.fifa .kbox h4{margin:0;color:#fff;font:800 1.4rem var(--fd);letter-spacing:.1em;text-transform:uppercase}
@@ -850,8 +850,8 @@ html.fifa #lineup .msg{color:#cfe0d5;min-height:1.4em}
 html.fifa #lineup .msg b{color:var(--acc)}
 
 /* tối ưu hiệu năng */
-.stat{backdrop-filter:none!important;background:#0b1612b8!important}
-.fl{background:radial-gradient(70% 60% at 85% 0%,#1d4a33 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3a 0%,transparent 60%),linear-gradient(160deg,#0c1a14,#060b09)!important}
+.stat{backdrop-filter:none!important;background:#152a20b8!important}
+.fl{background:radial-gradient(70% 60% at 85% 0%,#1d4a33 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#0f3a3a 0%,transparent 60%),linear-gradient(160deg,#173226,#0f1d17)!important}
 .game canvas#cv{image-rendering:auto}
 
 /* bảng cơ hội: bỏ khung quanh từng cầu thủ */
@@ -897,7 +897,7 @@ html.fifa .pop .pc{background:none!important;border:0!important;box-shadow:none!
 html.fifa .card[data-w="ds"]{background:transparent;border:0;padding:0}
 html.fifa .card[data-w="ds"] .tbl{background:var(--s1);border:1px solid var(--ln);border-radius:12px;max-height:68vh;overflow:auto}
 html.fifa #sq{width:100%;border-collapse:separate;border-spacing:0;font-size:.84rem}
-html.fifa #sq th{position:sticky;top:0;z-index:2;background:#0b1612;color:var(--mu);font:700 .74rem var(--fd);letter-spacing:.12em;text-transform:uppercase;padding:10px 8px;border-bottom:1px solid var(--ln);text-align:center}
+html.fifa #sq th{position:sticky;top:0;z-index:2;background:#152a20;color:var(--mu);font:700 .74rem var(--fd);letter-spacing:.12em;text-transform:uppercase;padding:10px 8px;border-bottom:1px solid var(--ln);text-align:center}
 html.fifa #sq th:nth-child(2){text-align:left}
 html.fifa #sq td{padding:6px 8px;border-bottom:1px solid #ffffff0a;text-align:center;color:#dfeae3;background:transparent;font-variant-numeric:tabular-nums}
 html.fifa #sq tr:not(.sq-sec):hover td{background:#ffffff08}
@@ -912,14 +912,14 @@ html.fifa #sq .sq-sec span{margin-left:12px;font:600 .78rem var(--body);letter-s
 .sq-pl button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;min-width:0}
 .sq-pl button:hover b{text-decoration:underline}
 .sq-pl button:focus-visible{outline:2px solid #c6ff3d;outline-offset:2px;border-radius:6px}
-.sq-face{width:34px;height:34px;border-radius:50%;overflow:hidden;flex:none;background:radial-gradient(circle at 50% 30%,#2a5a43,#0b1612);border:1px solid #2f5140;display:grid;place-items:center}
+.sq-face{width:34px;height:34px;border-radius:50%;overflow:hidden;flex:none;background:radial-gradient(circle at 50% 30%,#2a5a43,#152a20);border:1px solid #3d6650;display:grid;place-items:center}
 .sq-face img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
-.sq-face i{font:800 .8rem "Barlow Condensed",sans-serif;font-style:normal;color:#8fa797}
+.sq-face i{font:800 .8rem "Barlow Condensed",sans-serif;font-style:normal;color:#a9c2b2}
 .sq-nm{display:grid;line-height:1.15;min-width:0}
 .sq-nm b{font:700 .98rem "Barlow Condensed",sans-serif;letter-spacing:.03em;white-space:nowrap}
-.sq-nm small{color:#8fa797;font-size:.72rem;white-space:nowrap}.sq-nm em{font-style:normal}
+.sq-nm small{color:#a9c2b2;font-size:.72rem;white-space:nowrap}.sq-nm em{font-style:normal}
 .sq-pos{display:inline-block;min-width:38px;padding:2px 6px;border-radius:4px;background:#ffffff10;font:800 .8rem "Barlow Condensed",sans-serif;letter-spacing:.06em}
-.sq-sub{display:block;color:#8fa797;font-size:.66rem;margin-top:2px}
+.sq-sub{display:block;color:#a9c2b2;font-size:.66rem;margin-top:2px}
 .sq-tier{display:inline-block;padding:2px 8px;border-radius:999px;font:700 .7rem var(--body);color:#0b1405;background:var(--c)}
 .sq-tier.t0{--c:#d6d9de}.sq-tier.t1{--c:#3ddc84}.sq-tier.t2{--c:#5aa9ff}.sq-tier.t3{--c:#c58bff}.sq-tier.t4{--c:#ffcf4a}.sq-tier.t5{--c:#ff5a52;color:#fff}.sq-tier.t6{--c:linear-gradient(90deg,#b8892e,#fff3c8);background:linear-gradient(90deg,#b8892e,#fff3c8)}
 .sq-v{font:700 .95rem "Barlow Condensed",sans-serif}
@@ -929,27 +929,27 @@ html.fifa #sq .sta i{background:linear-gradient(90deg,#3de0a4,#c6ff3d)}
 html.fifa .card[data-w="ds"] .note{margin-top:10px}
 /* ===== Cửa hàng + Tài chính ===== */
 .wal{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.cp{display:inline-flex;align-items:center;gap:6px;background:#0e1a15;border:1px solid #25402f;border-radius:999px;padding:4px 12px 4px 6px;color:#cfe0d5;font-size:.82rem}
+.cp{display:inline-flex;align-items:center;gap:6px;background:#183027;border:1px solid #335a43;border-radius:999px;padding:4px 12px 4px 6px;color:#cfe0d5;font-size:.82rem}
 .cp img{width:26px;height:22px;object-fit:contain}.cp b{font:800 1.02rem "Barlow Condensed",sans-serif;color:#fff}
 .shg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.shc,.fnc{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 12px;align-items:center;background:linear-gradient(160deg,#13241d,#0b1612);border:1px solid #25402f;border-radius:12px;padding:14px;transition:border-color .15s}
+.shc,.fnc{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 12px;align-items:center;background:linear-gradient(160deg,#1e3b2e,#152a20);border:1px solid #335a43;border-radius:12px;padding:14px;transition:border-color .15s}
 .shc:hover{border-color:#c6ff3d}
 .shi{grid-row:span 2;width:52px;height:52px;border-radius:12px;background:#ffffff0b;border:1px solid #ffffff14;display:grid;place-items:center}
 .shi svg{width:34px;height:34px}.shi img{width:40px;height:34px;object-fit:contain}
 .sht{display:grid;gap:2px;min-width:0}
 .sht b{font:800 1.08rem "Barlow Condensed",sans-serif;letter-spacing:.03em;color:#fff;text-transform:uppercase}
-.sht small{color:#8fa797;font-size:.76rem;line-height:1.35}
+.sht small{color:#a9c2b2;font-size:.76rem;line-height:1.35}
 .shp{grid-column:2;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}
 .shc{grid-template-rows:auto auto auto}
 .shc>button{grid-column:1/-1;margin-top:8px;width:100%}
-html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578!important;border-color:#25402f!important;box-shadow:none}
+html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578!important;border-color:#335a43!important;box-shadow:none}
 .fng{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
 .fnc .sht b{font-size:1.7rem;text-transform:none;font-variant-numeric:tabular-nums}
 .fnc .sht small{font:700 .74rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#c6ff3d}
 .fns{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;padding-top:10px;border-top:1px solid #ffffff10;font-size:.78rem;color:#cfe0d5}
 .fns span{background:#ffffff0b;border-radius:6px;padding:3px 8px}.fns span b{color:#fff}
 .fns span.w b{color:#3ddc84}.fns span.l b{color:#ff9a8f}
-.fns em{font-style:normal;color:#8fa797}
+.fns em{font-style:normal;color:#a9c2b2}
 .fng{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:700px){.fng{grid-template-columns:1fr}}
 .sq-nm small,.sq-sub,html.fifa #sq td{font-family:"Be Vietnam Pro",system-ui,sans-serif}
@@ -966,11 +966,11 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .skfx.a .sk-ic{left:auto;right:1.1cqw}
 .sqbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:12px}
 .sqtabs{display:flex;gap:6px}
-.sqtabs button{all:unset;cursor:pointer;padding:6px 16px;border-radius:999px;font:700 .9rem "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8fa797;border:1px solid #25402f}
+.sqtabs button{all:unset;cursor:pointer;padding:6px 16px;border-radius:999px;font:700 .9rem "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#a9c2b2;border:1px solid #335a43}
 .sqtabs button.on{background:#c6ff3d;color:#0b1405;border-color:#c6ff3d}
 .sqtabs button:focus-visible{outline:2px solid #c6ff3d;outline-offset:2px}
 .sqf{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:0}
-.sqf input,.sqf select{background:#0e1a15;color:#eef5f0;border:1px solid #2f5140;border-radius:8px;padding:6px 10px;font:500 .85rem "Be Vietnam Pro",sans-serif}
+.sqf input,.sqf select{background:#183027;color:#eef5f0;border:1px solid #3d6650;border-radius:8px;padding:6px 10px;font:500 .85rem "Be Vietnam Pro",sans-serif}
 .sqf input{flex:1;min-width:160px}
 .sq-own{display:inline-block;padding:2px 8px;border-radius:999px;background:#c6ff3d22;color:#c6ff3d;font:700 .7rem "Be Vietnam Pro",sans-serif}
 /* thẻ Icon kiểu FC: ảnh mờ dần xuống nền đá trước phần tên, tên chữ nâu đậm thường */
@@ -1169,13 +1169,13 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .fc-card .fc-nm.nl{font-size:1.05rem!important}
 
 /* ===== Thành Phố (quả địa cầu + câu lạc bộ) ===== */
-.cty{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;color:#eef5f0;--acc:#c6ff3d;--ln:#25402f;--mu:#8fa797;--s1:#0e1a15;--s2:#13241d;--gold:#ffcf4a}
+.cty{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:16px;color:#eef5f0;--acc:#c6ff3d;--ln:#335a43;--mu:#a9c2b2;--s1:#183027;--s2:#1e3b2e;--gold:#ffcf4a}
 .cty-g{display:flex;flex-direction:column;gap:10px;min-width:0}
 .cty-gh{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap}
 .cty-gh small{display:block;font:700 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
 .cty-gh b{font:800 1.15rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.04em}
 .cty-gh>span{font-size:.75rem;color:var(--mu)}
-#cityGlobe{width:100%;aspect-ratio:1/1;max-height:440px;display:block;touch-action:none;cursor:grab;border-radius:14px;background:radial-gradient(circle at 50% 50%,#0f241b 0,#08110d 70%)}
+#cityGlobe{width:100%;aspect-ratio:1/1;max-height:440px;display:block;touch-action:none;cursor:grab;border-radius:14px;background:radial-gradient(circle at 50% 50%,#0f241b 0,#11211a 70%)}
 .cty-ch{display:flex;flex-wrap:wrap;gap:6px}
 .wpane .cty-ch button{display:inline-flex;align-items:center;gap:6px;padding:4px 10px!important;border-radius:999px!important;font:700 .78rem var(--body,sans-serif)!important}
 .cty-ch button small{color:var(--mu);font-weight:600}
@@ -1201,67 +1201,67 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .cty-ov em{font-style:normal;font-weight:700;margin-left:6px;padding:1px 6px;border-radius:999px;font-size:.68rem}
 .cty-ov em.easy{background:#16351f;color:#7ee2a1}.cty-ov em.mid{background:#3a2f10;color:#ffcf4a}.cty-ov em.hard{background:#3d1414;color:#ff8a80}
 .cty-ps{display:flex;flex-wrap:wrap;gap:4px}
-.cty-p{font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;background:#0b1410;border:1px solid #2a3d33}
+.cty-p{font-size:.7rem;font-weight:700;padding:1px 6px;border-radius:4px;background:#142619;border:1px solid #2a3d33}
 .cty-p.t0{color:#cfd5db}.cty-p.t1{color:#4ade80}.cty-p.t2{color:#60a5fa}.cty-p.t3{color:#c084fc}.cty-p.t4{color:#facc15}.cty-p.t5{color:#f87171}
 .cty-rw{font-size:.72rem;color:var(--gold)}
 .cty-cl li.won .cty-rw{color:#7ee2a1}
 .cty-lk{font-size:.72rem;color:var(--mu);text-align:right;max-width:120px}
 /* ===== Phụ bản: giải đấu ===== */
 .cup-l{display:grid;gap:12px}
-.cup{border:1px solid #25402f;border-radius:12px;padding:12px 14px;background:linear-gradient(110deg,color-mix(in srgb,var(--cc) 22%,#0e1a15) 0,#0e1a15 55%);color:#eef5f0;display:flex;flex-direction:column;gap:10px}
+.cup{border:1px solid #335a43;border-radius:12px;padding:12px 14px;background:linear-gradient(110deg,color-mix(in srgb,var(--cc) 22%,#183027) 0,#183027 55%);color:#eef5f0;display:flex;flex-direction:column;gap:10px}
 .cup.lock{opacity:.55;filter:saturate(.5)}
 .cup.champ{border-color:#ffcf4a80}
 .cup-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .cup-t{display:flex;align-items:center;gap:12px}
 .cup-t i{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font:800 1.2rem "Barlow Condensed","Arial Narrow",sans-serif;font-style:normal;background:var(--cc);color:#fff;box-shadow:inset 0 0 0 2px #ffffff35}
 .cup-t h3{margin:0;font:800 1.35rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase}
-.cup-t span{font-size:.78rem;color:#8fa797}
+.cup-t span{font-size:.78rem;color:#a9c2b2}
 .cup.champ .cup-t span{color:#ffcf4a}
 .cup-r{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
-.cup-r li{position:relative;padding:8px 10px;border-radius:8px;background:#08110dcc;border:1px solid #25402f;display:flex;flex-direction:column;gap:2px}
-.cup-r li small{font:700 .66rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cup-r li{position:relative;padding:8px 10px;border-radius:8px;background:#11211acc;border:1px solid #335a43;display:flex;flex-direction:column;gap:2px}
+.cup-r li small{font:700 .66rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a9c2b2}
 .cup-r li b{font-size:.88rem}
-.cup-r li span{font-size:.72rem;color:#8fa797}
+.cup-r li span{font-size:.72rem;color:#a9c2b2}
 .cup-r li.d{border-color:#3de0a466}.cup-r li.d small{color:#3de0a4}
 .cup-r li.c{border-color:#c6ff3d;box-shadow:0 0 0 1px #c6ff3d55,0 0 14px #c6ff3d22}.cup-r li.c small{color:#c6ff3d}
 .cup-rw{margin:0;font-size:.76rem;color:#ffcf4a}
 @media (max-width:760px){.cty{grid-template-columns:1fr}.cty-cl{max-height:none}}
-html.fifa .wbox:has(#thanhpho:not([hidden])),html.fifa .wbox:has(#phuban:not([hidden])){background:#08110d!important}
+html.fifa .wbox:has(#thanhpho:not([hidden])),html.fifa .wbox:has(#phuban:not([hidden])){background:#11211a!important}
 
 /* cửa sổ luôn nền đặc, không nhìn xuyên ra sảnh */
-html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#08110d!important}
+html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#11211a!important}
 /* ===== Phụ bản dạng lưới ===== */
 .cup-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .cup-top .wl{margin:0;max-width:70ch}
-.cup-my{font-size:.8rem;color:#8fa797}.cup-my b{font:800 1.3rem "Barlow Condensed","Arial Narrow",sans-serif;color:#c6ff3d;margin-left:4px}
+.cup-my{font-size:.8rem;color:#a9c2b2}.cup-my b{font:800 1.3rem "Barlow Condensed","Arial Narrow",sans-serif;color:#c6ff3d;margin-left:4px}
 .cup-l{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
-.cup{padding:0!important;gap:0!important;overflow:hidden;background:#0e1a15!important;border:1px solid #25402f;border-radius:12px;display:flex;flex-direction:column}
-.cup.open{border-color:color-mix(in srgb,var(--cc) 60%,#25402f)}
+.cup{padding:0!important;gap:0!important;overflow:hidden;background:#183027!important;border:1px solid #335a43;border-radius:12px;display:flex;flex-direction:column}
+.cup.open{border-color:color-mix(in srgb,var(--cc) 60%,#335a43)}
 .cup.champ{border-color:#ffcf4a90}
-.cup-h{position:relative;display:flex!important;flex-direction:column;align-items:flex-start!important;gap:2px!important;padding:14px 14px 12px;background:linear-gradient(150deg,color-mix(in srgb,var(--cc) 70%,#0e1a15),color-mix(in srgb,var(--cc) 18%,#0e1a15))}
+.cup-h{position:relative;display:flex!important;flex-direction:column;align-items:flex-start!important;gap:2px!important;padding:14px 14px 12px;background:linear-gradient(150deg,color-mix(in srgb,var(--cc) 70%,#183027),color-mix(in srgb,var(--cc) 18%,#183027))}
 .cup-h i{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font:800 1rem "Barlow Condensed","Arial Narrow",sans-serif;font-style:normal;background:#00000040;color:#fff;margin-bottom:6px}
 .cup-h h3{margin:0;font:800 1.35rem/1.05 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#fff;text-shadow:0 2px 6px #0006}
 .cup-h>span{font-size:.74rem;color:#ffffffc0}
 .cup-cs{position:absolute;top:12px;right:12px;font-style:normal;font:800 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.1em;text-transform:uppercase;background:#ffcf4a;color:#2b1d00;padding:3px 8px;border-radius:999px}
 .cup-r{display:flex!important;flex-direction:column;gap:6px!important;padding:12px 12px 4px!important;margin:0;flex:1}
-.cup-r li{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:8px;padding:7px 10px!important;border-radius:8px;background:#08110d;border:1px solid #1f3529}
+.cup-r li{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:8px;padding:7px 10px!important;border-radius:8px;background:#11211a;border:1px solid #2b4a39}
 .cup-r li small{grid-column:1/-1}
 .cup-r li b{font-size:.85rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cup-r li span{font:700 .85rem "Barlow Condensed","Arial Narrow",sans-serif;color:#8fa797;align-self:center}
+.cup-r li span{font:700 .85rem "Barlow Condensed","Arial Narrow",sans-serif;color:#a9c2b2;align-self:center}
 .cup-r li.d{border-color:#3de0a455}.cup-r li.d b{color:#7ee2a1}
 .cup-r li.c{border-color:#c6ff3d}
 .cup-rw{margin:0!important;padding:8px 12px;font-size:.74rem;color:#ffcf4a;display:flex;flex-direction:column;gap:2px}
-.cup-rw small{font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cup-rw small{font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a9c2b2}
 .cup-a{padding:0 12px 12px;margin-top:auto}
 .cup-a button{width:100%}
-.cup-a .cty-lk{display:block;text-align:center;max-width:none;padding:8px;border:1px dashed #2f5140;border-radius:8px}
+.cup-a .cty-lk{display:block;text-align:center;max-width:none;padding:8px;border:1px dashed #3d6650;border-radius:8px}
 .cup.lock .cup-h{filter:grayscale(.7) brightness(.7)}
 .cup.lock{opacity:.75!important;filter:none!important}
 
 /* ===== Giải đấu: banner lớn + hàng chọn giải ===== */
 .cx{display:flex;flex-direction:column;gap:14px;color:#eef5f0}
 .cx-main{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:16px;align-items:stretch}
-.cx-ban{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1024/572;max-width:100%;box-shadow:0 0 0 1px color-mix(in srgb,var(--cc) 55%,#25402f),0 14px 40px #0008;background:#0b1410}
+.cx-ban{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1024/572;max-width:100%;box-shadow:0 0 0 1px color-mix(in srgb,var(--cc) 55%,#335a43),0 14px 40px #0008;background:#142619}
 .cx-ban img{display:block;width:100%;height:100%;object-fit:cover}
 .cx-ban::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(transparent,#05090799);pointer-events:none}
 .cx-ban.lock img{filter:grayscale(.85) brightness(.45)}
@@ -1275,36 +1275,119 @@ html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#08110d!imp
 .cx-steps i{height:5px;border-radius:3px;background:#ffffff35}
 .cx-steps li.d i{background:#3de0a4}.cx-steps li.d{color:#7ee2a1}
 .cx-steps li.c i{background:#c6ff3d;box-shadow:0 0 10px #c6ff3d}.cx-steps li.c{color:#c6ff3d}
-.cx-side{display:flex;flex-direction:column;gap:10px;min-width:0;background:#0e1a15;border:1px solid #25402f;border-radius:14px;padding:14px}
-.cx-hd small{font:700 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cx-side{display:flex;flex-direction:column;gap:10px;min-width:0;background:#183027;border:1px solid #335a43;border-radius:14px;padding:14px}
+.cx-hd small{font:700 .7rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a9c2b2}
 .cx-hd h3{margin:2px 0;font:800 1.7rem/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase}
-.cx-hd>span{font-size:.8rem;color:#8fa797}.cx-hd>span b{color:#c6ff3d;font:800 1.05rem "Barlow Condensed","Arial Narrow",sans-serif;margin-left:3px}
+.cx-hd>span{font-size:.8rem;color:#a9c2b2}.cx-hd>span b{color:#c6ff3d;font:800 1.05rem "Barlow Condensed","Arial Narrow",sans-serif;margin-left:3px}
 .cx-r{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.cx-r li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;padding:7px 10px;border-radius:8px;background:#08110d;border:1px solid #1f3529}
-.cx-r li small{grid-column:1/-1;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797}
+.cx-r li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;padding:7px 10px;border-radius:8px;background:#11211a;border:1px solid #2b4a39}
+.cx-r li small{grid-column:1/-1;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a9c2b2}
 .cx-r li b{font-size:.88rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cx-r li span{font:800 .95rem "Barlow Condensed","Arial Narrow",sans-serif;align-self:center}
 .cx-r li span.easy{color:#7ee2a1}.cx-r li span.mid{color:#ffcf4a}.cx-r li span.hard{color:#ff8a80}
 .cx-r li.d{border-color:#3de0a455}.cx-r li.d b{color:#7ee2a1}
 .cx-r li.c{border-color:#c6ff3d;box-shadow:0 0 0 1px #c6ff3d40}.cx-r li.c small{color:#c6ff3d}
-.cx-rws small{display:block;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8fa797;margin-bottom:5px}
+.cx-rws small{display:block;font:700 .64rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a9c2b2;margin-bottom:5px}
 .cx-rws div{display:flex;flex-wrap:wrap;gap:5px}
-.cx-rw{display:inline-flex;align-items:center;gap:4px;font-size:.74rem;color:#eef5f0;background:#08110d;border:1px solid #2f5140;border-radius:999px;padding:3px 9px 3px 4px}
+.cx-rw{display:inline-flex;align-items:center;gap:4px;font-size:.74rem;color:#eef5f0;background:#11211a;border:1px solid #3d6650;border-radius:999px;padding:3px 9px 3px 4px}
 .cx-rw img{width:18px;height:18px;object-fit:contain}.cx-rw b{color:#ffcf4a}
 .cx-rw:not(:has(img)){padding-left:9px}
 .cx-go{width:100%;margin-top:auto;padding:10px 14px!important}
-.cx-lk{display:block;text-align:center;max-width:none!important;padding:10px;border:1px dashed #2f5140;border-radius:8px;margin-top:auto}
-.cx-note{margin:0;font-size:.72rem;color:#8fa797;text-align:center}
+.cx-lk{display:block;text-align:center;max-width:none!important;padding:10px;border:1px dashed #3d6650;border-radius:8px;margin-top:auto}
+.cx-note{margin:0;font-size:.72rem;color:#a9c2b2;text-align:center}
 .cx-th{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.wpane .cx-th button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:#0e1a15;border:1px solid #25402f;transition:transform .15s,border-color .15s}
-.wpane .cx-th button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--cc) 70%,#25402f)}
+.wpane .cx-th button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:#183027;border:1px solid #335a43;transition:transform .15s,border-color .15s}
+.wpane .cx-th button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--cc) 70%,#335a43)}
 .wpane .cx-th button:focus-visible{outline:2px solid #c6ff3d;outline-offset:2px}
 .wpane .cx-th button.on{border-color:#c6ff3d;box-shadow:0 0 0 1px #c6ff3d,0 0 16px #c6ff3d33}
 .cx-th img{display:block;width:100%;aspect-ratio:1024/572;object-fit:cover}
 .cx-th button.lock img{filter:grayscale(.85) brightness(.5)}
 .cx-th span{display:flex;flex-direction:column;padding:6px 9px 8px}
 .cx-th b{font:800 .92rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#eef5f0}
-.cx-th small{font-size:.68rem;color:#8fa797}
+.cx-th small{font-size:.68rem;color:#a9c2b2}
 .cx-th button.on small{color:#c6ff3d}
 @media (max-width:820px){.cx-main{grid-template-columns:1fr}.cx-th{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:480px){.cx-th{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* giao diện sáng hơn: nền xanh rêu thay cho gần đen, chữ phụ sáng hơn */
+.fl{background:radial-gradient(70% 60% at 85% 0%,#2b6a4a 0%,transparent 60%),radial-gradient(60% 50% at 0% 100%,#1b5555 0%,transparent 60%),linear-gradient(160deg,#173a2b,#0f2219)!important}
+.fl{--s1:#1c3a2d!important;--s2:#26503d!important;--ln:#3a6a50!important;--mu:#b4ccbd!important}
+html.fifa .wbox{--s1:#1c3a2d;--s2:#26503d;--ln:#3a6a50;--mu:#b4ccbd}
+html.fifa .wbox,html.fifa .wbox:has(.wpane:not([hidden])){background:#152d22!important}
+
+/* ===== Sảnh kiểu sáng (giống game gốc) ===== */
+.cl{position:absolute;inset:0;overflow:hidden;background:#3c8a32 url(../assets/ui/lobby-bg.webp) center/cover no-repeat;font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#1f2a37;
+ --gl:rgba(255,255,255,.86);--gl2:rgba(255,255,255,.72);--navy:#16233a;--navy2:#22365a;--gold1:#fff4a3;--gold2:#f2c94c;--gold3:#c99312;--blue:#1f5fa8;--red:#d62828}
+.cl button{font-family:inherit;cursor:pointer}
+.cl button:focus-visible{outline:2px solid #1f5fa8;outline-offset:2px}
+.cl-top{position:absolute;left:0;right:0;top:0;height:5.4%;display:flex;align-items:center;gap:.8em;padding:0 1em;background:linear-gradient(#22365a,#121d31);color:#fff;font-size:.82em;border-bottom:1px solid #000a}
+.cl-sn{color:#ffd84a;font-weight:800;white-space:nowrap}
+.cl-tick{flex:1;min-width:0;overflow:hidden;white-space:nowrap;color:#dbe6f5}
+.cl-tick span{display:inline-block;padding-left:100%;animation:clTick 32s linear infinite}
+@keyframes clTick{to{transform:translateX(-100%)}}
+.cl-links{display:flex;align-items:center;gap:.2em;white-space:nowrap}
+.cl-links span{margin-right:.4em;color:#cfe0f5}.cl-links b{color:#ffd84a}
+.cl-links button{all:unset;cursor:pointer;color:#fff;padding:0 .55em;border-left:1px solid #ffffff40}
+.cl-links button:hover{color:#ffd84a}
+.cl-prof{position:absolute;left:1.2%;top:7%;width:20%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.4em .7em;padding:.6em;background:var(--gl);border:1px solid #fff;border-radius:.4em;box-shadow:0 .2em .8em #0004}
+.cl-av{all:unset;position:relative;width:4.2em;height:4.2em;border-radius:.35em;background:linear-gradient(#2f6fb4,#16365d);display:grid;place-items:center;box-shadow:inset 0 0 0 2px #fff}
+.cl-av svg{width:78%;height:78%}
+.cl-av em{position:absolute;right:-.45em;bottom:-.45em;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;background:#fff;color:#1f2a37;font:800 .8em/1 inherit;font-style:normal;box-shadow:0 0 0 2px #2f6fb4}
+.cl-pi{display:flex;flex-direction:column;gap:.15em;min-width:0}
+.cl-pi b{font-weight:800;color:#0f3d75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-pi>span{font-size:.75em;color:#4b5b6e}
+.cl-bar{position:relative;height:1.05em;border-radius:.2em;background:#cfd8e2;overflow:hidden;margin-top:.2em}
+.cl-bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(#5fd35a,#2b9a2a)}
+.cl-bar small{position:relative;display:block;text-align:center;font-size:.7em;font-weight:700;line-height:1.5;color:#123}
+.cl-cur{grid-column:1/-1;display:flex;gap:.35em;flex-wrap:wrap}
+.cl-cur span{display:inline-flex;align-items:center;gap:.25em;background:#fff;border:1px solid #cdd7e1;border-radius:999px;padding:.1em .55em .1em .2em;font-size:.78em}
+.cl-cur img{width:1.4em;height:1.4em;object-fit:contain}.cl-cur b{color:#0f3d75}
+.cl-stat{position:absolute;left:1.2%;top:33%;width:20%;display:flex;flex-direction:column;gap:.15em;padding:.5em .6em;background:var(--gl2);border-radius:.35em;box-shadow:0 .2em .8em #0003}
+.cl-stat button{all:unset;cursor:pointer;display:flex;align-items:center;gap:.5em;font-size:.82em;color:#1f2a37;padding:.28em .2em;border-radius:.25em}
+.cl-stat button:hover{background:#ffffffaa;color:#0f3d75}
+.cl-stat i{width:.9em;height:.9em;border-radius:.2em;flex:none;background:#c5ced8;box-shadow:inset 0 0 0 1px #8a99a8}
+.cl-stat button.hot i{background:linear-gradient(#7be36f,#2b9a2a);box-shadow:inset 0 0 0 1px #1d6b1c}
+.cl-stat button.hot{font-weight:700}
+.cl-guide{position:absolute;left:22.5%;top:7%;width:33%;display:flex;align-items:flex-start}
+.cl-gimg{width:7.5em;border-radius:.4em;overflow:hidden;flex:none;margin-right:-1.2em;z-index:2;filter:drop-shadow(0 .3em .5em #0005)}
+.cl-gimg img{display:block;width:100%;height:auto}
+.cl-bub{position:relative;flex:1;margin-top:1.2em;background:#fff;border:1px solid #cbd5e1;border-radius:.4em;padding:.6em .8em .7em 1.6em;box-shadow:0 .2em .8em #0004;font-size:.85em;max-height:9.5em;overflow:auto}
+.cl-bub>b{display:block;text-align:center;font-weight:800;margin-bottom:.25em;color:#1f2a37}.cl-bub p b{color:#d62828}
+.cl-bub p{margin:0;line-height:1.45;color:#334155}
+.cl-big{position:absolute;right:22.5%;top:7%;width:20%;display:grid;grid-template-columns:1fr 1fr;gap:.6em}
+.cl-big button{border:2px solid #8a6a12;border-radius:.35em;padding:.55em .3em;font-weight:800;font-size:1.05em;color:#3a2600;background:linear-gradient(var(--gold1),var(--gold2) 55%,var(--gold3));box-shadow:inset 0 1px 0 #fffde4,0 .2em .5em #0005;text-shadow:0 1px 0 #fff6}
+.cl-big button:hover{filter:brightness(1.07)}
+.cl-loc{position:absolute;right:22.5%;top:16.5%;width:20%;display:flex;align-items:center;gap:.5em;padding:.4em .7em;border:1px solid #0b2c57;border-radius:.4em 1.4em 1.4em .4em;background:linear-gradient(#3a86d6,#174f92);color:#fff;font-weight:800;font-size:.85em;text-align:left;box-shadow:0 .2em .5em #0005}
+.cl-loc i{width:1em;height:1em;border-radius:50%;border:.2em solid #ffd84a;flex:none}
+.cl-loc small{margin-left:auto;color:#ffd84a;font-size:.85em;white-space:nowrap}
+.cl-menu{position:absolute;right:22.5%;top:23.5%;width:12.5%;display:flex;flex-direction:column;gap:.35em}
+.cl-menu button{border:1px solid #8ea3b9;border-radius:.3em;padding:.38em .4em;font-size:.86em;color:#173a63;background:linear-gradient(#ffffff,#dfe8f1);box-shadow:inset 0 1px 0 #fff,0 .15em .35em #0004;text-align:center}
+.cl-menu button:hover{background:linear-gradient(#fffbe0,#ffe37a);color:#3a2600;border-color:#c99312}
+.cl-menu em{font-style:normal;background:var(--red);color:#fff;border-radius:999px;padding:0 .45em;font-size:.8em;font-weight:800}
+.cl-npcs{position:absolute;right:22.5%;bottom:7.5%;display:flex;gap:.5em}
+.cl-npcs button{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;width:5.6em;background:#fff;border:1px solid #b8c6d4;border-radius:.3em;padding:.25em;box-shadow:0 .2em .5em #0005}
+.cl-npcs button:hover{border-color:#c99312}
+.cl-npcs span{width:100%;aspect-ratio:1;overflow:hidden;border-radius:.2em;background:linear-gradient(#e6eef6,#b9cbe0);display:grid;place-items:end center}
+.cl-npcs span img,.cl-npcs span svg{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.cl-npcs b{font-size:.72em;font-weight:600;color:#1f2a37;padding-top:.2em}
+.cl-gift{position:absolute;left:1.2%;bottom:7.5%;display:flex;flex-direction:column;align-items:center;gap:.1em;width:5em;padding:.5em .3em;border:2px solid #8a1d12;border-radius:.6em;background:radial-gradient(circle at 50% 35%,#ff7a45,#c1271b);color:#fff6c8;box-shadow:0 .3em .8em #0006}
+.cl-gift svg{width:2em;height:2em}
+.cl-gift b{font-size:.8em}
+.cl-gift.hot{animation:clPulse 1.6s ease-in-out infinite}
+@keyframes clPulse{50%{transform:scale(1.06);box-shadow:0 0 1.2em #ffcf4a}}
+.cl-chat{position:absolute;right:.8%;top:7%;bottom:7%;width:20.5%;display:flex;flex-direction:column;background:#fff;border:1px solid #b8c6d4;border-radius:.35em;box-shadow:0 .2em .8em #0004;overflow:hidden}
+.cl-ct{display:flex;gap:.2em;padding:.3em .3em 0;background:#dfe8f1;border-bottom:1px solid #b8c6d4}
+.cl-ct b,.cl-ct span{font-size:.8em;padding:.25em .8em;border-radius:.3em .3em 0 0}
+.cl-ct b{background:#fff;border:1px solid #b8c6d4;border-bottom-color:#fff;margin-bottom:-1px;color:#1f2a37}
+.cl-ct span{color:#4b5b6e}
+.cl-cm{flex:1;min-height:0;overflow:auto;padding:.5em .6em;font-size:.8em;display:flex;flex-direction:column;gap:.45em}
+.cl-cm p{margin:0;line-height:1.4;color:#1f2a37;border-bottom:1px solid #eef2f6;padding-bottom:.4em}
+.cl-cm b{color:#1f5fa8}.cl-cm b.sys{color:var(--red)}.cl-cm .mu{color:#6b7a8c}
+.cl-cin{display:flex;gap:.3em;padding:.4em;border-top:1px solid #dbe3eb;background:#f4f7fa}
+.cl-cin input{flex:1;min-width:0;border:1px solid #b8c6d4;border-radius:.3em;padding:.3em .5em;font:inherit;font-size:.8em;color:#1f2a37;background:#fff}
+.cl-cin button{border:1px solid #1b4f8f;border-radius:.3em;background:linear-gradient(#3a86d6,#174f92);color:#fff;font-weight:700;font-size:.8em;padding:0 .8em}
+.cl-bot{position:absolute;left:0;right:0;bottom:0;height:5.6%;display:flex;align-items:center;padding:0 1em;background:linear-gradient(#22365a,#121d31);border-top:1px solid #000a}
+.cl-bot button{all:unset;cursor:pointer;color:#fff;font-size:.85em;padding:0 .9em;border-right:1px solid #ffffff35;white-space:nowrap}
+.cl-bot button:hover{color:#ffd84a}
+.cl-bot .cl-r{margin-left:auto;border:0;color:#ffd84a;font-weight:700}
+@media (prefers-reduced-motion:reduce){.cl-tick span,.cl-gift.hot{animation:none}}
