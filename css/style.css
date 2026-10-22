@@ -1143,3 +1143,20 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 .fs .fc-face{left:30%;right:4%;top:9%;height:62%}
 .fs .fc-face img{object-position:50% 15%;-webkit-mask:linear-gradient(180deg,#000 78%,transparent 100%)!important;mask:linear-gradient(180deg,#000 78%,transparent 100%)!important}
 .fs .fc-nm{top:76%;left:6%;right:6%;font-size:1.35rem;line-height:1.2;color:var(--tx);text-shadow:0 1px 0 #ffffff80}
+
+/* bậc Trắng → Đỏ: ảnh cầu thủ thu nhỏ gần cỡ gốc cho đỡ nhoè, đặt gọn trong khung */
+.fs .fc-face{left:33%!important;right:6%!important;top:15%!important;height:56%!important;width:auto!important;display:grid!important;place-items:end center!important}
+.fs .fc-face img{width:100%!important;height:auto!important;max-width:150px!important;max-height:100%!important;object-fit:contain!important;object-position:50% 100%!important;-webkit-mask:linear-gradient(180deg,#000 82%,transparent 100%)!important;mask:linear-gradient(180deg,#000 82%,transparent 100%)!important}
+
+/* bậc Trắng → Đỏ: khung tối kiểu mới, chữ trắng */
+.fc-card.fs{aspect-ratio:170/247!important;color:#fff}
+.ft0.fs{--fr:url(../assets/ui/the-g0.webp)}.ft1.fs{--fr:url(../assets/ui/the-g1.webp)}.ft2.fs{--fr:url(../assets/ui/the-g2.webp)}
+.ft3.fs{--fr:url(../assets/ui/the-g3.webp)}.ft4.fs{--fr:url(../assets/ui/the-g4.webp)}.ft5.fs{--fr:url(../assets/ui/the-g5.webp)}
+.fs .fc-ovr{left:9%;top:11%}
+.fs .fc-ovr b,.fs .fc-ovr span{color:#fff!important;text-shadow:0 2px 3px #000a!important}
+.fs .fc-st{top:42%!important;left:20%!important}
+.fs .fc-face{top:10%!important;height:56%!important}
+.fs .fc-nm{top:71%!important;color:#fff!important;text-shadow:0 2px 3px #000a!important;font-size:1.3rem!important}
+/* ảnh cầu thủ to hơn */
+.fs .fc-face{left:27%!important;right:3%!important;top:7%!important;height:61%!important}
+.fs .fc-face img{max-width:195px!important;-webkit-mask:linear-gradient(180deg,#000 80%,transparent 100%)!important;mask:linear-gradient(180deg,#000 80%,transparent 100%)!important}
