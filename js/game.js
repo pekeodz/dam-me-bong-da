@@ -1643,7 +1643,7 @@ function openCard(team,i){
    <div class="fc-main"><div class="fc-col">
      <div class="fc-card ft${p.tier??2}${p.tier===6?"":" fs"}"><div class="fc-ovr"><b>${Math.round(overall(p))}</b><span>${POS_AB[p.pos]}</span><i>${nat}</i><em>${tierOf(p).n}</em><u class="fc-flag" title="${nat}">${flagSvg(p.q)}</u></div><s class="fc-st sg${(p.star||0)>=8?3:(p.star||0)>=5?2:(p.star||0)>=2?1:0}${(p.star||0)>=10?" smax":""}" title="Cấp sao ${p.star||0}">${p.star||0}</s>
       <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
-      <div class="fc-nm">${p.n}</div><div class="fc-rule"></div>
+      <div class="fc-nm${p.n.length>12?" nl":""}">${p.n}</div><div class="fc-rule"></div>
       <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div>${p.tier===6?'<i class="ic-fx ic-sweep"></i><i class="ic-fx ic-holo"></i><i class="ic-fx ic-glare"></i>'+[[22,14,0],[80,24,.8],[28,46,1.5],[74,56,.4],[52,7,2],[88,40,1.1]].map(([x,y,dl])=>`<i class="ic-sp" style="left:${x}%;top:${y}%;animation-delay:${dl}s"></i>`).join(""):""}</div>
      <div class="fc-stars" aria-label="${p.star||0} sao">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></div>
      <div class="skg">${sk}</div></div>

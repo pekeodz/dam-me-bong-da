@@ -1164,3 +1164,6 @@ html.fifa .wpane .shc>button:disabled{background:#1a2b23!important;color:#6d8578
 /* bậc Trắng → Đỏ: ảnh cầu thủ ra giữa thẻ */
 .fs .fc-face{left:16%!important;right:16%!important;top:7%!important;height:61%!important;z-index:3!important}
 .fs .fc-ovr,.fs .fc-st{z-index:6!important}
+
+/* tên dài thì chữ nhỏ lại cho vừa thẻ */
+.fc-card .fc-nm.nl{font-size:1.05rem!important}
