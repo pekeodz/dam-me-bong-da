@@ -1557,3 +1557,4 @@ html.fifa .wbox:has(#phuban:not([hidden])),html.fifa .wbox:has(#thanhpho:not([hi
 @keyframes icnShine{0%{background-position:100% 0}100%{background-position:0% 0}}
 /* hiệu ứng tên Icon: không dùng !important cho background để animation chạy được */
 html body .icn,html body .wpane .icn,html body .mgr button.icn{background-image:linear-gradient(100deg,#c9952e 0%,#f7d774 35%,#ffffff 48%,#ffffff 52%,#f7d774 65%,#c9952e 100%);background-size:300% 100%;background-repeat:no-repeat}
+.uz-c.now{transform:none;opacity:1}
