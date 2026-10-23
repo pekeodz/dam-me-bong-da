@@ -1101,21 +1101,28 @@ function mgrRender(){
       <div class="mrow"><button class="pri" data-act="imp">Cải tiến</button><button data-act="saveimp" ${MG.preview?"":"disabled"}>Lưu</button></div></div>
      <p class="hint">Cầu thủ có thực lực càng cao thì điểm cải tiến càng lớn. Sau khi kích thích lần mới, hiệu quả cải tiến sẽ biến mất, cần cải tiến lại.</p>`;
   }else{
-    const rate=starRate(p);
-    right=head+`<div class="kbox star"><h4>Lên sao</h4><div>Số thẻ cầu thủ còn lại: <b class="r">${T.club.the}</b></div>
-      <div class="mrow ctr"><span>Cấp hiện tại<br>${starTxt(p.star)}</span><span>→</span><span>Cấp tiếp theo<br>${p.star<10?starTxt(p.star+1):"Tối đa"}</span></div>
-      <div class="r">Xác suất thăng cấp thành công: ${rate}%</div>
-      <div class="mrow"><label for="bhn">Sử dụng bảo hiểm (+5%/tờ, đang có ${T.club.bh||0}):</label><input id="bhn" type="number" min="0" max="${T.club.bh||0}" value="${MG.bh}" style="width:4em"><button data-act="buybh">Mua 1 tờ (${BH_PRICE} Xu)</button></div>
-      <div>Tính thích nghi: <b>${p.tn}%</b>. Mỗi cấp tăng 4 chỉ số mấu chốt của vị trí (${Object.entries(OVR[p.pos]).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>LBL[x[0]]).join(", ")}), thích nghi càng cao tăng càng nhiều.</div>
-      <div class="mrow"><button class="pri" data-act="star" ${p.star>=10?"disabled":""}>Xác định</button></div></div>
-     <div class="kbox">${skillList(p)}</div>`;
+    // giao diện cường hoá kiểu FC Online: thẻ trước → sau, vòng tỉ lệ, chỉ số tăng, ô nguyên liệu
+    const rate=starRate(p),mx=p.star>=10,img=faceSrc(p),nx=Math.min(10,(p.star||0)+1);
+    const keys=Object.entries(OVR[p.pos]).sort((a,b)=>b[1]-a[1]).slice(0,4).map(x=>x[0]);
+    const gain=k=>r1(p.pot[k]*STAR_GAIN*(0.5+0.5*p.tn/100));
+    const nextSk=(p.skills||[]).filter(x=>x.star===nx).map(x=>SKILLS[x.id].n);
+    const card=(st,cls)=>`<div class="uz-c ${cls} t${p.tier??2}"><div class="uz-ph">${img?`<img src="${img}" alt="">`:""}</div><b class="${p.tier===6?"icn":""}">${p.n}</b><span class="uz-st">${starBadge(st)}</span></div>`;
+    const bhMax=Math.min(T.club.bh||0,Math.ceil((100-STAR_RATE[Math.min(9,p.star||0)])/5));
+    right=`<div class="uz">
+     <div class="uz-top">${card(p.star||0,"now")}<div class="uz-mid"><div class="uz-ring" style="--r:${mx?0:rate}"><div><b>${mx?"MAX":rate+"%"}</b><small>${mx?"":"Thành công"}</small></div></div><span class="uz-ar">➜</span></div>${mx?`<div class="uz-c max"><b>Đã đạt cấp tối đa</b></div>`:card(nx,"next")}</div>
+     ${mx?"":`<div class="uz-gain">${keys.map(k=>`<div><span>${LBL[k]}</span><b>${fmt1(p[k])}</b><em>+${gain(k)}</em></div>`).join("")}</div>
+     ${nextSk.length?`<p class="uz-sk">Mở khóa kỹ năng: <b>${nextSk.join(", ")}</b></p>`:""}
+     <div class="uz-mat"><div class="uz-slot ${T.club.the>0?"ok":"no"}"><span class="uz-i">${ITEM_SVG("the")}</span><small>Thẻ cầu thủ</small><b>1 / ${T.club.the}</b></div>
+      <div class="uz-bh"><small>Giấy bảo hiểm (+5%/tờ) · còn ${T.club.bh||0}</small><div class="uz-bhs">${Array.from({length:6},(_,i)=>`<span class="${i<MG.bh?"on":""}"></span>`).join("")}</div>
+       <div class="uz-bhb"><button type="button" data-act="bhminus" ${MG.bh>0?"":"disabled"} aria-label="Bớt 1 tờ">−</button><b>${MG.bh}</b><button type="button" data-act="bhplus" ${MG.bh<bhMax?"":"disabled"} aria-label="Thêm 1 tờ">+</button><button type="button" data-act="buybh">Mua (${BH_PRICE} Xu)</button></div></div></div>
+     <button type="button" class="pri uz-go" data-act="star" ${T.club.the>0?"":"disabled"}>Nâng cấp</button>`}</div>`;
   }
   mgEl.innerHTML=`<div class="gw"><div class="gh">GOAL · Quản lý cầu thủ <span class="cur">Vàng ${fmt(T.club.gold)} · Xu ${fmt(T.club.xu)} · Phiếu ${fmt(T.club.phieu)}</span></div>
    <div class="gt">${tabs.map(([k,l])=>`<button class="${MG.tab===k?"on":""}" data-tab="${k}">${l}</button>`).join("")}
     <select id="mgteam" aria-label="Chọn đội"><option value="home" ${MG.team==="home"?"selected":""}>${T.home.name}</option><option value="away" ${MG.team==="away"?"selected":""}>${T.away.name}</option></select></div>
    <div class="gb"><div class="gl"><table><tr><th>Tên cầu thủ</th>${HEAD[MG.tab].map(h=>`<th>${h}</th>`).join("")}</tr>${rows}</table></div>
    <div class="gr">${right}<div class="msg" role="status">${MG.msg}</div></div></div></div>`;
-  {const _m=document.getElementById("mgav");_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team))}
+  {const _m=document.getElementById("mgav");if(_m){_m.classList.toggle("hasface",!!faceSrc(p));_m.appendChild(avatar(p,team))}}
 }
 mgEl.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;const p=cur();
@@ -1129,6 +1136,7 @@ mgEl.addEventListener("click",e=>{
   else if(a==="imp")improve(p);else if(a==="saveimp")saveImp(p);
   else if(a==="buybh"){if(pay("xu",BH_PRICE)){T.club.bh=(T.club.bh||0)+1;say("Đã mua 1 giấy bảo hiểm.")}}
   else if(a==="star")starUp(p);
+  else if(a==="bhplus"){MG.bh=Math.min((T.club.bh||0),MG.bh+1)}else if(a==="bhminus"){MG.bh=Math.max(0,MG.bh-1)}
   after();
 });
 mgEl.addEventListener("change",e=>{const t=e.target,p=cur();
