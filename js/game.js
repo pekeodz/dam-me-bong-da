@@ -1946,6 +1946,9 @@ function openCard(team,i){
       <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
       <div class="fc-nm${p.n.length>12?" nl":""}">${p.n}</div><div class="fc-rule"></div>
       <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div>${p.tier===6?'<i class="ic-fx ic-sweep"></i><i class="ic-fx ic-holo"></i><i class="ic-fx ic-glare"></i>'+[[22,14,0],[80,24,.8],[28,46,1.5],[74,56,.4],[52,7,2],[88,40,1.1]].map(([x,y,dl])=>`<i class="ic-sp" style="left:${x}%;top:${y}%;animation-delay:${dl}s"></i>`).join(""):""}</div>
+     <div class="fc-simple"><div class="fs-ph t${p.tier??2}">${img?`<img src="${img}" alt="">`:`<canvas id="fcav2" width="150" height="170"></canvas>`}<em>${tierOf(p).n}</em></div>
+      <dl class="fs-info"><dt>Tên</dt><dd><b style="color:${TCOL[p.tier]}">${p.n}</b></dd><dt>Vị trí</dt><dd>${POSN[p.pos]}</dd><dt>Thuận</dt><dd>Chân ${p.chan==="T"?"trái":"phải"}</dd><dt>Quốc tịch</dt><dd><u class="fc-flag fs-fl">${flagSvg(p.q)}</u> ${nat}</dd>
+       <dt>Kích thích</dt><dd>${Math.round(p.kt)}% · ${p.ktUsed}/10</dd><dt>Thực lực</dt><dd><b class="fs-ov">${fmt1(overall(p))}</b></dd><dt>Max</dt><dd>${fmt1(overallMax(p))}</dd><dt>Sao</dt><dd class="fs-star">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></dd></dl></div>
      <div class="fc-stars" aria-label="${p.star||0} sao">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></div>
      <div class="skg">${sk}</div></div>
     <div class="fc-info">
@@ -1966,7 +1969,7 @@ function openCard(team,i){
     if(g==="sell"){if(SELL.p!==p){SELL.p=p;openCard(team,i);return}team.subs.splice(team.subs.indexOf(p),1);give({gold:price});SELL.p=null;modal.hidden=true;toast(`Đã bán ${p.n}: +${fmt(price)} vàng`);news(`${club().mgr.name} đã bán ${p.n}.`);applyLineup(team);saveLocal();render();renderSquad();if(!winEl.hidden){renderLineup()}return}
     if(g==="buytp"){if(T.club.phieu<10){toast("Cần 10 phiếu.");return}T.club.phieu-=10;p.tp+=1000;saveLocal();render();openCard(team,i);toast("+1.000 điểm huấn luyện");return}
     SELL.p=null;modal.hidden=true;mgrOpen(team,i,g)});
-  {const cv=document.getElementById("fcav");if(cv)drawChar(cv.getContext("2d"),{p,team,face:1,anim:"pose"},0,75,166,150,true)}
+  {const cv=document.getElementById("fcav");if(cv)drawChar(cv.getContext("2d"),{p,team,face:1,anim:"pose"},0,75,166,150,true)}{const cv=document.getElementById("fcav2");if(cv)drawChar(cv.getContext("2d"),{p,team,face:1,anim:"pose"},0,75,166,150,true)}
   modal.hidden=false;document.getElementById("mclose").focus();
 }
 
