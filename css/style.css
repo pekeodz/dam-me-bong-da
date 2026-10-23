@@ -1466,3 +1466,15 @@ html.fifa .wbox:has(#phuban:not([hidden])),html.fifa .wbox:has(#thanhpho:not([hi
 #thanhpho #cityGlobe{width:59%}
 #thanhpho .cty-l{width:40%}
 #thanhpho .cty-ch{right:calc(40% + 24px)}
+/* bớt chữ: gọn hơn */
+#thanhpho .cty-gh b{font-size:2rem!important}
+#thanhpho .cty-cl li{grid-template-columns:auto minmax(0,1fr) auto;padding:9px 12px}
+#thanhpho .cty-cl li.lock .cty-n{background:#ffffff14!important;font-size:.8rem}
+#thanhpho .cty-cl li.won .cty-n{background:#1f9d4c!important}
+.cty-rws{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.cty-rws .cx-rw{font-size:.72rem;background:#ffffff0f;border:1px solid #ffffff26;color:#eef5f0;border-radius:999px;padding:2px 8px 2px 3px;display:inline-flex;align-items:center;gap:4px}
+.cty-rws .cx-rw img{width:16px;height:16px}.cty-rws .cx-rw b{color:#ffcf4a}
+#phuban .cx-hd h3{font-size:2.3rem}
+#phuban .cx-th small{font-size:.8rem}
+#phuban .cx-lock b{font-size:2.6rem}
+#thanhpho .cty-rws .cx-rw b{font-size:.78rem}

@@ -1518,7 +1518,7 @@ function citySelect(q){GLOBE.sel=q;globeFocus(q);try{localStorage.setItem("cityQ
 function renderCity(){cityMigrate();const el=document.getElementById("thanhpho");
   if(!GLOBE.sel){let q="vn";try{q=localStorage.getItem("cityQ")||"vn"}catch(e){}GLOBE.sel=CITY.some(x=>x.q===q)?q:"vn";const C=CITY.find(x=>x.q===GLOBE.sel);GLOBE.rot=[-C.ll[0],clamp(-C.ll[1]*0.8,-40,40)]}
   const W=cityWon(),tot=CITY.reduce((s,C)=>s+C.clubs.length,0),won=Object.keys(W).filter(k=>CLUB_BY[k]).length;
-  el.innerHTML=`<div class="cty"><div class="cty-g"><div class="cty-gh"><div><small>Bản đồ bóng đá</small><b>${won}/${tot} câu lạc bộ đã chinh phục</b></div><span>Kéo để xoay · bấm chấm sáng để chọn nước</span></div>
+  el.innerHTML=`<div class="cty"><div class="cty-g"><div class="cty-gh"><div><small>Đã chinh phục</small><b>${won}/${tot} CLB</b></div></div>
     <canvas id="cityGlobe" aria-label="Quả địa cầu: chọn quốc gia để xem các câu lạc bộ"></canvas>
     <div class="cty-ch" role="tablist" aria-label="Quốc gia">${CITY.map(C=>{const w=C.clubs.filter(k=>W[k.id]).length;return`<button type="button" role="tab" data-cq="${C.q}" class="${C.q===GLOBE.sel?"on":""}${w===C.clubs.length?" done":""}"><u class="fc-flag">${flagSvg(C.q)}</u>${NATIONS[C.q].n}<small>${w}/${C.clubs.length}</small></button>`}).join("")}</div></div>
     <div class="cty-l" id="cityList"></div></div>`;
@@ -1526,15 +1526,13 @@ function renderCity(){cityMigrate();const el=document.getElementById("thanhpho")
   const cv=document.getElementById("cityGlobe");globeBind(cv);renderCityList();if(!GLOBE.raf)GLOBE.raf=requestAnimationFrame(globeLoop)}
 function renderCityList(){const el=document.getElementById("cityList");if(!el)return;const C=CITY.find(x=>x.q===GLOBE.sel)||CITY[0],W=cityWon(),my=r1(avg(T.home.players.map(overall)));
   document.querySelectorAll("#thanhpho [data-cq]").forEach(b=>b.classList.toggle("on",b.dataset.cq===C.q));
-  const L=cityClubs(C);
-  el.innerHTML=`<div class="cty-hd"><u class="fc-flag">${flagSvg(C.q)}</u><div><h3>${NATIONS[C.q].n}</h3><span>${C.lg} · ${L.length} câu lạc bộ · Đội bạn ${my}</span></div></div>
-   <p class="cty-tip">Thắng một câu lạc bộ để đưa cầu thủ của họ vào Môi giới. Lần thắng đầu được tiến cử ngay 1 cầu thủ.</p>
-   <ol class="cty-cl">${L.map((k,i)=>{const w=!!W[k.id],open=clubOpen(C,k),ov=clubOv(k),diff=ov-my;
-     return`<li class="${w?"won":open?"open":"lock"}"><i class="cty-n" style="--cc:${k.c}">${i+1}</i><div class="cty-ci"><b>${k.n}</b>
-      <span class="cty-ov">Thực lực ${ov} <em class="${diff>15?"hard":diff>0?"mid":"easy"}">${diff>15?"Rất khó":diff>0?"Khó":"Vừa sức"}</em></span>
-      <span class="cty-ps">${k.p.map(n=>{const s=STAR_OF(n);return`<span class="cty-p t${s[2]}" title="${TIERS[s[2]].n}">${n}</span>`}).join("")}</span>
-      <span class="cty-rw">${w?"Đã thắng · cầu thủ đã vào Môi giới":`Thưởng lần đầu: ${rwTxt(cityReward(k))} + tiến cử 1 cầu thủ`}</span></div>
-      ${open?`<button type="button" class="${w?"":"pri"}" data-club="${k.id}">${w?"Đá lại":"Khiêu chiến"}</button>`:`<span class="cty-lk">Thắng ${L[i-1].n} để mở</span>`}</li>`}).join("")}</ol>`;
+  const L=cityClubs(C),RI={gold:"vang",phieu:"phieu",xu:"xu"},chips=r=>Object.entries(r).filter(([,v])=>v).map(([k,v])=>`<span class="cx-rw">${RI[k]&&CUR_IMG&&CUR_IMG[RI[k]]?`<img src="${CUR_IMG[RI[k]]}" alt="">`:""}<b>${fmt(v)}</b></span>`).join("");
+  el.innerHTML=`<div class="cty-hd"><u class="fc-flag">${flagSvg(C.q)}</u><div><h3>${NATIONS[C.q].n}</h3><span>${C.lg}</span></div></div>
+   <ol class="cty-cl">${L.map((k,i)=>{const w=!!W[k.id],open=clubOpen(C,k),ov=clubOv(k),diff=ov-my,cur=open&&!w;
+     return`<li class="${w?"won":open?"open":"lock"}" title="${k.p.join(", ")}"><i class="cty-n" style="--cc:${k.c}">${w?"✓":open?i+1:"🔒"}</i><div class="cty-ci"><b>${k.n}</b>
+      <span class="cty-ov">${ov} <em class="${diff>15?"hard":diff>0?"mid":"easy"}">${diff>15?"Rất khó":diff>0?"Khó":"Vừa sức"}</em></span>
+      ${cur?`<span class="cty-ps">${k.p.slice(0,3).map(n=>{const s=STARS.find(x=>x[0]===n);return`<span class="cty-p t${s?s[2]:0}">${n}</span>`}).join("")}${k.p.length>3?`<span class="cty-p">+${k.p.length-3}</span>`:""}</span><span class="cty-rws">${chips(cityReward(k))}</span>`:""}</div>
+      ${open?`<button type="button" class="${w?"":"pri"}" data-club="${k.id}">${w?"Đá lại":"Đấu"}</button>`:""}</li>`}).join("")}</ol>`;
   el.querySelectorAll("[data-club]").forEach(b=>b.onclick=()=>{const k=CLUB_BY[b.dataset.club];startMatch(clubTeam(k),{type:"city",club:k.id})})}
 
 /* ---------- cửa sổ Giải đấu (giải đấu) ---------- */
@@ -1543,19 +1541,19 @@ const CUP_IMG=id=>`assets/ui/cups/${id}.webp`;let CUPSEL=null;
 function renderCups(){const el=document.getElementById("phuban"),my=r1(avg(T.home.players.map(overall)));
   if(!CUPSEL||!CUPS.some(x=>x.id===CUPSEL))CUPSEL=cupNext().id;
   const i=CUPS.findIndex(x=>x.id===CUPSEL),cup=CUPS[i],s=cupSt(cup.id),open=cupOpen(i);
-  const RW_I={gold:"vang",phieu:"phieu",xu:"xu"},rwChips=r=>Object.entries(r).filter(([,v])=>v).map(([k,v])=>`<span class="cx-rw">${RW_I[k]&&typeof CUR_IMG!=="undefined"&&CUR_IMG[RW_I[k]]?`<img src="${CUR_IMG[RW_I[k]]}" alt="">`:""}<b>${fmt(v)}</b> ${{gold:"vàng",phieu:"phiếu",xu:"xu",the:"thẻ cầu thủ",bh:"bảo hiểm"}[k]}</span>`).join("");
+  const RW_I={gold:"vang",phieu:"phieu",xu:"xu"},rwChips=r=>Object.entries(r).filter(([,v])=>v).map(([k,v])=>`<span class="cx-rw" title="${{gold:"vàng",phieu:"phiếu",xu:"xu",the:"thẻ cầu thủ",bh:"bảo hiểm"}[k]}">${RW_I[k]&&typeof CUR_IMG!=="undefined"&&CUR_IMG[RW_I[k]]?`<img src="${CUR_IMG[RW_I[k]]}" alt="">`:""}<b>${fmt(v)}</b>${RW_I[k]?"":" "+{the:"thẻ",bh:"bảo hiểm"}[k]}</span>`).join("");
   el.innerHTML=`<div class="cx" style="--bgimg:url(${CUP_IMG(cup.id)})">
    <div class="cx-main">
     <div class="cx-ban ${open?"":"lock"}${s.champ?" champ":""}" style="--cc:${cup.c}"><img src="${CUP_IMG(cup.id)}" alt="${cup.n}">
-      ${s.champ?`<em class="cx-cs">Vô địch ×${s.champ}</em>`:""}${open?"":`<div class="cx-lock"><b>Chưa mở</b><span>Vô địch ${CUPS[i-1].n} để mở giải này</span></div>`}
+      ${s.champ?`<em class="cx-cs">Vô địch ×${s.champ}</em>`:""}${open?"":`<div class="cx-lock"><b>🔒</b><span>Vô địch ${CUPS[i-1].n}</span></div>`}
       <ol class="cx-steps">${cup.rounds.map(([rn],r)=>`<li class="${r<s.r?"d":r===s.r&&open?"c":""}"><i></i><span>${rn}</span></li>`).join("")}<li class="${s.champ?"d":""}"><i></i><span>Vô địch</span></li></ol></div>
     <div class="cx-side">
-     <div class="cx-hd"><small>${cup.sub}</small><h3>${cup.n}</h3><span>Đội bạn <b>${my}</b></span></div>
+     <div class="cx-hd"><h3>${cup.n}</h3><span>Đội bạn <b>${my}</b></span></div>
      <ol class="cx-r">${cup.rounds.map(([rn],r)=>{const ov=r1(avg(cupOpp(cup,r).players.map(overall)));return`<li class="${r<s.r?"d":r===s.r&&open?"c":""}"><small>${rn}</small><b>${cupOppName(cup,r)}</b><span class="${ov-my>15?"hard":ov>my?"mid":"easy"}">${ov}</span></li>`}).join("")}</ol>
-     <div class="cx-rws"><small>Thưởng vô địch${s.champ?" (lần sau)":""}</small><div>${rwChips(s.champ?cupRepeat(cup):cup.rw)}${!s.champ&&cup.drop&&ITEMS[cup.drop]?`<span class="cx-rw"><b>${ITEMS[cup.drop].n}</b></span>`:""}</div></div>
-     ${open?`<button type="button" class="pri cx-go" data-cup="${cup.id}">${s.r?"Đá tiếp":"Bắt đầu"} · ${cup.rounds[s.r][0]}</button>`:`<span class="cty-lk cx-lk">Vô địch ${CUPS[i-1].n} để mở</span>`}
-     <p class="cx-note">Thua là bị loại, đá lại từ vòng đầu. Hòa thì đá luân lưu.</p></div></div>
-   <div class="cx-th" role="tablist" aria-label="Chọn giải đấu">${CUPS.map((c,j)=>{const st=cupSt(c.id),op=cupOpen(j);return`<button type="button" role="tab" aria-selected="${c.id===CUPSEL}" class="${c.id===CUPSEL?"on":""} ${op?"":"lock"}" data-cupsel="${c.id}" style="--cc:${c.c}"><img src="${CUP_IMG(c.id)}" alt=""><span><b>${c.n}</b><small>${!op?"Chưa mở":st.champ?`Vô địch ×${st.champ}`:st.r?`Đang ở ${c.rounds[st.r][0]}`:"Sẵn sàng"}</small></span></button>`}).join("")}</div></div>`;
+     <div class="cx-rws"><small>Thưởng</small><div>${rwChips(s.champ?cupRepeat(cup):cup.rw)}${!s.champ&&cup.drop&&ITEMS[cup.drop]?`<span class="cx-rw"><b>${ITEMS[cup.drop].n}</b></span>`:""}</div></div>
+     ${open?`<button type="button" class="pri cx-go" data-cup="${cup.id}" title="Thua là bị loại. Hòa đá luân lưu.">Thi đấu</button>`:`<span class="cty-lk cx-lk">🔒 Vô địch ${CUPS[i-1].n}</span>`}
+     </div></div>
+   <div class="cx-th" role="tablist" aria-label="Chọn giải đấu">${CUPS.map((c,j)=>{const st=cupSt(c.id),op=cupOpen(j);return`<button type="button" role="tab" aria-selected="${c.id===CUPSEL}" class="${c.id===CUPSEL?"on":""} ${op?"":"lock"}" data-cupsel="${c.id}" style="--cc:${c.c}"><img src="${CUP_IMG(c.id)}" alt=""><span><b>${c.n}</b><small>${!op?"🔒":st.champ?`🏆×${st.champ}`:st.r?c.rounds[st.r][0]:""}</small></span></button>`}).join("")}</div></div>`;
   el.querySelectorAll("[data-cupsel]").forEach(b=>b.onclick=()=>{CUPSEL=b.dataset.cupsel;renderCups()});
   el.querySelectorAll("[data-cup]").forEach(b=>b.onclick=()=>cupPlay(b.dataset.cup))}
 const cupRepeat=cup=>({gold:Math.round(cup.rw.gold/4),phieu:Math.round(cup.rw.phieu/4)});
