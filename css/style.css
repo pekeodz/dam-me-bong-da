@@ -1505,3 +1505,7 @@ html.fifa .wbox:has(#phuban:not([hidden])),html.fifa .wbox:has(#thanhpho:not([hi
 .stb{width:1.45em;height:1.45em;align-items:flex-start}
 .stb svg{width:1.45em;height:1.45em}
 .stb b{font-size:.68em;right:-.15em;bottom:-.25em;color:#fff;-webkit-text-stroke:.3em var(--sc);paint-order:stroke fill}
+/* tên cầu thủ Icon: vàng lấp lánh */
+.icn{background:linear-gradient(100deg,#b8862a 0%,#f7d774 30%,#fffbe6 45%,#f7d774 60%,#b8862a 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f3d98a!important;text-shadow:none!important;filter:drop-shadow(0 0 3px #f3c94f88);animation:icnShine 2.6s linear infinite;font-weight:800}
+@keyframes icnShine{to{background-position:-250% 0}}
+@media (prefers-reduced-motion:reduce){.icn{animation:none}}

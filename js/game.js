@@ -936,7 +936,7 @@ function renderSquad(){natFix();
   const row=(t,ti,p,i)=>{const sub=(t.subs||[]).includes(p),img=faceSrc(p),ov=Math.round(overall(p));
     return`<tr class="${sub?"sub":""}"><td><span class="sq-ovr t${p.tier??2}">${ov}</span></td>
      <td class="sq-pl"><button data-t="${ti}" data-i="${i}"><span class="sq-face">${img?`<img src="${img}" alt="">`:`<i>${p.n.split(" ").map(w=>w[0]).join("").slice(0,2)}</i>`}</span>
-      <span class="sq-nm"><b style="color:${p.tier===6?"#f3d98a":tierOf(p).c}">${p.n}</b><small>${natName(p)}${p.star?` · <em style="color:${STAR_COL[p.star]}">★${p.star}</em>`:""}</small></span></button></td>
+      <span class="sq-nm"><b class="${p.tier===6?"icn":""}" style="color:${p.tier===6?"#f3d98a":tierOf(p).c}">${p.n}</b><small>${natName(p)}${p.star?` ${starBadge(p.star)}`:""}</small></span></button></td>
      <td><span class="sq-pos">${POSA[p.pos]||p.pos}</span>${sub?`<small class="sq-sub">Dự bị</small>`:""}</td>
      <td><span class="sq-tier t${p.tier??2}">${tierOf(p).n}</span></td>
      ${COLS.map(k=>{const v=Math.round(p[k]),q=v>=750?6:v>=625?5:v>=500?4:v>=410?3:v>=330?2:v>=250?1:0;return`<td class="sq-v q${q}">${v}</td>`}).join("")}
@@ -992,7 +992,9 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.hidden=true});
 
 /* ================== QUẢN LÝ CẦU THỦ: Kế hoạch · Kích · Cải tiến · Lên sao ================== */
 const STAR_COL=["#9aa4ae","#3b82f6","#3b82f6","#3b82f6","#3b82f6","#a855f7","#a855f7","#a855f7","#f59e0b","#f59e0b","#ef4444"];
-const starTxt=n=>n?`<span style="color:${STAR_COL[n]};font-weight:800">★${n}</span>`:"☆0";
+// huy hiệu cấp sao: 1 ngôi sao màu theo cấp + số nhỏ ở góc (xanh 1-4, tím 5-7, cam 8-9, đỏ 10)
+const starBadge=n=>`<span class="stb" title="${n||0} sao" style="--sc:${n?STAR_COL[n]:"#9aa4ae"}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2l2.9 6.1 6.6.8-4.9 4.5 1.3 6.6L12 16.9l-5.9 3.3 1.3-6.6L2.5 9.1l6.6-.8z"/><path class="stb-s" d="M12 5.5l1.9 4 4.2.5-2.2 2"/></svg><b>${n||0}</b></span>`;
+const starTxt=n=>starBadge(n);
 const STAR_RATE=[100,100,95,90,80,70,60,50,40,30];       // % thành công lên từ cấp n
 const KICH_COST=5000, REDO_COST=1, IMP_COST=20, TP_PACK=[10,1000], BH_PRICE=10;
 const MG={team:"home",i:0,tab:"plan",msg:"",preview:null,impSel:null,bh:0,pay:"phieu"};
@@ -1074,7 +1076,7 @@ const HEAD={plan:["Vị trí","Điểm còn dư"],kich:["Th.lực","Max","Số l
 function mgrRender(){
   const p=cur(),team=T[MG.team];if(!MG.impSel)MG.impSel=Object.keys(p.imp).length?Object.keys(p.imp):p.plan.slice(0,3);
   const tabs=[["plan","Kế hoạch"],["kich","Kích"],["imp","Cải tiến"],["star","Lên sao"]];
-  const rows=all().map((q,j)=>`<tr class="${j===MG.i?"sel":""}" data-j="${j}"><td><button class="pn" data-j="${j}" style="color:${tierOf(q).c};text-shadow:0 0 1px #0006">${q.n}${q.star?` <small style="color:${STAR_COL[q.star]}">★${q.star}</small>`:""}</button></td>${listCols(q).map(v=>`<td>${v}</td>`).join("")}</tr>`).join("");
+  const rows=all().map((q,j)=>`<tr class="${j===MG.i?"sel":""}" data-j="${j}"><td><button class="pn${q.tier===6?" icn":""}" data-j="${j}" style="color:${tierOf(q).c};text-shadow:0 0 1px #0006">${q.n}${q.star?` ${starBadge(q.star)}`:""}</button></td>${listCols(q).map(v=>`<td>${v}</td>`).join("")}</tr>`).join("");
   let right="";
   const head=`<div class="mh"><div class="mav" id="mgav"></div><div class="mi"><b style="color:${tierOf(p).c}">${p.n}</b><span>Bậc: <b style="color:${tierOf(p).c}">${tierOf(p).n}</b> (trần ${tierOf(p).cap})</span><span>Th.lực: <b>${fmt1(overall(p))}</b> / Max ${fmt1(overallMax(p))}</span><span>Vị trí: ${POSN[p.pos]} · Tuổi ${p.age}</span><span>Cao ${p.cao}cm · Nặng ${p.nang}kg</span><span>Kích thích ${p.kt}% · ${starTxt(p.star)}</span></div></div>`;
   const statRow=(k,extra)=>{const mx=maxOf(p,k),full=p.base[k]>=mx-0.05;return`<div class="sr"><span class="sl">${LBL[k]}</span><span class="sb2"><i style="width:${clamp(p.base[k]/Math.max(1,p.pot[k])*100,1,100)}%" class="${full?"full":""}"></i><em style="left:${clamp(mx/Math.max(1,p.pot[k])*100,0,100)}%"></em></span>${extra}</div>`};
@@ -1946,9 +1948,9 @@ function openCard(team,i){
       <div class="fc-face">${img?`<img src="${img}" alt="">`:`<canvas id="fcav" width="150" height="170"></canvas>`}</div>
       <div class="fc-nm${p.n.length>12?" nl":""}">${p.n}</div><div class="fc-rule"></div>
       <div class="fc-six">${six.map(([k,v])=>`<div><b>${Math.round(v)}</b><span>${k}</span></div>`).join("")}</div>${p.tier===6?'<i class="ic-fx ic-sweep"></i><i class="ic-fx ic-holo"></i><i class="ic-fx ic-glare"></i>'+[[22,14,0],[80,24,.8],[28,46,1.5],[74,56,.4],[52,7,2],[88,40,1.1]].map(([x,y,dl])=>`<i class="ic-sp" style="left:${x}%;top:${y}%;animation-delay:${dl}s"></i>`).join(""):""}</div>
-     <div class="fc-simple"><div class="fs-ph t${p.tier??2}">${img?`<img src="${img}" alt="">`:`<canvas id="fcav2" width="150" height="170"></canvas>`}<em>${tierOf(p).n}</em></div>
-      <dl class="fs-info"><dt>Tên</dt><dd><b style="color:${TCOL[p.tier]}">${p.n}</b></dd><dt>Vị trí</dt><dd>${POSN[p.pos]}</dd><dt>Thuận</dt><dd>Chân ${p.chan==="T"?"trái":"phải"}</dd><dt>Quốc tịch</dt><dd><u class="fc-flag fs-fl">${flagSvg(p.q)}</u> ${nat}</dd>
-       <dt>Kích thích</dt><dd>${Math.round(p.kt)}% · ${p.ktUsed}/10</dd><dt>Thực lực</dt><dd><b class="fs-ov">${fmt1(overall(p))}</b></dd><dt>Max</dt><dd>${fmt1(overallMax(p))}</dd><dt>Sao</dt><dd class="fs-star">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></dd></dl></div>
+     <div class="fc-simple"><div class="fs-ph t${p.tier??2}">${img?`<img src="${img}" alt="">`:`<canvas id="fcav2" width="150" height="170"></canvas>`}</div>
+      <dl class="fs-info"><dt>Tên</dt><dd><b class="${p.tier===6?"icn":""}" style="color:${TCOL[p.tier]}">${p.n}</b></dd><dt>Vị trí</dt><dd>${POSN[p.pos]}</dd><dt>Thuận</dt><dd>Chân ${p.chan==="T"?"trái":"phải"}</dd><dt>Quốc tịch</dt><dd><u class="fc-flag fs-fl">${flagSvg(p.q)}</u> ${nat}</dd>
+       <dt>Kích thích</dt><dd>${Math.round(p.kt)}% · ${p.ktUsed}/10</dd><dt>Thực lực</dt><dd><b class="fs-ov">${fmt1(overall(p))}</b></dd><dt>Max</dt><dd>${fmt1(overallMax(p))}</dd><dt>Sao</dt><dd>${starBadge(p.star)}</dd></dl></div>
      <div class="fc-stars" aria-label="${p.star||0} sao">${"★".repeat(p.star||0)}<i>${"★".repeat(10-(p.star||0))}</i></div>
      <div class="skg">${sk}</div></div>
     <div class="fc-info">
