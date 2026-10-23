@@ -1544,7 +1544,7 @@ function renderCups(){const el=document.getElementById("phuban"),my=r1(avg(T.hom
   if(!CUPSEL||!CUPS.some(x=>x.id===CUPSEL))CUPSEL=cupNext().id;
   const i=CUPS.findIndex(x=>x.id===CUPSEL),cup=CUPS[i],s=cupSt(cup.id),open=cupOpen(i);
   const RW_I={gold:"vang",phieu:"phieu",xu:"xu"},rwChips=r=>Object.entries(r).filter(([,v])=>v).map(([k,v])=>`<span class="cx-rw">${RW_I[k]&&typeof CUR_IMG!=="undefined"&&CUR_IMG[RW_I[k]]?`<img src="${CUR_IMG[RW_I[k]]}" alt="">`:""}<b>${fmt(v)}</b> ${{gold:"vàng",phieu:"phiếu",xu:"xu",the:"thẻ cầu thủ",bh:"bảo hiểm"}[k]}</span>`).join("");
-  el.innerHTML=`<div class="cx">
+  el.innerHTML=`<div class="cx" style="--bgimg:url(${CUP_IMG(cup.id)})">
    <div class="cx-main">
     <div class="cx-ban ${open?"":"lock"}${s.champ?" champ":""}" style="--cc:${cup.c}"><img src="${CUP_IMG(cup.id)}" alt="${cup.n}">
       ${s.champ?`<em class="cx-cs">Vô địch ×${s.champ}</em>`:""}${open?"":`<div class="cx-lock"><b>Chưa mở</b><span>Vô địch ${CUPS[i-1].n} để mở giải này</span></div>`}
