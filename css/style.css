@@ -1403,7 +1403,6 @@ html.fifa .nvd dt{color:#a9c2b2!important;border-bottom-color:#2f5140!important}
 html.fifa .nvd dd{color:#eef5f0!important;border-bottom-color:#2f5140!important}
 html.fifa .nvd dd b{color:#c6ff3d!important}
 html.fifa .nvd dd small,html.fifa .nvd .mu{color:#a9c2b2!important}
-.cl{background-image:url(../assets/ui/lobby-bg2.webp)!important;background-position:center 30%!important}
 
 /* ===== Kiểu tranh toàn màn hình: Giải đấu & Thành phố ===== */
 html.fifa .wbody:has(>#phuban:not([hidden])),html.fifa .wbody:has(>#thanhpho:not([hidden])){padding:0!important;overflow:hidden!important}
